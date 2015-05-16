@@ -11,3 +11,4 @@ info.txt
 .vagrant
 secrets.json
 *.pem
+layers
