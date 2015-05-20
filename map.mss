@@ -1303,7 +1303,7 @@ Map {
   }
 }
 
-#landcover1kmtorgb {
+#lc5minglobal2012 {
   raster-opacity:1;
   raster-scaling:gaussian;
 }
