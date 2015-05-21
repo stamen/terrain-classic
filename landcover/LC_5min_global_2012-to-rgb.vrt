@@ -4,7 +4,7 @@
   <VRTRasterBand dataType="Byte" band="1">
     <ColorInterp>Palette</ColorInterp>
     <ColorTable>
-      <Entry c1="153" c2="179" c3="204" c4="255" />
+      <Entry c1="153" c2="179" c3="204" c4="0" />
       <Entry c1="108" c2="136" c3="98" c4="255" />
       <Entry c1="108" c2="136" c3="98" c4="255" />
       <Entry c1="99" c2="138" c3="87" c4="255" />
