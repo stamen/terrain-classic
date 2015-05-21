@@ -45,7 +45,7 @@ Map {
   line-color: @color_administrative_lowzoom;
 }
 
-
+#water,
 #ne_10m_lakes,
 #ne_50m_lakes,
 #ne_10m_geography_marine_polys,

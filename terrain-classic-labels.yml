@@ -122,6 +122,16 @@ Layer:
       encoding: "ISO-8859-1"
 
   - <<: *layer
+    name: water
+    id:   water
+    status: off
+    properties:
+      minzoom: 8
+    Datasource:
+      <<: *shapefile
+      file: shp/osmdata/water_polygons.shp
+
+  - <<: *layer
     name: city_points_z4
     id:   city_points_z4
     properties:

@@ -153,6 +153,7 @@ db/postgres: db/functions/highroad
 .PHONY: db/shapefiles
 
 db/shapefiles: shp/osmdata/land-polygons-complete-3857.zip \
+		   shp/osmdata/water-polygons-split-3857.zip \
 		   shp/natural_earth/ne_50m_land-merc.zip \
 		   shp/natural_earth/ne_50m_admin_0_countries_lakes-merc.zip \
 		   shp/natural_earth/ne_10m_admin_0_countries_lakes-merc.zip \
@@ -202,6 +203,12 @@ data/metro/%:
 data/osmdata/land_polygons.zip:
 	@mkdir -p $$(dirname $@)
 	curl -Lf http://data.openstreetmapdata.com/land-polygons-complete-3857.zip -o $@
+
+.SECONDARY: data/osmdata/water_polygons.zip
+
+data/osmdata/water_polygons.zip:
+	@mkdir -p $$(dirname $@)
+	curl -Lf http://data.openstreetmapdata.com/water-polygons-split-3857.zip -o $@
 
 define natural_earth
 db/$(strip $(word 1, $(subst :, ,$(1)))): $(strip $(word 2, $(subst :, ,$(1)))) db/postgis
@@ -285,6 +292,18 @@ shp/osmdata/land-polygons-complete-3857.zip: shp/osmdata/land_polygons.shp \
 	shp/osmdata/land_polygons.prj \
 	shp/osmdata/land_polygons.shx \
 	shp/osmdata/land_polygons.index
+	zip -j $@ $^
+
+shp/osmdata/water_polygons.index: shp/osmdata/water_polygons.shp
+	shapeindex $<
+
+.SECONDARY: data/osmdata/water-polygons-split-3857.zip
+
+shp/osmdata/water-polygons-split-3857.zip: shp/osmdata/water_polygons.shp \
+	shp/osmdata/water_polygons.dbf \
+	shp/osmdata/water_polygons.prj \
+	shp/osmdata/water_polygons.shx \
+	shp/osmdata/water_polygons.index
 	zip -j $@ $^
 
 define natural_earth_sources
