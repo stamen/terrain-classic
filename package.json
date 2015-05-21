@@ -1,9 +1,10 @@
 {
   "name": "terrain-classic",
   "version": "1.0.0",
+  "main": "index.js",
   "private": true,
   "scripts": {
-    "start": "make xml && SOURCE_CACHE_SIZE=50 node server.js"
+    "start": "make xml && tessera -S 50 -c tessera.json"
   },
   "dependencies": {
     "carto": "^0.14.0",
@@ -20,7 +21,7 @@
     "tessera": "^0.5.1",
     "tilejson": "^0.12.0",
     "tilelive": "^5.4.0",
-    "tilelive-blend": "^0.1.1",
+    "tilelive-blend": "git+https://github.com/mojodna/tilelive-blend",
     "tilelive-cache": "^0.4.1",
     "tilelive-http": "^0.5.0",
     "tilelive-mapnik": "^0.6.14",

@@ -1,0 +1,22 @@
+{
+  "/": {
+    "source": "mapnik://./terrain-classic.xml"
+  },
+  "/hillshade": {
+    "source": {
+      "protocol": "blend:",
+      "query": {
+        "layers": [
+          {
+            "source": "mapnik://./terrain-classic.xml"
+          },
+          {
+            "source": "http://ec2-54-152-68-8.compute-1.amazonaws.com/positron-terrain/{z}/{x}/{y}.png",
+            "comp-op": "hard-light"
+          }
+        ],
+        "format": "png8"
+      }
+    }
+  }
+}
