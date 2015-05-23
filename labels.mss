@@ -1,11 +1,26 @@
+@text_font_transport: 'PT Sans Narrow Regular';
+@text_font_administrative: 'PT Sans Narrow Regular';
+@text_font_city: 'PT Sans Narrow Regular';
+@text_font_parks: 'PT Sans Narrow Regular';
+
+/*
 @text_font_transport: 'CaslonAntiqueVL Regular';
 @text_font_administrative: 'CaslonAntiqueVL Regular';
 @text_font_city: 'CaslonAntiqueVL Regular';
 @text_font_parks: 'Caslon Antique Italic';
+*/
 
 @label_color_transport: #524c4c;
 @label_color_administrative: #2e2115;
 @label_color_city: #2e2115;
+
+// Currently very small font sizes, just for testing
+@text_font_size_xxsm: 4;
+@text_font_size_xsm: 8;
+@text_font_size_sm: 8;
+@text_font_size_medium: 8;
+@text_font_size_medium_plus: 8;
+@text_font_size_large: 10;
 
 Map {
   font-directory: url("fonts/");
@@ -114,57 +129,75 @@ Map {
 #city_labels_z4,
 #city_labels_z5,
 #city_labels_z6 {
-  text-placement: interior;
+  // for debugging
+  ::outline {
+    polygon-fill: #fff;
+    polygon-opacity: 0.1;
+  }
   text-name: [name];
-  text-vertical-alignment: bottom;
   text-face-name: @text_font_city;
   text-fill: @label_color_city;
+  text-placement: interior;
+  text-vertical-alignment: bottom;
   text-min-distance: 5;
 
-  [zoom>=4] {
-    text-size: 16;
+  [justified='left'] {
+    text-horizontal-alignment: left;
+    //text-horizontal-alignment: middle;
+    //text-dx: -5;
   }
 
-  [zoom>=6] {
-    text-size: 17;
+  [justified='right'] {
+    text-horizontal-alignment: right;
+    //text-horizontal-alignment: middle;
+    //text-dx: 5;
+  }
+
+  [zoom>=4]  {
+    text-size: @text_font_size_xxsm;
+  }
+
+  [zoom>=5] {
+    text-size: @text_font_size_xsm;
   }
 
   [font_size=14] {
-    text-size: 19;
+    text-size: @text_font_size_medium;
   }
 
   [font_size=16] {
-    text-size: 20;
+    text-size: @text_font_size_medium_plus;
   }
 
   [font_size=18] {
-    text-size: 21;
+    text-size: @text_font_size_large;
   }
 }
 
 #city_labels_z7,
 #city_labels_z8, {
+  // for debugging
+  ::outline {
+    polygon-fill: #fff;
+    polygon-opacity: 0.1;
+  }
   text-name: [name];
-  text-vertical-alignment: bottom;
   text-face-name: @text_font_city;
   text-fill: @label_color_city;
-  text-size: 13;
+  text-size: @text_font_size_sm;
   text-min-distance: 5;
+  text-allow-overlap: true;
 
   [zoom>=7] {
-    text-size: 16;
-  }
-
-  [zoom>=8] {
-    text-size: 18;
+    text-size: @text_font_size_xsm;
   }
 
   [font_size=18] {
-    text-size: 22;
+    text-size: @text_font_size_large;
   }
 
   [font_size=20] {
-    text-size: 23;
+    text-size: @text_font_size_large;
   }
 }
 
