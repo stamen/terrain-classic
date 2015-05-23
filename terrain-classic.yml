@@ -61,6 +61,17 @@ Layer:
       file: landcover/LC_5min_global_2012-to-rgb.vrt
 
   - <<: *layer
+    name: ne_10m_rivers_lake_centerlines_scale_rank
+    id:   ne_10m_rivers_lake_centerlines_scale_rank
+    properties:
+      minzoom: 4
+      maxzoom: 8
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_rivers_lake_centerlines_scale_rank-merc.zip
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
     name: ne_50m_lakes
     id:   ne_50m_lakes
     properties:
@@ -80,6 +91,17 @@ Layer:
     Datasource:
       <<: *shapefile
       file: shp/natural_earth/ne_10m_lakes-merc.zip
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: ne_10m_ocean
+    id:   ne_10m_ocean
+    properties:
+      minzoom: 0
+      maxzoom: 7
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_ocean-merc.zip
       encoding: "ISO-8859-1"
 
   - <<: *layer

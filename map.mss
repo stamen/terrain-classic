@@ -45,14 +45,46 @@ Map {
   line-color: @color_administrative_lowzoom;
 }
 
-#water,
-#ne_10m_lakes,
-#ne_50m_lakes,
-#ne_10m_geography_marine_polys,
-#ne_50m_geography_marine_polys,
-#ne_110m_geography_marine_polys,
+#ne_10m_rivers_lake_centerlines_scale_rank
 {
-  line-width: 0.5;
+  [zoom=4][scalerank<4] {
+    line-color: @color_water;
+    line-width: 0.5;
+    [strokeweig>1] { line-width: 1; }
+    [strokeweig>2] { line-width: 2; }
+  }
+  [zoom=5][scalerank<5] {
+    line-color: @color_water;
+    line-width: 0.5;
+    [strokeweig>1] { line-width: 1; }
+    [strokeweig>2] { line-width: 2; }
+  }
+  [zoom=6][scalerank<6] {
+    line-color: @color_water;
+    line-width: 0.5;
+    [strokeweig>1] { line-width: 1; }
+    [strokeweig>2] { line-width: 2; }
+  }
+  [zoom=7][scalerank<7] {
+    line-color: @color_water;
+    line-width: 1;
+    [strokeweig>1] { line-width: 1.5; }
+    [strokeweig>2] { line-width: 2.5; }
+  }
+  [zoom>=8] {
+    line-width: 1;
+    line-color: @color_water;
+    [strokeweig>1] { line-width: 2; }
+    [strokeweig>2] { line-width: 3; }
+  }
+}
+
+#water,
+#ne_10m_ocean,
+#ne_10m_lakes,
+#ne_50m_lakes
+{
+  //line-width: 0.5;
   line-color: @color_water;
   polygon-fill: @color_water;
 }

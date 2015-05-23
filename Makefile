@@ -154,7 +154,9 @@ db/postgres: db/functions/highroad
 
 db/shapefiles: shp/osmdata/land-polygons-complete-3857.zip \
 		   shp/osmdata/water-polygons-split-3857.zip \
+		   shp/natural_earth/ne_10m_ocean-merc.zip \
 		   shp/natural_earth/ne_50m_land-merc.zip \
+		   shp/natural_earth/ne_10m_rivers_lake_centerlines_scale_rank-merc.zip \
 		   shp/natural_earth/ne_50m_admin_0_countries_lakes-merc.zip \
 		   shp/natural_earth/ne_10m_admin_0_countries_lakes-merc.zip \
 		   shp/natural_earth/ne_10m_admin_0_boundary_lines_map_units-merc.zip \
@@ -258,6 +260,8 @@ endef
 
 # <name>:<source file>:[shapefile]
 NATURAL_EARTH=ne_50m_land:data/ne/50m/physical/ne_50m_land.zip \
+	ne_10m_ocean:data/ne/10m/physical/ne_10m_ocean.zip \
+	ne_10m_rivers_lake_centerlines_scale_rank:data/ne/10m/physical/ne_10m_rivers_lake_centerlines_scale_rank.zip \
 	ne_50m_admin_0_countries_lakes:data/ne/50m/cultural/ne_50m_admin_0_countries_lakes.zip \
 	ne_10m_admin_0_countries_lakes:data/ne/10m/cultural/ne_10m_admin_0_countries_lakes.zip \
 	ne_10m_admin_0_boundary_lines_map_units:data/ne/10m/cultural/ne_10m_admin_0_boundary_lines_map_units.zip \
