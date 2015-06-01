@@ -14,10 +14,12 @@
 @color_transport_minor: #ccc;
 @color_transport_rail: #444;
 @color_transport_path: #ededed;
-@color_building_outline: #000;
+@color_building: #cdd;
+@color_building_outline: darken(@color_building,20);
 @color_building_outline_special: #00aeef;
-@color_airport_runways: #eee;
-@color_airport_runways_detail: #f2f2f2;
+@color_airport_runways: @color_transport;
+@color_airport_runways_detail: darken(@color_airport_runways,20);
+@color_green_areas: darken(#c0d3b5,20);
 
 Map {
   background-color: @color_physical;
@@ -210,7 +212,7 @@ Map {
  * Already filtered by size upon import.
  */
 #buildings-med[type!='no'] {
-  polygon-fill: #FFF; // TODO: fix
+  polygon-fill: @color_building;
   line-width: 0.5;
   line-color: @color_building_outline;
 }
@@ -222,7 +224,7 @@ Map {
 #buildings-high[type!='no'] {
   [zoom=14] {
     [area>=5000] {
-      polygon-fill: #FFF; // TODO: fix
+      polygon-fill: @color_building;
       line-width: 0.5;
       line-color: @color_building_outline;
     }
@@ -234,7 +236,7 @@ Map {
    */
   [zoom>=15][area>=2000],
   [zoom>=16] {
-    polygon-fill: @color_physical_bright;
+    polygon-fill: @color_building;
     line-width: 0.5;
     line-color: @color_building_outline;
   }
@@ -244,7 +246,7 @@ Map {
   [zoom=17][area>=1000],
   [zoom>=18],
   {
-    polygon-fill: #FFF; // TODO: fix
+    polygon-fill: @color_building;
     line-width: 0.5;
     line-color: @color_building_outline;
   }
@@ -256,7 +258,7 @@ Map {
     [osm_id=248153467], // Sean's house
     [osm_id=291796473], // Stamen South
     {
-      polygon-fill: #FFF; // TODO: fix
+      polygon-fill: @color_building;
       line-width: 1.5;
       line-color: @color_building_outline_special;
     }
@@ -271,22 +273,12 @@ Map {
 #green-areas-high[zoom=14][area> 10000],
 #green-areas-high[zoom>14],
 {
-  polygon-fill: green; // TODO: fix
+  polygon-fill: @color_green_areas;
   
   [type='nature_reserve'] {
-    polygon-fill: limegreen; // TODO: fix
+    polygon-fill: @color_green_areas;
+    polygon-opacity: 0.5;
   }
-}
-
-#brown-areas-low[zoom=10][area>5000000],
-#brown-areas-med[zoom=11][area>1000000],
-#brown-areas-med[zoom=12][area> 500000],
-#brown-areas-med[zoom=12][area> 200000],
-#brown-areas-med[zoom=13][area>  75000],
-#brown-areas-high[zoom=14][area> 10000],
-#brown-areas-high[zoom>14],
-{
-  polygon-fill: green; // TODO: fix
 }
 
 #aeroways {
