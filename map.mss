@@ -7,8 +7,8 @@
 @color_administrative_medium_low: #000;
 @color_administrative_medium_high: #000;
 @color_administrative_medium_high2: #000;
-@color_transport: #000;
-@color_transport_casing: #fff;
+@color_transport: #999;
+@color_transport_casing: #ddd;
 @color_transport_inline: #fff;
 @color_transport_tunnel: #ccc;
 @color_transport_minor: #ccc;
@@ -147,52 +147,23 @@ Map {
   polygon-fill: @color_physical;
 }
 
-#ne-roads {
+#ne-roads[zoom=7][scalerank<=4],
+#ne-roads[zoom>=8][scalerank<=8] {
   ::casing {
     line-color: @color_transport_casing;
     line-opacity: 0.5;
-    line-width: 0;
+    line-width: 1.5;
 
-    [zoom=7][scalerank<=7] {
-      line-width: 2.25;
-    }
-
-    [zoom=8][scalerank<=8] {
-      line-width: 3.25;
+    [zoom=8][scalerank<=6] {
+      line-width: 3;
     }
   }
 
   line-color: @color_transport;
   line-width: 0;
 
-  [zoom=6][scalerank>=3][scalerank<=6] {
-    line-width: 0.1;
-  }
-
-  [zoom=7] {
-    [scalerank<=6],
-    [scalerank<=7][expressway=1],
-    [scalerank<=7][type='Major Highway'],
-    [scalerank<=7][type='Secondary Highway'],
-    {
-      line-width: 0.1;
-    }
-
-    [scalerank>=3][scalerank<=5] {
-      line-width: 1.5;
-    }
-  }
-
-  [zoom=8] {
-    [scalerank<=8] {
-      line-width: 0.1;
-    }
-
-    [type='Beltway'],
-    [scalerank<=8][expressway=1],
-    {
-      line-width: 1.5;
-    }
+  [zoom=8][scalerank<=6] {
+    line-width: 1;
   }
 }
 
@@ -399,7 +370,7 @@ Map {
 
   line-join: round;
   line-cap: round;
-  line-width: 0;
+  line-width: 1;
   line-color: @color_transport;
 }
 

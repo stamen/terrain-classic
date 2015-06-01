@@ -361,7 +361,7 @@ Layer:
     name: ne-roads
     id:   ne-roads
     properties:
-      minzoom: 6
+      minzoom: 7
       maxzoom: 8
       cache-features: on
     Datasource:
