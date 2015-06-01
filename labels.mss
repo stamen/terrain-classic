@@ -3,24 +3,16 @@
 @text_font_city: 'PT Sans Narrow Regular';
 @text_font_parks: 'PT Sans Narrow Regular';
 
-/*
-@text_font_transport: 'CaslonAntiqueVL Regular';
-@text_font_administrative: 'CaslonAntiqueVL Regular';
-@text_font_city: 'CaslonAntiqueVL Regular';
-@text_font_parks: 'Caslon Antique Italic';
-*/
-
 @label_color_transport: #524c4c;
 @label_color_administrative: #2e2115;
 @label_color_city: #2e2115;
 
-// Currently very small font sizes, just for testing
-@text_font_size_xxsm: 4;
-@text_font_size_xsm: 8;
-@text_font_size_sm: 8;
-@text_font_size_medium: 8;
-@text_font_size_medium_plus: 8;
-@text_font_size_large: 10;
+@text_font_size_xxsm: 12;
+@text_font_size_xsm: 14;
+@text_font_size_sm: 15;
+@text_font_size_medium: 17;
+@text_font_size_medium_plus: 18;
+@text_font_size_large: 20;
 
 Map {
   font-directory: url("fonts/");
@@ -78,7 +70,7 @@ Map {
   text-name: [name];
   text-face-name: @text_font_administrative;
   text-wrap-width: 32;
-  text-size: 32;
+  text-size: 24;
   text-line-spacing: -12;
   text-fill: #2e2115;
 }
@@ -95,7 +87,7 @@ Map {
 #admin0-labels-z3[longfrom<=3] {
     text-name: "[name]";
     text-face-name: @text_font_administrative;
-    text-size: 24;
+    text-size: 22;
     text-line-spacing: -8;
     text-wrap-width: 100;
     text-fill: @label_color_administrative;
@@ -105,7 +97,7 @@ Map {
     text-name: [name];
     text-face-name: @text_font_administrative;
     text-wrap-width: 80;
-    text-size: 24;
+    text-size: 22;
     text-min-distance: 15;
     text-fill: @label_color_administrative;
 }
@@ -130,27 +122,28 @@ Map {
 #city_labels_z5,
 #city_labels_z6 {
   // for debugging
-  ::outline {
-    polygon-fill: #fff;
-    polygon-opacity: 0.1;
-  }
+  //::outline {
+  //  polygon-fill: #fff;
+  //  polygon-opacity: 0.1;
+  //}
   text-name: [name];
   text-face-name: @text_font_city;
   text-fill: @label_color_city;
   text-placement: interior;
   text-vertical-alignment: bottom;
   text-min-distance: 5;
+  text-dy: -5;
 
   [justified='left'] {
-    text-horizontal-alignment: left;
-    //text-horizontal-alignment: middle;
-    //text-dx: -5;
+    //text-horizontal-alignment: left;
+    text-horizontal-alignment: middle;
+    //text-dx: 20;
   }
 
   [justified='right'] {
-    text-horizontal-alignment: right;
-    //text-horizontal-alignment: middle;
-    //text-dx: 5;
+    //text-horizontal-alignment: right;
+    text-horizontal-alignment: middle;
+    //text-dx: -20;
   }
 
   [zoom>=4]  {
@@ -177,10 +170,10 @@ Map {
 #city_labels_z7,
 #city_labels_z8, {
   // for debugging
-  ::outline {
-    polygon-fill: #fff;
-    polygon-opacity: 0.1;
-  }
+  //::outline {
+  //  polygon-fill: #fff;
+  //  polygon-opacity: 0.1;
+  //}
   text-name: [name];
   text-face-name: @text_font_city;
   text-fill: @label_color_city;
@@ -206,10 +199,10 @@ Map {
   text-name: [name];
   text-face-name: @text_font_city;
   text-fill: @label_color_city;
-  text-size: 18;
+  text-size: @text_font_size_medium_plus;
 
   [font_size=20] {
-    text-size: 32;
+    text-size: @text_font_size_large;
   }
 }
 
