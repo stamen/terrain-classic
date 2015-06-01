@@ -147,6 +147,156 @@ Layer:
       file: shp/osmdata/water_polygons.shp
 
   - <<: *layer
+    name: ne-roads
+    id:   ne-roads
+    properties:
+      minzoom: 6
+      maxzoom: 8
+      cache-features: on
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_roads-merc.zip
+
+  - <<: *layer
+    name: tunnels
+    id:   tunnels
+    class: tunnels
+    properties:
+      minzoom: 14
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'is_tunnel=''yes''')
+        ) AS _
+
+  - <<: *layer
+    name: roads
+    id:   roads
+    class: roads
+    properties:
+      minzoom: 14
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!)
+        ) AS _
+
+  - <<: *layer
+    name: roads_med
+    id:   roads_med
+    properties:
+      minzoom: 9
+      maxzoom: 13
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'kind!=''highway''')
+        ) AS _
+
+  - <<: *layer
+    name: highways_med
+    id:   highways_med
+    properties:
+      minzoom: 9
+      maxzoom: 13
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'kind=''highway''')
+        ) AS _
+
+  - <<: *layer
+    name: bridges
+    id:   bridges
+    class: bridges
+    properties:
+      minzoom: 13
+      cache-features: on
+      group-by: explicit_layer
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'is_bridge=''yes''')
+        ) AS _
+
+  - <<: *layer
+    name: buildings-high
+    id:   buildings-high
+    properties:
+      minzoom: 14
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            osm_id,
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_buildings
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: buildings-med
+    id:   buildings-med
+    properties:
+      minzoom: 13
+      maxzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_buildings_z13
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: aeroways
+    id:   aeroways
+    properties:
+      minzoom: 12
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry
+          FROM osm_aeroways
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
     name: city_points_z4
     id:   city_points_z4
     properties:
