@@ -18,7 +18,6 @@
 @color_building_outline_special: #00aeef;
 @color_airport_runways: #eee;
 @color_airport_runways_detail: #f2f2f2;
-@pattern_opacity: 1.0;
 
 Map {
   background-color: @color_physical;
@@ -34,15 +33,6 @@ Map {
   line-cap: round;
   line-join: round;
   line-width: 0;
-}
-
-#land-shapes-50m,
-#country-shapes-50m,
-#country-shapes-10m,
-{
-  line-width: 0.25;
-  polygon-fill: @color_physical_bright;
-  line-color: @color_administrative_lowzoom;
 }
 
 #ne_10m_rivers_lake_centerlines_scale_rank
@@ -89,58 +79,39 @@ Map {
   polygon-fill: @color_water;
 }
 
-.country-boundary[scalerank<6] {
-  line-color: @color_administrative_dark;
-  line-width: 0.5;
-}
-
+.country-boundary[scalerank<6],
 .country-boundary-10m[scalerank<6] {
-  ::whiteout {
-    [zoom>=7] {
-      line-color: @color_administrative_bright;
-      line-width: 2;
-    }
-  }
-
   line-color: @color_administrative_dark;
-  line-width: 1;
-
-  [zoom>=6] {
+  line-opacity: 0.2;
+  line-width: 2;
+  line-dasharray: 7,3;
+  ::glow {
     line-color: @color_administrative_dark;
-    line-width: 1.6;
+    line-opacity: 0.08;
+    line-width: 4;
+    line-dasharray: 7,3;
   }
-
-  [zoom>=7] {
-    line-width: 1.6;
-    line-dasharray: 3,7;
-    line-cap: round;
-  }
-}
-
-#admin1-lines-50m {
-  line-width: 0.35;
-  line-color: @color_administrative_dark;
 }
 
 #admin1-lines-10m,
 #admin0-map-units-10m {
   [zoom>=4][adm0_a3='CAN'],
   [zoom>=4][adm0_a3='USA'],
-  [zoom>=4][adm0_a3='AUS'] {
-    line-width: 0.6;
-    line-color: @color_administrative_dark;
-  }
-
+  [zoom>=4][adm0_a3='AUS'],
   [zoom>=5][scalerank<=2],
-  [zoom>=5][featurecla='Map unit boundary'][adm0_a3='GBR'] {
-    line-width: 0.6;
-    line-color: @color_administrative_dark;
-  }
-
+  [zoom>=5][featurecla='Map unit boundary'][adm0_a3='GBR'],
   [zoom>=6][scalerank<=4],
   [zoom>=6][featurecla='Map unit boundary'][adm0_a3='GBR'] {
-    line-width: 0.8;
     line-color: @color_administrative_dark;
+    line-opacity: 0.15;
+    line-width: 1.5;
+    line-dasharray: 7,3;
+    ::glow {
+      line-color: @color_administrative_dark;
+      line-opacity: 0.05;
+      line-width: 3;
+      line-dasharray: 7,3;
+    }
   }
 
   [zoom>=7][scalerank<=5] {
@@ -251,9 +222,8 @@ Map {
   polygon-fill: @color_water;
 }
 
-#land,
-.land {
-  polygon-fill: @color_physical_bright;
+#nullisland {
+  polygon-fill: @color_physical;
 }
 
 #admin1-lines-osm,
@@ -269,8 +239,7 @@ Map {
  * Already filtered by size upon import.
  */
 #buildings-med[type!='no'] {
-  polygon-pattern-file: url("images/stripe_sm.png");
-  polygon-pattern-opacity: @pattern_opacity;
+  polygon-fill: #FFF; // TODO: fix
   line-width: 0.5;
   line-color: @color_building_outline;
 }
@@ -282,8 +251,7 @@ Map {
 #buildings-high[type!='no'] {
   [zoom=14] {
     [area>=5000] {
-      polygon-pattern-file: url("images/stripe_med.png");
-      polygon-pattern-opacity: @pattern_opacity;
+      polygon-fill: #FFF; // TODO: fix
       line-width: 0.5;
       line-color: @color_building_outline;
     }
@@ -305,9 +273,7 @@ Map {
   [zoom=17][area>=1000],
   [zoom>=18],
   {
-    polygon-pattern-file: url("images/stripe.png");
-    polygon-pattern-opacity: @pattern_opacity;
-    polygon-pattern-alignment: global;
+    polygon-fill: #FFF; // TODO: fix
     line-width: 0.5;
     line-color: @color_building_outline;
   }
@@ -319,8 +285,7 @@ Map {
     [osm_id=248153467], // Sean's house
     [osm_id=291796473], // Stamen South
     {
-      polygon-pattern-file: url("images/stripe_color.png");
-      polygon-pattern-opacity: @pattern_opacity;
+      polygon-fill: #FFF; // TODO: fix
       line-width: 1.5;
       line-color: @color_building_outline_special;
     }
@@ -335,12 +300,10 @@ Map {
 #green-areas-high[zoom=14][area> 10000],
 #green-areas-high[zoom>14],
 {
-  polygon-pattern-opacity: @pattern_opacity;
-  polygon-pattern-alignment: global;
-  polygon-pattern-file: url("images/halftone2.png");
+  polygon-fill: green; // TODO: fix
   
   [type='nature_reserve'] {
-      polygon-pattern-file: url("images/halftone2-transparent.png");
+    polygon-fill: limegreen; // TODO: fix
   }
 }
 
@@ -352,9 +315,7 @@ Map {
 #brown-areas-high[zoom=14][area> 10000],
 #brown-areas-high[zoom>14],
 {
-  polygon-pattern-alignment: global;
-  polygon-pattern-opacity: @pattern_opacity;
-  polygon-pattern-file: url("images/halftone2.png");
+  polygon-fill: green; // TODO: fix
 }
 
 #aeroways {
