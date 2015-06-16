@@ -1259,7 +1259,7 @@ Map {
   }
 }
 
-#lc5minglobal2012 {
+.landcoverraster {
   raster-opacity:1;
   raster-scaling:gaussian;
 }

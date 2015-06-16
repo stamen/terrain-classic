@@ -12,3 +12,5 @@ info.txt
 secrets.json
 *.pem
 layers
+landcover/GlobalLandCover_tif.zip
+landcover/LCType.tif

@@ -144,7 +144,7 @@ db/hstore: db
 
 .PHONY: db/shared
 
-db/shared: db/postgres db/shapefiles
+db/shared: db/postgres db/shapefiles db/landcover
 
 .PHONY: db/postgres
 
@@ -328,6 +328,18 @@ scales=10m 50m 110m
 themes=cultural physical raster
 
 $(foreach a,$(scales),$(foreach b,$(themes),$(eval $(call natural_earth_sources,$(a),$(b)))))
+
+.PHONY: db/landcover
+
+db/landcover: landcover/LCType.tif
+
+landcover/LCType.tif: landcover/GlobalLandCover_tif.zip
+	unzip -ju $< -d $$(dirname $@)
+
+.SECONDARY: landcover/GlobalLandCover_tif.zip
+
+landcover/GlobalLandCover_tif.zip:
+	curl -fL "http://landcover.usgs.gov/documents/GlobalLandCover_tif.zip" -o $@
 
 # complete wrapping
 else
