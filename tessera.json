@@ -1,8 +1,8 @@
 {
-  "/": {
+  "/flat": {
     "source": "mapnik://./terrain-classic.xml"
   },
-  "/hillshade": {
+  "/": {
     "source": {
       "protocol": "blend:",
       "query": {
@@ -12,7 +12,8 @@
           },
           {
             "source": "http://ec2-54-152-68-8.compute-1.amazonaws.com/positron-terrain/{z}/{x}/{y}.png",
-            "comp-op": "hard-light"
+            "comp-op": "hard-light",
+            "opacity": "0.3"
           },
           {
             "source": "mapnik://./terrain-classic-labels.xml"
