@@ -2,6 +2,7 @@
 @text_font_administrative: 'PT Sans Narrow Regular';
 @text_font_city: 'PT Sans Narrow Regular';
 @text_font_parks: 'PT Sans Narrow Regular';
+@text_font_water: 'PT Sans Narrow Regular';
 
 @label_color_transport: #524c4c;
 @label_color_administrative: #2e2115;
@@ -13,6 +14,13 @@
 @text_font_size_medium: 17;
 @text_font_size_medium_plus: 18;
 @text_font_size_large: 20;
+
+@text_font_halo_radius_sm: 1;
+@text_font_halo_radius_large: 2;
+@label_color_green_area: #374c30;
+@label_color_green_area_halo: #c0d3b5;
+@label_color_water: darken(@color_water,20);
+@label_color_water_halo: @color_water;
 
 Map {
   font-directory: url("fonts/");
@@ -30,6 +38,55 @@ Map {
   text-fill: #444;
   text-spacing: 256;
   text-avoid-edges: true;
+}
+
+#water-bodies-labels-low,
+#water-bodies-labels-med,
+#water-bodies-labels-high {
+  [zoom=9][area>100000000],
+  [zoom=10][area>100000000],
+  [zoom=11][area>25000000],
+  [zoom=12][area>5000000],
+  [zoom=13][area>2000000],
+  [zoom=14][area>200000],
+  [zoom=15][area>50000],
+  [zoom=16][area>10000],
+  [zoom>=17] {
+    text-name: "[name]";
+    text-face-name: @text_font_water;
+    text-placement: interior;
+    text-max-char-angle-delta: 30;
+    text-wrap-width: 40;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-fill: @label_color_water;
+    text-halo-fill: @label_color_water_halo;
+    text-size: @text_font_size_xsm;
+
+    [zoom>9][zoom<12] {
+      text-spacing: 200;
+      text-wrap-width: 50;
+    }
+    [zoom=12] {
+      text-size: @text_font_size_xsm;
+      text-spacing: 200;
+      text-wrap-width: 70;
+    }
+    [zoom=13] {
+      text-size: @text_font_size_xsm;
+      text-spacing: 100;
+      text-wrap-width: 70;
+    }
+    [zoom=14] {
+      text-size: @text_font_size_xsm;
+      text-spacing: 100;
+      text-wrap-width: 70;
+    }
+    [zoom>=15] {
+      text-size: @text_font_size_sm;
+      text-spacing: 100;
+      text-wrap-width: 40;
+    }
+  }
 }
 
 #green-areas-labels-low,
@@ -51,7 +108,7 @@ Map {
     text-wrap-width: 96;
     text-wrap-before: true;
     text-line-spacing: -3;
-    text-fill: #374c30;
+    text-fill: @label_color_green_area;
     text-size: 15;
 
     [zoom>=11] {
@@ -61,6 +118,14 @@ Map {
     [zoom>=15] {
       text-size: 20;
       text-line-spacing: -7;
+    }
+
+    [zoom>=11] {
+      text-halo-radius: @text_font_halo_radius_sm;
+      text-halo-fill: @label_color_green_area_halo;
+    }
+    [zoom>=15] {
+      text-halo-radius: @text_font_halo_radius_large;
     }
   }
 }
