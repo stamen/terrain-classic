@@ -4,23 +4,23 @@
   <VRTRasterBand dataType="Byte" band="1">
     <ColorInterp>Palette</ColorInterp>
     <ColorTable>
-      <Entry c1="153" c2="179" c3="204" c4="0" />
-      <Entry c1="108" c2="136" c3="98" c4="255" />
-      <Entry c1="108" c2="136" c3="98" c4="255" />
-      <Entry c1="99" c2="138" c3="87" c4="255" />
-      <Entry c1="99" c2="138" c3="87" c4="255" />
-      <Entry c1="99" c2="138" c3="87" c4="255" />
-      <Entry c1="217" c2="208" c3="170" c4="255" />
-      <Entry c1="217" c2="208" c3="170" c4="255" />
-      <Entry c1="144" c2="158" c3="112" c4="255" />
-      <Entry c1="144" c2="158" c3="112" c4="255" />
-      <Entry c1="180" c2="189" c3="141" c4="255" />
-      <Entry c1="117" c2="156" c3="104" c4="255" />
-      <Entry c1="131" c2="163" c3="97" c4="255" />
-      <Entry c1="244" c2="244" c3="241" c4="255" />
-      <Entry c1="131" c2="163" c3="97" c4="255" />
-      <Entry c1="233" c2="231" c3="217" c4="255" />
-      <Entry c1="212" c2="202" c3="184" c4="255" />
+      <Entry c1="153" c2="179" c3="204" c4="0" comment="water"/>
+      <Entry c1="108" c2="136" c3="98" c4="255" comment="evergreen needleleaf forest"/>
+      <Entry c1="108" c2="136" c3="98" c4="255" comment="evergreen broadleaf forest"/>
+      <Entry c1="99" c2="138" c3="87" c4="255" comment="deciduous needleleaf forest"/>
+      <Entry c1="99" c2="138" c3="87" c4="255" comment="deciduous broadleaf forest"/>
+      <Entry c1="99" c2="138" c3="87" c4="255" comment="mixed forest"/>
+      <Entry c1="217" c2="208" c3="170" c4="255" comment="closed shrublands"/>
+      <Entry c1="217" c2="208" c3="170" c4="255" comment="open shrublands (southern nevada)"/>
+      <Entry c1="144" c2="158" c3="112" c4="255" comment="woody savannas"/>
+      <Entry c1="162" c2="173" c3="131" c4="255" comment="savannas"/>
+      <Entry c1="180" c2="189" c3="141" c4="255" comment="grasslands (northern nevada)"/>
+      <Entry c1="117" c2="156" c3="104" c4="255" comment="permanent wetlands"/>
+      <Entry c1="131" c2="163" c3="97" c4="255" comment="croplands"/>
+      <Entry c1="218" c2="218" c3="218" c4="255" comment="urban and built-up" />
+      <Entry c1="131" c2="163" c3="97" c4="255" comment="cropland/natural vegetation mosaic"/>
+      <Entry c1="244" c2="255" c3="255" c4="255" comment="snow and ice"/>
+      <Entry c1="212" c2="202" c3="184" c4="255" comment="barren or sparsely vegetated"/>
       <Entry c1="0" c2="0" c3="0" c4="255" />
       <Entry c1="0" c2="0" c3="0" c4="255" />
       <Entry c1="0" c2="0" c3="0" c4="255" />
