@@ -154,15 +154,15 @@ Map {
     text-size: @text_font_size_xsm;
   }
 
-  [font_size=14] {
+  [font_size>=14] {
     text-size: @text_font_size_medium;
   }
 
-  [font_size=16] {
+  [font_size>=16] {
     text-size: @text_font_size_medium_plus;
   }
 
-  [font_size=18] {
+  [font_size>=18] {
     text-size: @text_font_size_large;
   }
 }
@@ -172,8 +172,18 @@ Map {
   // for debugging
   //::outline {
   //  polygon-fill: #fff;
-  //  polygon-opacity: 0.1;
+  //  polygon-opacity: 0.3;
   //}
+  [justified='left'] {
+    text-horizontal-alignment: left;
+    text-dx: 15;
+  }
+
+  [justified='right'] {
+    text-horizontal-alignment: right;
+    text-dx: -15;
+  }
+
   text-name: [name];
   text-face-name: @text_font_city;
   text-fill: @label_color_city;
@@ -181,15 +191,11 @@ Map {
   text-min-distance: 5;
   text-allow-overlap: true;
 
-  [zoom>=7] {
-    text-size: @text_font_size_xsm;
+  [font_size>=14] {
+    text-size: @text_font_size_medium;
   }
 
-  [font_size=18] {
-    text-size: @text_font_size_large;
-  }
-
-  [font_size=20] {
+  [font_size>=20] {
     text-size: @text_font_size_large;
   }
 }
@@ -201,7 +207,7 @@ Map {
   text-fill: @label_color_city;
   text-size: @text_font_size_medium_plus;
 
-  [font_size=20] {
+  [font_size>=20] {
     text-size: @text_font_size_large;
   }
 }
