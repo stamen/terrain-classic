@@ -49,7 +49,7 @@ go install imposm3
 * Clone this repo
 * Run `make link` to sym-link the project into your TileMill project directory
 * Run `make db/shared` to fetch and transform Natural Earth and OSM coastline data
-* Run `make db/ca` (or similar; see
+* Run `make db/CA` (or similar; see
   [`PLACES`](https://github.com/stamen/terrain-classic/blob/master/Makefile#L168-L178)
   in the `Makefile` for a list of registered extracts and expand it as
   desired).
