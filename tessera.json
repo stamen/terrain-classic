@@ -2,6 +2,9 @@
   "/flat": {
     "source": "mapnik://./terrain-classic.xml"
   },
+  "/labels": {
+    "source": "mapnik://./terrain-classic-labels.xml"
+  },
   "/": {
     "source": {
       "protocol": "blend:",
