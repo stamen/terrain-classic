@@ -32,6 +32,14 @@ Map {
  */
 .shore {
   line-color: @color_physical;
+  /* lighten background color, as we decrease landcover opacity */
+  [zoom>=12] {
+    polygon-fill: lighten(@color_physical,20);
+  }
+  [zoom>=14] {
+    polygon-fill: lighten(@color_physical,40);
+  }
+
   line-cap: round;
   line-join: round;
   line-width: 0;
@@ -274,10 +282,11 @@ Map {
 #green-areas-high[zoom>14],
 {
   polygon-fill: @color_green_areas;
-  
+  polygon-opacity: 0.5;
+
   [type='nature_reserve'] {
     polygon-fill: @color_green_areas;
-    polygon-opacity: 0.5;
+    polygon-opacity: 0.3;
   }
 }
 
@@ -1262,4 +1271,19 @@ Map {
 .landcoverraster {
   raster-opacity:1;
   raster-scaling:gaussian;
+
+  /* blur landcover as it becomes too pixelated */
+/*
+  [zoom>=10] {
+    image-filters: agg-stack-blur(5,5);
+  }
+  [zoom>=12] {
+    image-filters: agg-stack-blur(10,10);
+    opacity: 0.8;
+  }
+  [zoom>=14] {
+    image-filters: agg-stack-blur(20,20);
+    opacity: 0.6;
+  }
+*/
 }
