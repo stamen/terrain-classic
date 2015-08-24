@@ -14,7 +14,7 @@
             "source": "mapnik://./terrain-classic.xml"
           },
           {
-            "source": "http://ec2-54-152-68-8.compute-1.amazonaws.com/positron-terrain/{z}/{x}/{y}.png",
+            "source": "http://ec2-52-3-95-39.compute-1.amazonaws.com/positron-terrain/{z}/{x}/{y}.png",
             "comp-op": "hard-light",
             "opacity": "0.3"
           },
