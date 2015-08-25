@@ -1,8 +1,8 @@
-@text_font_transport: 'PT Sans Narrow Regular';
-@text_font_administrative: 'PT Sans Narrow Regular';
-@text_font_city: 'PT Sans Narrow Regular';
-@text_font_parks: 'PT Sans Narrow Regular';
-@text_font_water: 'PT Sans Narrow Regular';
+@text_font_transport: 'PT Sans Narrow Regular', 'Unifont Medium';
+@text_font_administrative: 'PT Sans Narrow Regular', 'Unifont Medium';
+@text_font_city: 'PT Sans Narrow Regular', 'Unifont Medium';
+@text_font_parks: 'PT Sans Narrow Regular', 'Unifont Medium';
+@text_font_water: 'PT Sans Narrow Regular', 'Unifont Medium';
 
 @label_color_transport: #524c4c;
 @label_color_administrative: #2e2115;
