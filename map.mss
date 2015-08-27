@@ -13,7 +13,7 @@
 @color_transport_tunnel: #ccc;
 @color_transport_minor: #ccc;
 @color_transport_rail: #444;
-@color_transport_path: #ededed;
+@color_transport_path: #666; // 60% K
 @color_building: #cdd;
 @color_building_outline: darken(@color_building,20);
 @color_building_outline_special: #00aeef;
@@ -1236,35 +1236,21 @@ Map {
 #roads[kind='path'],
 #bridges[kind='path'],
 {
-  ::casing {
-    line-color: @color_transport_path;
-  }
-
-  line-color: @color_transport_casing;
+  line-color: @color_transport_path;
 
   [zoom>=15] {
-    ::casing {
-      line-width: 4;
-    }
-
-    line-width: 1.5;
+    line-width: 0.5;
     line-cap: butt;
+    line-dasharray: 2, 3;
   }
 
   [zoom>=16] {
-    ::casing {
-      line-width: 5;
-    }
-
-    line-width: 2;
+    line-width: 0.7;
   }
 
   [zoom>=17] {
-    line-width: 3;
-  }
-
-  [zoom>=19] {
-    line-width: 4;
+    line-width: 1.2;
+    line-dasharray: 4, 6;
   }
 }
 
