@@ -926,13 +926,7 @@ Map {
   }
 
   [zoom>=18] {
-    ::casing {
-      line-width: 42;
-      line-color: @color_transport;
-    }
-
     line-width: 28;
-    line-color: @color_transport_inline;
 
     [is_link='yes'] {
       ::casing {
@@ -1052,35 +1046,17 @@ Map {
   }
 
   [zoom>=17] {
-    ::casing {
-      line-width: 18;
-    }
-
     line-width: 12;
 
     [is_link='yes'] {
-      ::casing {
-        line-width: 8;
-      }
-
       line-width: 4;
     }
   }
 
   [zoom>=18] {
-    ::casing {
-      line-width: 22;
-      line-color: @color_transport;
-    }
-
     line-width: 18;
-    line-color: @color_transport_inline;
 
     [is_link='yes'] {
-      ::casing {
-        line-width: 13;
-      }
-
       line-width: 9;
     }
   }
@@ -1124,39 +1100,25 @@ Map {
   }
 
   [zoom>=16] {
-    ::casing {
-      line-width: 7;
-    }
-
     line-width: 4;
     line-color: @color_transport;
   }
 
   [zoom>=17] {
-    ::casing {
-      line-width: 9;
-    }
-
     line-width: 7;
   }
 
   [zoom>=18] {
-    ::casing {
-      line-width: 17;
-      line-color: @color_transport;
-    }
-
     line-width: 13;
-    line-color: @color_transport_casing;
   }
 
-  [zoom>=19] {
-    ::casing {
-      line-width: 20;
-    }
+  // [zoom>=19] {
+  //   ::casing {
+  //     line-width: 20;
+  //   }
 
-    line-width: 16;
-  }
+  //   line-width: 16;
+  // }
 }
 
 #tunnels[kind='rail'],
@@ -1197,11 +1159,6 @@ Map {
   }
 
   [zoom>=19] {
-    ::casing {
-      line-width: 9;
-      line-dasharray: 4,7;
-    }
-
     line-width: 4;
   }
 }
@@ -1224,10 +1181,6 @@ Map {
   }
 
   [zoom>=17] {
-    ::casing {
-      line-width: 6;
-    }
-
     line-width: 4;
   }
 }
