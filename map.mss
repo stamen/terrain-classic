@@ -14,7 +14,7 @@
 @color_transport_minor: #ccc;
 @color_transport_rail: #aaa; // 35% K
 @color_transport_path: #666; // 60% K
-@color_building: #cdd;
+@color_building: #b0c0be;
 @color_building_outline: darken(@color_building,20);
 @color_building_outline_special: #00aeef;
 @color_airport_runways: @color_transport;
