@@ -7,11 +7,12 @@
 @color_administrative_medium_low: #000;
 @color_administrative_medium_high: #000;
 @color_administrative_medium_high2: #000;
-@color_transport: #999;
-@color_transport_casing: #ddd;
+@color_transport: #999; // 40% K
+@color_transport_casing: #fff;
 @color_transport_inline: #fff;
-@color_transport_tunnel: #ccc;
-@color_transport_minor: #ccc;
+@color_transport_tunnel: #ccc; // 20% K
+@color_transport_hwy: #666;
+@color_transport_minor: #aaa; 
 @color_transport_rail: #aaa; // 35% K
 @color_transport_path: #666; // 60% K
 @color_building: #b0c0be;
@@ -572,6 +573,7 @@ Map {
     }
 
     line-width: 4;
+    line-color: @color_transport_hwy;
 
     [is_link='yes'] {
       ::outline {
@@ -579,6 +581,7 @@ Map {
       }
 
       line-width: 1;
+      line-color: @color_transport_hwy;
     }
   }
 
@@ -776,8 +779,7 @@ Map {
 }
 
 #roads,
-#roads_med,
-#highways_med {
+#roads_med {
   ::casing,
   ::outline,
   {
@@ -804,15 +806,43 @@ Map {
   }
 }
 
+#highways_med
+{
+  ::casing,
+  ::outline,
+  {
+    line-cap: butt;
+    line-width: 0;
+    line-color: @color_transport_casing;
+  }
+
+  line-join: round;
+  line-cap: round;
+  line-width: 0;
+  line-color: @color_transport_hwy;
+
+  [is_link='yes']
+  {
+    [zoom>=16]
+    {
+      ::casing {
+        line-width: 8;
+      }
+
+    line-width: 4;
+    }
+  }
+}
+
 #roads[kind='highway'],
 #highways_med[kind='highway']
-{
+{    
   [zoom>=9] {
     ::outline {
       line-width: 4.25;
     }
 
-    line-width: 1.5;
+    line-width: 1.5;    
   }
 
   [zoom>=10] {
@@ -867,6 +897,7 @@ Map {
     }
 
     line-width: 4;
+    line-color: @color_transport_hwy;
 
     [is_link='yes'] {
       ::outline {
@@ -952,11 +983,14 @@ Map {
       line-width: 16;
     }
   }
+
+  line-color: @color_transport_hwy;
 }
 
 #roads[kind='major_road'],
 #roads_med[kind='major_road']
 {
+
   [zoom<=12] {
     line-color: @color_transport;
   }
@@ -999,10 +1033,10 @@ Map {
 
   [zoom>=14] {
     ::outline {
-      line-width: 5;
+      line-width: 6;
     }
 
-    line-width: 1.9;
+    line-width: 4;
 
     [is_link='yes'] {
       ::outline {
@@ -1084,32 +1118,48 @@ Map {
   line-color: @color_transport_minor;
 
   [zoom>=10] {
-    line-width: 0.2;
+    line-width: 1;
   }
 
   [zoom>=13] {
-    line-width: 0.4;
-  }
-
-  [zoom>=14] {
-    line-width: 0.8;
-  }
-
-  [zoom>=15] {
     line-width: 1.5;
-  }
-
-  [zoom>=16] {
-    line-width: 4;
     line-color: @color_transport;
   }
 
+  [zoom>=14] {
+    ::casing {
+      line-width: 3.5;
+      line-color: @color_transport_casing;
+    }
+    line-width: 2.5;
+  }
+
+  [zoom>=15] {
+    ::casing {
+      line-width: 6;
+    }
+    line-width: 4;
+  }
+
+  [zoom>=16] {
+    ::casing {
+      line-width: 6.5;
+    }    
+    line-width: 4;    
+  }
+
   [zoom>=17] {
-    line-width: 7;
+    ::casing {
+      line-width: 11.5;
+    }
+    line-width: 8;
   }
 
   [zoom>=18] {
-    line-width: 13;
+    ::casing {
+      line-width: 14.5;
+    }    
+    line-width: 11;
   }
 
   // [zoom>=19] {
