@@ -271,9 +271,16 @@ Map {
   text-face-name: @text_font_city;
   text-fill: @label_color_city;
   text-size: @text_font_size_medium_plus;
+  text-halo-radius: 2;
+  text-halo-fill: fadeout(rgba(255,255,255, 0.7), 30%);
+  // text-comp-op: src;
 
   [font_size>=20] {
     text-size: @text_font_size_large;
+  }
+  
+  [zoom>=11] {
+    text-halo-fill: fadeout(rgba(255,255,255, 1), 30%);
   }
 }
 
