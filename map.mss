@@ -8,12 +8,13 @@
 @color_administrative_medium_high: #000;
 @color_administrative_medium_high2: #000;
 @color_transport: #999; // 40% K
+@color_transport_casing_z10: #ddd;
 @color_transport_casing: #fff;
 @color_transport_inline: #fff;
 @color_transport_tunnel: #ccc; // 20% K
-@color_transport_hwy: #666;
+@color_transport_hwy: #737373; // 55% K 
 @color_transport_minor: #aaa; 
-@color_transport_rail: #aaa; // 35% K
+@color_transport_rail: #aaa; // 33% K
 @color_transport_path: #666; // 60% K
 @color_building: #b0c0be;
 @color_building_outline: darken(@color_building,20);
@@ -779,7 +780,8 @@ Map {
 }
 
 #roads,
-#roads_med {
+#roads_med,
+#highways_med {
   ::casing,
   ::outline,
   {
@@ -806,40 +808,13 @@ Map {
   }
 }
 
-#highways_med
-{
-  ::casing,
-  ::outline,
-  {
-    line-cap: butt;
-    line-width: 0;
-    line-color: @color_transport_casing;
-  }
-
-  line-join: round;
-  line-cap: round;
-  line-width: 0;
-  line-color: @color_transport_hwy;
-
-  [is_link='yes']
-  {
-    [zoom>=16]
-    {
-      ::casing {
-        line-width: 8;
-      }
-
-    line-width: 4;
-    }
-  }
-}
-
 #roads[kind='highway'],
 #highways_med[kind='highway']
 {    
   [zoom>=9] {
     ::outline {
-      line-width: 4.25;
+      line-width: 3;
+      line-color: @color_transport_casing_z10;
     }
 
     line-width: 1.5;    
@@ -855,15 +830,17 @@ Map {
 
   [zoom>=11] {
     ::outline {
-      line-width: 6;
+      line-width: 5;
+      line-color: @color_transport_casing;
     }
 
-    line-width: 2.5;
+    line-width: 3;
+    line-color: @color_transport_hwy;    
   }
 
   [zoom>=12] {
     ::outline {
-      line-width: 7;
+      line-width: 5;
     }
 
     line-width: 3;
@@ -882,9 +859,11 @@ Map {
       line-width: 8;
     }
 
+    line-width: 4;
+
     [is_link='yes'] {
       ::outline {
-        line-width: 0;
+        line-width: 3;
       }
 
       line-width: 1;
@@ -896,8 +875,7 @@ Map {
       line-width: 9;
     }
 
-    line-width: 4;
-    line-color: @color_transport_hwy;
+    line-width: 4;    
 
     [is_link='yes'] {
       ::outline {
@@ -926,10 +904,10 @@ Map {
 
   [zoom>=16] {
     ::casing {
-      line-width: 14;
+      line-width: 13;
     }
 
-    line-width: 9;
+    line-width: 7.5;
 
     [is_link='yes'] {
       ::casing {
@@ -957,6 +935,10 @@ Map {
   }
 
   [zoom>=18] {
+    ::casing {
+      line-width: 39;
+    }    
+
     line-width: 28;
 
     [is_link='yes'] {
@@ -968,23 +950,21 @@ Map {
     }
   }
 
-  [zoom>=19] {
-    ::casing {
-      line-width: 49;
-    }
+  // [zoom>=19] {
+  //   ::casing {
+  //     line-width: 49;
+  //   }
 
-    line-width: 35;
+  //   line-width: 35;
 
-    [is_link='yes'] {
-      ::casing {
-        line-width: 20;
-      }
+  //   [is_link='yes'] {
+  //     ::casing {
+  //       line-width: 20;
+  //     }
 
-      line-width: 16;
-    }
-  }
-
-  line-color: @color_transport_hwy;
+  //     line-width: 16;
+  //   }
+  // }
 }
 
 #roads[kind='major_road'],
@@ -1013,22 +993,26 @@ Map {
 
   [zoom>=12] {
     ::outline {
-      line-width: 5;
+      line-width: 4;
     }
 
-    line-width: 1;
+    line-width: 2;
 
     [is_link='yes'] {
       ::outline {
         line-width: 0;
       }
 
-      line-width: 0.5;
+      line-width: 1;
     }
   }
 
   [zoom>=13] {
-    line-width: 1.5;
+    ::outline {
+      line-width: 5;
+    }
+
+    line-width: 3;
   }
 
   [zoom>=14] {
@@ -1043,7 +1027,7 @@ Map {
         line-width: 5;
       }
 
-      line-width: 1.9;
+      line-width: 2;
     }
   }
 
@@ -1059,57 +1043,73 @@ Map {
         line-width: 5.5;
       }
 
-      line-width: 2.25;
+      line-width: 2.5;
     }
   }
 
   [zoom>=16] {
     ::casing {
-      line-width: 11;
+      line-width: 10;
     }
 
     line-width: 7;
 
     [is_link='yes'] {
       ::casing {
-        line-width: 7;
+        line-width: 6;
       }
 
-      line-width: 2.5;
-    }
-  }
-
-  [zoom>=17] {
-    line-width: 12;
-
-    [is_link='yes'] {
       line-width: 4;
     }
   }
 
-  [zoom>=18] {
-    line-width: 18;
+  [zoom>=17] {
+    ::outline {
+      line-width: 20;
+    }
+
+    line-width: 14;
 
     [is_link='yes'] {
-      line-width: 9;
+      ::casing{
+        line-width: 14;
+      }
+
+      line-width: 7;
     }
   }
 
-  [zoom>=19] {
-    ::casing {
-      line-width: 30;
+  [zoom>=18] {
+    ::outline {
+      line-width: 25;
     }
 
-    line-width: 26;
+    line-width: 17;
 
     [is_link='yes'] {
       ::casing {
-        line-width: 17;
+        line-width: 19;
       }
 
-      line-width: 13;
+      line-width: 10;
     }
   }
+
+  // [zoom>=19] {
+  //   ::casing {
+  //     line-width: 30;
+  //   }
+
+  //   line-width: 26;
+
+  //   [is_link='yes'] {
+  //     ::casing {
+  //       line-width: 17;
+  //     }
+
+  //     line-width: 13;
+  //   }
+  // }
 }
 
 #roads[kind='minor_road'],
