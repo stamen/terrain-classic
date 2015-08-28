@@ -12,7 +12,7 @@
 @color_transport_inline: #fff;
 @color_transport_tunnel: #ccc;
 @color_transport_minor: #ccc;
-@color_transport_rail: #444;
+@color_transport_rail: #aaa; // 35% K
 @color_transport_path: #666; // 60% K
 @color_building: #cdd;
 @color_building_outline: darken(@color_building,20);
