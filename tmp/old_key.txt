@@ -1,0 +1,25 @@
+Urban and Built-Up Land                255   0   0
+Dryland Cropland and Pasture           160  82  40
+Irrigated Cropland and Pasture         134  82  40
+Mixed Dryland/Irrigated Cropland and Pasture 159  54   0
+Cropland/Grassland Mosaic              184 134  11
+Cropland/Woodland Mosaic               154 205  50
+Grassland                              234 221 130
+Shrubland                              255 140   0
+Mixed Shrubland/Grassland              255 163  67
+Savanna                                255 215   0
+Deciduous Broadleaf Forest              60 179 113
+Deciduous Needleleaf Forest            105 138  65
+Evergreen Broadleaf Forest             122 252   0
+Evergreen Needleleaf Forest             34 121  34
+Mixed Forest                           125 217 152
+Water Bodies                           132 193 255
+Herbaceous Wetland                     136 155 209
+Wooded Wetland                         109 121 188
+Barren or Sparsely Vegetated           150 150 150
+Herbaceous Tundra                      203 130 199
+Wooded Tundra                          188 143 143
+Mixed Tundra                           213 121 180
+Bare Ground Tundra                     253 186 242
+Snow or Ice                            255 255 255
+Unlabelled land area                   129 159 170
