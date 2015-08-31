@@ -296,16 +296,22 @@ Map {
 }
 
 #airports {
-  text-name: [abbrev];
-  text-face-name: @text_font_transport;
-  text-fill: #444;
-  text-size: @text_font_size_medium_plus;
-  
-  text-halo-fill: #f7f7e6;
-  text-halo-radius: 2;
-  
-  text-wrap-width: 128;
-  text-dy: 12;
+  [zoom>=10] {
+    text-name: [abbrev];
+    text-face-name: @text_font_transport;
+    text-fill: #444;
+    text-size: @text_font_size_medium_plus;
+    
+    text-halo-fill: #f7f7e6;
+    text-halo-radius: 2;
+    
+    text-wrap-width: 128;
+    text-dy: 14;  
+  }
+
+  [zoom>=13] {
+    text-name: [name];
+  }
 
   [zoom=14][natlscale>.04],
   [zoom=15][natlscale>.02],
@@ -389,14 +395,14 @@ Map {
   // [zoom=12][natlscale>.29],
   // [zoom=13][natlscale>.29]
   // {
-  //     point-file: url('icons/airport_little_l.png');
+  //     point-file: url('icons/airport_small_l.png');
   // }
 
   // [zoom=14][natlscale>.29],
   // [zoom=15][natlscale>.29],
   // [zoom>=16][natlscale>.29]
   // {
-  //     point-file: url('icons/airport_little_xl.png');
+  //     point-file: url('icons/airport_small_xl.png');
   // }
  
 }
