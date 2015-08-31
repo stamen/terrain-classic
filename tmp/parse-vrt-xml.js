@@ -64,7 +64,7 @@ function parseKey(txt) {
 function parseResults(keys, json) {
   var tmp = [];
   
-  json.ColorTable.Entry.forEach(function(d,i,arr){        
+  json.ColorTable.Entry.forEach(function(d,i,arr){
     var r = d['$'].c1,
         g = d['$'].c2,
         b = d['$'].c3;
