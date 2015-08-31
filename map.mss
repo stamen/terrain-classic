@@ -16,7 +16,7 @@
 @color_transport_minor: #aaa; 
 @color_transport_rail: #aaa; // 33% K
 @color_transport_path: #666; // 60% K
-@color_building: #b0c0be;
+@color_building: #ccc;
 @color_building_outline: darken(@color_building,20);
 @color_building_outline_special: #00aeef;
 @color_airport_runways: @color_transport;
@@ -1262,17 +1262,20 @@ Map {
   raster-scaling:gaussian;
 
   /* blur landcover as it becomes too pixelated */
-/*
-  [zoom>=10] {
-    image-filters: agg-stack-blur(5,5);
-  }
-  [zoom>=12] {
-    image-filters: agg-stack-blur(10,10);
-    opacity: 0.8;
-  }
-  [zoom>=14] {
-    image-filters: agg-stack-blur(20,20);
-    opacity: 0.6;
-  }
-*/
+  // [zoom<10] {
+  //   image-filters: agg-stack-blur(0,0);
+  // }
+
+  // [zoom>=10] {
+  //   image-filters: agg-stack-blur(5,5);
+  // }
+  // [zoom>=12] {
+  //   image-filters: agg-stack-blur(10,10);
+  //   opacity: 0.8;
+  // }
+  // [zoom>=14] {
+  //   image-filters: agg-stack-blur(30,30);
+  //   opacity: 0.6;
+  // }
+
 }
