@@ -25,6 +25,7 @@
 @label_color_physical: #000;
 @label_color_physical_halo: #fff;
 @label_color_transport_halo: #F7F7E6;
+@label_color_airport_halo: #f7f7e6;
 @label_color_places_halo_low: fadeout(rgba(255,255,255, 0.7), 30%);
 @label_color_places_halo_high: fadeout(rgba(255,255,255, 1), 30%);
 
@@ -417,8 +418,8 @@ Map {
     text-fill: #444;
     text-size: @text_font_size_medium_plus;
     
-    text-halo-fill: #f7f7e6;
-    text-halo-radius: 2;
+    text-halo-fill: @label_color_airport_halo;
+    text-halo-radius: @text_font_halo_radius_large;
     
     text-wrap-width: 128;
     text-dy: 14;  
