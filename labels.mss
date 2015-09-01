@@ -169,21 +169,19 @@ Map {
     text-fill: @label_color_green_area;
     text-size: 15;
 
+    [zoom>=8] {
+      text-halo-fill: @label_color_green_area_halo;
+      text-halo-radius: @text_font_halo_radius_sm;      
+    }
+
     [zoom>=11] {
       text-fill: #586e50;
+      text-halo-radius: @text_font_halo_radius_large;
     }
 
     [zoom>=15] {
       text-size: 20;
       text-line-spacing: -7;
-    }
-
-    [zoom>=11] {
-      text-halo-radius: @text_font_halo_radius_sm;
-      text-halo-fill: @label_color_green_area_halo;
-    }
-    [zoom>=15] {
-      text-halo-radius: @text_font_halo_radius_large;
     }
   }
 }
