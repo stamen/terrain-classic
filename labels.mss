@@ -17,12 +17,14 @@
 
 @text_font_halo_radius_sm: 1;
 @text_font_halo_radius_large: 2;
-@text_font_halo_transport_fill: #F7F7E6;
+
+@label_color_administrative_halo: #fff;
+@label_color_transport_halo: #F7F7E6;
 @text_font_halo_places_fill_low: fadeout(rgba(255,255,255, 0.7), 30%);
 @text_font_halo_places_fill_high: fadeout(rgba(255,255,255, 1), 30%);
 
 
-@label_color_green_area: #374c30;
+@label_color_green_area: #374c30; 
 @label_color_green_area_halo: #c0d3b5;
 @label_color_water: darken(@color_water,20);
 @label_color_water_halo: @color_water;
@@ -43,12 +45,16 @@ Map {
   text-fill: #444;
   text-spacing: 256;
   text-avoid-edges: true;
-  text-halo-fill: @text_font_halo_transport_fill;
+  text-halo-fill: @label_color_transport_halo;
   text-halo-radius: 2;
 }
 
-#shields {
+#shields {  
+  [zoom>=11] {
 
+    /* tmp place holder for hwy shields */
+
+  }
 }
 
 #water-bodies-labels-low,
@@ -149,6 +155,46 @@ Map {
   text-size: 24;
   text-line-spacing: -12;
   text-fill: #2e2115;
+}
+
+#admin1-labels-50m-z4 {
+    text-face-name: @text_font_administrative;
+    text-wrap-width: 80;
+    text-fill: @label_color_administrative;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_administrative_halo; 
+    text-name: "[label_z4]";
+    text-size:  @text_font_size_xsm;
+}
+
+#admin1-labels-50m-z5 {
+    text-face-name: @text_font_administrative;
+    text-wrap-width: 80;
+    text-fill: @label_color_administrative;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_administrative_halo; 
+    text-name: "[label_z5]";
+    text-size:  @text_font_size_medium_plus;
+}
+
+#admin1-labels-50m-z6 {
+    text-face-name: @text_font_administrative;
+    text-wrap-width: 80;
+    text-fill: @label_color_administrative;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_administrative_halo; 
+    text-name: "[label_z6]";
+    text-size:  @text_font_size_large;
+}
+
+#admin1-labels-50m-z7 {
+    text-face-name: @text_font_administrative;
+    text-wrap-width: 80;
+    text-fill: @label_color_administrative;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-halo-fill: @label_color_administrative_halo; 
+    text-name: "[label_z7]";
+    text-size:  @text_font_size_large;
 }
 
 #admin0-labels-z3[longfrom>3] {
