@@ -26,7 +26,7 @@
 @label_color_physical_halo: #fff;
 @label_color_transport_halo: #F7F7E6;
 @label_color_airport_halo: #f7f7e6;
-@label_color_places_halo_low: fadeout(rgba(255,255,255, 0.7), 30%);
+@label_color_places_halo_low: fadeout(rgba(255,255,255, 1), 30%);
 @label_color_places_halo_high: fadeout(rgba(255,255,255, 1), 30%);
 
 @label_color_green_area: #374c30; 
@@ -54,11 +54,55 @@ Map {
   text-halo-radius: 2;
 }
 
-#shields {  
-  [zoom>=11] {
+#highway_shields {
+  [zoom>=11],
+  [highway='motorway'],
+  [highway='trunk'],
+  [highway='primary'] {
+    // arbitrary default shield
+    shield-file: url(images/ca.svg);
+    shield-fill: white;
+    shield-transform: scale(0.052, 0.052);
+    shield-face-name: "Roadgeek 2005 Series D Regular";
+    shield-name: [ref];
+    shield-min-distance: 250;
+    shield-spacing: 250;
+    // half the width of the shield to prevent from wrapping
+    shield-min-padding: 10;
 
-    /* tmp place holder for hwy shields */
+    [ref=~'I \d+'] {
+      shield-file: url(images/interstate_2.svg);
+      shield-transform: scale(0.033, 0.033);
+      shield-size: 9;
+      shield-name: "[ref].replace('I ', '')";
+      shield-fill: white;
+    }
 
+    [ref=~'I \d{3,}'] {
+      shield-file: url(images/interstate_3.svg);
+      shield-transform: scale(0.033, 0.033);
+      shield-size: 9;
+      shield-name: "[ref].replace('I ', '')";
+      shield-fill: white;
+    }
+
+    [ref=~'US \d+'] {
+      shield-file: url(images/us.svg);
+      shield-transform: scale(0.052, 0.052);
+      shield-size: 10;
+      shield-name: "[ref].replace('US ', '')";
+      shield-fill: #333;
+      shield-text-dy: 1;
+    }
+
+    [ref=~'CA \d+'] {
+      shield-file: url(images/ca.svg);
+      shield-transform: scale(0.052, 0.052);
+      shield-size: 10;
+      shield-name: "[ref].replace('CA ', '')";
+      shield-fill: white;
+      shield-text-dy: 2.5;
+    }
   }
 }
 
