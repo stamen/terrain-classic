@@ -19,13 +19,14 @@
 @text_font_halo_radius_sm: 1;
 @text_font_halo_radius_large: 2;
 
-@label_color_administrative_halo: #fff;
+@label_color_halo_low: fadeout(rgba(255,255,255,0.7), 30%);
+@label_color_halo_high: fadeout(rgba(255,255,255,1), 30%);
+@label_color_administrative_halo: fadeout(#fff, 30%);
 @label_color_physical: #000;
 @label_color_physical_halo: #fff;
 @label_color_transport_halo: #F7F7E6;
 @label_color_places_halo_low: fadeout(rgba(255,255,255, 0.7), 30%);
 @label_color_places_halo_high: fadeout(rgba(255,255,255, 1), 30%);
-
 
 @label_color_green_area: #374c30; 
 @label_color_green_area_halo: #c0d3b5;
@@ -194,14 +195,16 @@ Map {
   text-size: 24;
   text-line-spacing: -12;
   text-fill: #2e2115;
+  text-halo-radius: @text_font_halo_radius_sm;
+  text-halo-fill: @label_color_halo_low;   
 }
 
 #admin1-labels-50m-z4 {
     text-face-name: @text_font_administrative;
     text-wrap-width: 80;
     text-fill: @label_color_administrative;
-    text-halo-radius: @text_font_halo_radius_large;
-    text-halo-fill: @label_color_administrative_halo; 
+    text-halo-radius: @text_font_halo_radius_sm;
+    text-halo-fill: @label_color_halo_low; 
     text-name: "[label_z4]";
     text-size:  @text_font_size_xsm;
 }
@@ -210,8 +213,10 @@ Map {
     text-face-name: @text_font_administrative;
     text-wrap-width: 80;
     text-fill: @label_color_administrative;
-    text-halo-radius: @text_font_halo_radius_large;
-    text-halo-fill: @label_color_administrative_halo; 
+    text-halo-radius: @text_font_halo_radius_sm;
+    text-halo-fill: @label_color_halo_low;
+    text-halo-comp-op: overlay; 
+    text-halo-rasterizer: fast;
     text-name: "[label_z5]";
     text-size:  @text_font_size_medium_plus;
 }
@@ -220,8 +225,8 @@ Map {
     text-face-name: @text_font_administrative;
     text-wrap-width: 80;
     text-fill: @label_color_administrative;
-    text-halo-radius: @text_font_halo_radius_large;
-    text-halo-fill: @label_color_administrative_halo; 
+    text-halo-radius: @text_font_halo_radius_sm;
+    text-halo-fill: @label_color_halo_low; 
     text-name: "[label_z6]";
     text-size:  @text_font_size_large;
 }
@@ -230,8 +235,8 @@ Map {
     text-face-name: @text_font_administrative;
     text-wrap-width: 80;
     text-fill: @label_color_administrative;
-    text-halo-radius: @text_font_halo_radius_large;
-    text-halo-fill: @label_color_administrative_halo; 
+    text-halo-radius: @text_font_halo_radius_sm;
+    text-halo-fill: @label_color_halo_low; 
     text-name: "[label_z7]";
     text-size:  @text_font_size_large;
 }
@@ -241,6 +246,8 @@ Map {
     text-face-name: @text_font_administrative;
     text-wrap-width: 80;
     text-size: 18;
+    text-halo-radius: @text_font_halo_radius_sm;
+    text-halo-fill: @label_color_halo_low;     
     text-fill: @label_color_administrative;
     text-min-distance: 5;
 }
@@ -251,6 +258,8 @@ Map {
     text-size: 22;
     text-line-spacing: -8;
     text-wrap-width: 100;
+    text-halo-radius: @text_font_halo_radius_sm;
+    text-halo-fill: @label_color_halo_low;
     text-fill: @label_color_administrative;
 }
 
@@ -260,6 +269,8 @@ Map {
     text-wrap-width: 80;
     text-size: 22;
     text-min-distance: 15;
+    text-halo-radius: @text_font_halo_radius_sm;
+    text-halo-fill: @label_color_halo_low;     
     text-fill: @label_color_administrative;
 }
 
@@ -268,6 +279,8 @@ Map {
   text-face-name: @text_font_administrative;
   text-wrap-width: 80;
   text-size: 24;
+  text-halo-radius: @text_font_halo_radius_sm;
+  text-halo-fill: @label_color_halo_low;   
   text-fill: @label_color_administrative;
 }
 
@@ -276,6 +289,8 @@ Map {
   text-face-name: @text_font_administrative;
   text-wrap-width: 80;
   text-size: 24;
+  text-halo-radius: @text_font_halo_radius_sm;
+  text-halo-fill: @label_color_halo_low;   
   text-fill: @label_color_administrative;
 }
 
@@ -294,6 +309,8 @@ Map {
   text-vertical-alignment: bottom;
   text-min-distance: 5;
   text-dy: -5;
+  text-halo-radius: @text_font_halo_radius_sm;
+  text-halo-fill: @label_color_halo_low;   
 
   [justified='left'] {
     //text-horizontal-alignment: left;
@@ -351,6 +368,8 @@ Map {
   text-size: @text_font_size_sm;
   text-min-distance: 5;
   text-allow-overlap: true;
+  text-halo-radius: @text_font_halo_radius_sm;
+  text-halo-fill: @label_color_halo_low;   
 
   [font_size>=14] {
     text-size: @text_font_size_medium;
@@ -367,9 +386,9 @@ Map {
   text-face-name: @text_font_city;
   text-fill: @label_color_city;
   text-size: @text_font_size_medium_plus;
-  text-halo-radius: 2;
-  text-halo-fill: @label_color_places_halo_high;
-  // text-comp-op: src;
+  text-halo-radius: @text_font_halo_radius_large;
+  text-halo-fill: @label_color_halo_high;
+  text-halo-comp-op: overlay;
 
   [font_size>=20] {
     text-size: @text_font_size_large;
