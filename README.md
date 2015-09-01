@@ -29,7 +29,7 @@ Most of the current development process for Terrain Classic is based on the [ton
 On OS X, installation with [Homebrew](http://brew.sh/) looks like this:
 
 ```
-brew install postgis gdal node go leveldb protobuf
+brew install postgis gdal node go leveldb protobuf pv
 
 # follow instructions to start postgresql
 
