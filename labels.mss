@@ -17,6 +17,11 @@
 
 @text_font_halo_radius_sm: 1;
 @text_font_halo_radius_large: 2;
+@text_font_halo_transport_fill: #F7F7E6;
+@text_font_halo_places_fill_low: fadeout(rgba(255,255,255, 0.7), 30%);
+@text_font_halo_places_fill_high: fadeout(rgba(255,255,255, 1), 30%);
+
+
 @label_color_green_area: #374c30;
 @label_color_green_area_halo: #c0d3b5;
 @label_color_water: darken(@color_water,20);
@@ -38,6 +43,12 @@ Map {
   text-fill: #444;
   text-spacing: 256;
   text-avoid-edges: true;
+  text-halo-fill: @text_font_halo_transport_fill;
+  text-halo-radius: 2;
+}
+
+#shields {
+
 }
 
 #water-bodies-labels-low,
@@ -272,7 +283,7 @@ Map {
   text-fill: @label_color_city;
   text-size: @text_font_size_medium_plus;
   text-halo-radius: 2;
-  text-halo-fill: fadeout(rgba(255,255,255, 0.7), 30%);
+  text-halo-fill: @text_font_halo_places_fill_high;
   // text-comp-op: src;
 
   [font_size>=20] {
@@ -280,7 +291,7 @@ Map {
   }
   
   [zoom>=11] {
-    text-halo-fill: fadeout(rgba(255,255,255, 1), 30%);
+    text-halo-fill: @text_font_halo_places_fill_low;
   }
 }
 
@@ -387,23 +398,5 @@ Map {
   {
       point-file: url('icons/intergalactic_xl.png');
   }
-
-  // [zoom=8][natlscale>2.3],
-  // [zoom=9][natlscale>1.2],
-  // [zoom=10][natlscale>.57],
-  // [zoom=11][natlscale>.29],
-  // [zoom=12][natlscale>.29],
-  // [zoom=13][natlscale>.29]
-  // {
-  //     point-file: url('icons/airport_small_l.png');
-  // }
-
-  // [zoom=14][natlscale>.29],
-  // [zoom=15][natlscale>.29],
-  // [zoom>=16][natlscale>.29]
-  // {
-  //     point-file: url('icons/airport_small_xl.png');
-  // }
- 
 }
 
