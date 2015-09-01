@@ -3,6 +3,7 @@
 @text_font_city: 'PT Sans Narrow Regular', 'Unifont Medium';
 @text_font_parks: 'PT Sans Narrow Regular', 'Unifont Medium';
 @text_font_water: 'PT Sans Narrow Regular', 'Unifont Medium';
+@text_font_water_bold: 'PT Sans Narrow Bold', 'Unifont Bold';
 
 @label_color_transport: #524c4c;
 @label_color_administrative: #2e2115;
@@ -19,9 +20,11 @@
 @text_font_halo_radius_large: 2;
 
 @label_color_administrative_halo: #fff;
+@label_color_physical: #000;
+@label_color_physical_halo: #fff;
 @label_color_transport_halo: #F7F7E6;
-@text_font_halo_places_fill_low: fadeout(rgba(255,255,255, 0.7), 30%);
-@text_font_halo_places_fill_high: fadeout(rgba(255,255,255, 1), 30%);
+@label_color_places_halo_low: fadeout(rgba(255,255,255, 0.7), 30%);
+@label_color_places_halo_high: fadeout(rgba(255,255,255, 1), 30%);
 
 
 @label_color_green_area: #374c30; 
@@ -55,6 +58,42 @@ Map {
     /* tmp place holder for hwy shields */
 
   }
+}
+
+#ne_110m_geography_marine_polys[zoom=2][scalerank=0][changed!=''],
+#ne_110m_geography_marine_polys[zoom=3][changed!=''],
+#ne_50m_geography_marine_polys[zoom=4][scalerank<4][changed!=''] {
+    text-name: [name];
+    [namealt!=''] {
+      text-name: [name] + '\n(' + [namealt] + ')';
+    }
+  text-face-name: @text_font_water_bold;
+    text-wrap-width: 80;
+    text-size: @text_font_size_medium;
+    text-fill: @label_color_water;
+    text-halo-radius: @text_font_halo_radius_sm;
+    text-halo-fill: @label_color_water_halo;
+}
+
+#ne_50m_geography_marine_polys[zoom=5][changed!=''],
+#ne_10m_geography_marine_polys[zoom>=6][zoom<=8][changed!='']
+{
+    text-name: [name];
+    [namealt!=''] {
+      text-name: [name] + '\n(' + [namealt] + ')';
+    }
+    [name = 'Hecate Straight'] {
+      text-name: 'Hecate Strait' + [namealt]; // Becase we know namealt is empty
+    }
+    [name = 'Queen Charlotte Straight'] {
+      text-name: 'Queen Charlotte Strait' + [namealt]; // Becase we know namealt is empty
+    }
+    text-face-name: @text_font_water;
+    text-wrap-width: 80;
+    text-size: @text_font_size_medium;
+    text-fill: @label_color_water;
+    text-halo-radius: @text_font_halo_radius_sm;
+    text-halo-fill: @label_color_water_halo;
 }
 
 #water-bodies-labels-low,
@@ -329,7 +368,7 @@ Map {
   text-fill: @label_color_city;
   text-size: @text_font_size_medium_plus;
   text-halo-radius: 2;
-  text-halo-fill: @text_font_halo_places_fill_high;
+  text-halo-fill: @label_color_places_halo_high;
   // text-comp-op: src;
 
   [font_size>=20] {
@@ -337,7 +376,7 @@ Map {
   }
   
   [zoom>=11] {
-    text-halo-fill: @text_font_halo_places_fill_low;
+    text-halo-fill: @label_color_places_halo_low;
   }
 }
 
