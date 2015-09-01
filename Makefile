@@ -172,6 +172,17 @@ db/shapefiles: shp/osmdata/land-polygons-complete-3857.zip \
 		   shp/natural_earth/ne_50m_admin_0_boundary_lines_land-merc.zip \
 		   shp/natural_earth/ne_10m_admin_1_states_provinces_lines-merc.zip
 
+db/aries: db/postgis data/aries/z4to10.json
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+		-t_srs EPSG:3857 \
+		-nlt PROMOTE_TO_MULTI \
+		-nln $(subst db/,,$@) \
+		-lco GEOMETRY_NAME=geom \
+		-lco SRID=3857 \
+		-f PGDump /vsistdout/ \
+		$(word 2,$^) | pv | psql -q
+
 # TODO places target that lists registered places
 PLACES=BC:data/extract/north-america/ca/british-columbia-latest.osm.pbf \
 	   CA:data/extract/north-america/us/california-latest.osm.pbf \
