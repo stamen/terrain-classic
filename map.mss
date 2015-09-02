@@ -24,8 +24,12 @@
 @color_green_areas: darken(#c0d3b5,20);
 
 Map {
-  background-color: @color_water; //@color_physical;
+  background-color: @color_water;
   font-directory: url("fonts/");
+
+  [zoom>=10] {
+    background-color: @color_physical;
+  }
 }
 
 /**
@@ -1263,29 +1267,6 @@ Map {
   }
 }
 
-.landcoverraster {
-  raster-opacity:1;
-  raster-scaling:gaussian;
-
-  /* blur landcover as it becomes too pixelated */
-  // [zoom<10] {
-  //   image-filters: agg-stack-blur(0,0);
-  // }
-
-  // [zoom>=10] {
-  //   image-filters: agg-stack-blur(5,5);
-  // }
-  // [zoom>=12] {
-  //   image-filters: agg-stack-blur(10,10);
-  //   opacity: 0.8;
-  // }
-  // [zoom>=14] {
-  //   image-filters: agg-stack-blur(30,30);
-  //   opacity: 0.6;
-  // }
-
-}
-
 #lc500mMODIS_low {
   [zoom>=0][zoom<10] {
     raster-opacity:1;
@@ -1298,14 +1279,18 @@ Map {
   [zoom>=10] {
     raster-opacity:1;
     raster-scaling:gaussian;
-    image-filters: agg-stack-blur(10,10);
+    image-filters: agg-stack-blur(5,5);
   }
 }
 
 #lc500mMODIS_high {
   [zoom>=14] {
-    raster-opacity:1;
+    raster-opacity:0.5;
     raster-scaling:gaussian;
-    image-filters: agg-stack-blur(30,30);
+    image-filters: agg-stack-blur(20,20);    
   }
+}
+
+#land {
+  polygon-fill: @color_physical;
 }
