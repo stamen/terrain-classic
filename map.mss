@@ -24,7 +24,7 @@
 @color_green_areas: darken(#c0d3b5,20);
 
 Map {
-  background-color: @color_physical;
+  background-color: @color_water; //@color_physical;
   font-directory: url("fonts/");
 }
 
@@ -82,13 +82,17 @@ Map {
 }
 
 #water,
-#ne_10m_ocean,
+#ne_50m_ocean,
 #ne_10m_lakes,
 #ne_50m_lakes
-{
-  //line-width: 0.5;
+{  
   line-color: @color_water;
+  line-width: 0;
   polygon-fill: @color_water;
+
+  [zoom>=5]{
+    line-width: 0.5;
+  }
 }
 
 .country-boundary[scalerank<6],
@@ -1280,4 +1284,28 @@ Map {
   //   opacity: 0.6;
   // }
 
+}
+
+#lc500mMODIS_low {
+  [zoom>=0][zoom<10] {
+    raster-opacity:1;
+    raster-scaling:gaussian;
+    image-filters: agg-stack-blur(0,0);  
+  }
+}
+
+#lc500mMODIS_med {
+  [zoom>=10] {
+    raster-opacity:1;
+    raster-scaling:gaussian;
+    image-filters: agg-stack-blur(10,10);
+  }
+}
+
+#lc500mMODIS_high {
+  [zoom>=14] {
+    raster-opacity:1;
+    raster-scaling:gaussian;
+    image-filters: agg-stack-blur(30,30);
+  }
 }
