@@ -20,11 +20,13 @@ Most of the current development process for Terrain Classic is based on the [ton
 
 * PostgreSQL
 * PostGIS
-* Node.js
+* Node.js --version 0.10*
 * GDAL
 * TileMill 1@`master` (this includes the latest Mapnik): [github.com/mapbox/tilemill](https://github.com/mapbox/tilemill)
 * [Imposm 3](https://github.com/omniscale/imposm3), which includes dependencies
   of its own: `go`, `leveldb`, and `protobuf`.
+
+**\*NOTE:** The [Node Version Manager](https://github.com/creationix/nvm) script is helpful if you are using a more recent version of Node than 0.10 (which is fairly likely). This is important as *TileMill 1@master will only run on Node --version 0.10.*
 
 On OS X, installation with [Homebrew](http://brew.sh/) looks like this:
 
