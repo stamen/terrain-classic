@@ -16,6 +16,10 @@
 @text_font_size_medium_plus: 18;
 @text_font_size_large: 20;
 
+@text_character_spacing_sm: 0.7;
+@text_character_spacing_md: 1.2;
+@text_character_spacing_lg: 1.7;
+
 @text_font_halo_radius_sm: 1;
 @text_font_halo_radius_large: 2;
 
@@ -49,6 +53,7 @@ Map {
   text-max-char-angle-delta: 20;
   text-fill: #444;
   text-spacing: 256;
+  text-character-spacing: @text_character_spacing_sm;
   text-avoid-edges: true;
   text-halo-fill: @label_color_transport_halo;
   text-halo-radius: 2;
@@ -113,9 +118,10 @@ Map {
     [namealt!=''] {
       text-name: [name] + '\n(' + [namealt] + ')';
     }
-  text-face-name: @text_font_water_bold;
-    text-wrap-width: 80;
+    text-face-name: @text_font_water_bold;
+    text-wrap-width: 40;
     text-size: @text_font_size_medium;
+    text-character-spacing: @text_character_spacing_lg;
     text-fill: @label_color_water;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_water_halo;
@@ -137,6 +143,7 @@ Map {
     text-face-name: @text_font_water;
     text-wrap-width: 80;
     text-size: @text_font_size_medium;
+    text-character-spacing: @text_character_spacing_md;
     text-fill: @label_color_water;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_water_halo;
