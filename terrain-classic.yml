@@ -3,7 +3,7 @@
 name:             'Terrain Classic'
 description:      ''
 attribution:      'Map Data © OpenStreetMap'
-center:           [0, 0, 2]
+center:           [-122.3782, 37.7706, 10]
 format:           png
 interactivity:    false
 minzoom:          0
@@ -50,11 +50,53 @@ Stylesheet:
 Layer:
 
   - <<: *layer
-    name: lc500mMODIS
-    id:   lc500mMODIS
-    class: landcoverraster
+    name: land
+    id:   land
+    properties:
+      minzoom: 8
+    Datasource:
+      <<: *shapefile
+      file: shp/osmdata/land_polygons.shp
+
+  # - <<: *layer
+  #   name: lc500mMODIS
+  #   id:   lc500mMODIS
+  #   class: landcoverraster
+  #   properties:
+  #     minzoom: 0
+  #     maxzoom: 18
+  #   geometry: raster
+  #   srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+  #   Datasource:
+  #     file: landcover/LC_500m_MODIS-to-rgb.vrt
+
+  - <<: *layer
+    name: lc500mMODIS_low
+    id:   lc500mMODIS_low
     properties:
       minzoom: 0
+      maxzoom: 9
+    geometry: raster
+    srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+    Datasource:
+      file: landcover/LC_500m_MODIS-to-rgb.vrt
+
+  - <<: *layer
+    name: lc500mMODIS_med
+    id:   lc500mMODIS_med
+    properties:
+      minzoom: 10
+      maxzoom: 13
+    geometry: raster
+    srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+    Datasource:
+      file: landcover/LC_500m_MODIS-to-rgb.vrt      
+
+  - <<: *layer
+    name: lc500mMODIS_high
+    id:   lc500mMODIS_high
+    properties:
+      minzoom: 14
       maxzoom: 18
     geometry: raster
     srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
@@ -106,6 +148,17 @@ Layer:
       encoding: "ISO-8859-1"
 
   - <<: *layer
+    name: ne_50m_ocean
+    id:   ne_50m_ocean
+    properties:
+      minzoom: 0
+      maxzoom: 7
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_50m_ocean-merc.zip
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
     name: ne_110m_geography_marine_polys
     id:   ne_110m_geography_marine_polys
     properties:
@@ -137,15 +190,6 @@ Layer:
       <<: *shapefile
       file: shp/natural_earth/ne_10m_geography_marine_polys-merc.zip
       encoding: "ISO-8859-1"
-
-  - <<: *layer
-    name: water
-    id:   water
-    properties:
-      minzoom: 8
-    Datasource:
-      <<: *shapefile
-      file: shp/osmdata/water_polygons.shp
 
   - <<: *layer
     name: nullisland
@@ -298,6 +342,15 @@ Layer:
           FROM osm_green_areas_z10
           WHERE geometry && !bbox!
         ) AS _
+
+  - <<: *layer
+    name: water
+    id:   water
+    properties:
+      minzoom: 8
+    Datasource:
+      <<: *shapefile
+      file: shp/osmdata/water_polygons.shp
 
   - <<: *layer
     name: water-bodies-high
