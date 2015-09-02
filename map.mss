@@ -26,10 +26,6 @@
 Map {
   background-color: @color_water;
   font-directory: url("fonts/");
-
-  [zoom>=10] {
-    background-color: @color_physical;
-  }
 }
 
 /**
@@ -1268,7 +1264,7 @@ Map {
 }
 
 #lc500mMODIS_low {
-  [zoom>=0][zoom<10] {
+  [zoom>=0][zoom<9] {
     raster-opacity:1;
     raster-scaling:gaussian;
     image-filters: agg-stack-blur(0,0);  
@@ -1276,16 +1272,16 @@ Map {
 }
 
 #lc500mMODIS_med {
-  [zoom>=10] {
+  [zoom>=9] {
     raster-opacity:1;
     raster-scaling:gaussian;
-    image-filters: agg-stack-blur(5,5);
+    image-filters: agg-stack-blur(3,3);
   }
 }
 
 #lc500mMODIS_high {
   [zoom>=14] {
-    raster-opacity:0.5;
+    raster-opacity:0.8;
     raster-scaling:gaussian;
     image-filters: agg-stack-blur(20,20);    
   }

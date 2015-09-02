@@ -53,29 +53,17 @@ Layer:
     name: land
     id:   land
     properties:
-      minzoom: 8
+      minzoom: 10
     Datasource:
       <<: *shapefile
       file: shp/osmdata/land_polygons.shp
-
-  # - <<: *layer
-  #   name: lc500mMODIS
-  #   id:   lc500mMODIS
-  #   class: landcoverraster
-  #   properties:
-  #     minzoom: 0
-  #     maxzoom: 18
-  #   geometry: raster
-  #   srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
-  #   Datasource:
-  #     file: landcover/LC_500m_MODIS-to-rgb.vrt
 
   - <<: *layer
     name: lc500mMODIS_low
     id:   lc500mMODIS_low
     properties:
       minzoom: 0
-      maxzoom: 9
+      maxzoom: 8
     geometry: raster
     srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
     Datasource:
@@ -85,7 +73,7 @@ Layer:
     name: lc500mMODIS_med
     id:   lc500mMODIS_med
     properties:
-      minzoom: 10
+      minzoom: 9
       maxzoom: 13
     geometry: raster
     srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
