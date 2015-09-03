@@ -3,7 +3,7 @@
 name:             'Terrain Classic'
 description:      ''
 attribution:      'Map Data © OpenStreetMap'
-center:           [-122.3782, 37.7706, 10]
+center:           [-122.3782, 37.7706, 5]
 format:           png
 interactivity:    false
 minzoom:          0
@@ -35,7 +35,6 @@ _shp_default:     &shapefile
   estimate_extent: false
   extent:         '-20037508.34,-20037508.34,20037508.34,20037508.34'
   srs:            '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
-
 
 # == Stylesheets =======================================================
 
@@ -276,18 +275,17 @@ Layer:
     name: green-areas-high
     id:   green-areas-high
     properties:
-      minzoom: 14
+      minzoom: 13
     Datasource:
       <<: *postgis
       geometry_field: geometry
       table: >
         (
           SELECT
-            name,
-            type,
             geometry,
+            type,
             area
-          FROM osm_green_areas
+          FROM osm_green_areas_z13_dissolved
           WHERE geometry && !bbox!
         ) AS _
 
@@ -307,7 +305,7 @@ Layer:
             type,
             geometry,
             area
-          FROM osm_green_areas_z13
+          FROM osm_green_areas
           WHERE geometry && !bbox!
         ) AS _
 
@@ -550,54 +548,14 @@ Layer:
         ) AS _
 
   - <<: *layer
-    name: city_points_z4
-    id:   city_points_z4
+    name: aries-places-points
+    id:   aries-places-points
     properties:
       minzoom: 4
-      maxzoom: 4
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_points_z4.shp
-
-  - <<: *layer
-    name: city_points_z5
-    id:   city_points_z5
-    properties:
-      minzoom: 5
-      maxzoom: 5
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_points_z5.shp
-
-  - <<: *layer
-    name: city_points_z6
-    id:   city_points_z6
-    properties:
-      minzoom: 6
-      maxzoom: 6
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_points_z6.shp
-
-  - <<: *layer
-    name: city_points_z7
-    id:   city_points_z7
-    properties:
-      minzoom: 7
-      maxzoom: 7
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_points_z7.shp
-
-  - <<: *layer
-    name: city_points_z8
-    id:   city_points_z8
-    properties:
-      minzoom: 8
       maxzoom: 8
     Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_points_z8.shp
+      <<: *shapefile      
+      file: shp/aries_places_merc.shp
 
   - <<: *layer
     name: airports
@@ -690,74 +648,14 @@ Layer:
       file: shp/labels_admin/admin-1-labels-z7.shp
 
   - <<: *layer
-    name: city_labels_z4
-    id:   city_labels_z4
+    name: aries-places-labels
+    id:   aries-places-labels
     properties:
       minzoom: 4
-      maxzoom: 4
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_labels_z4.shp
-
-  - <<: *layer
-    name: city_labels_z5
-    id:   city_labels_z5
-    properties:
-      minzoom: 5
-      maxzoom: 5
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_labels_z5.shp
-
-  - <<: *layer
-    name: city_labels_z6
-    id:   city_labels_z6
-    properties:
-      minzoom: 6
-      maxzoom: 6
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_labels_z6.shp
-
-  - <<: *layer
-    name: city_labels_z7
-    id:   city_labels_z7
-    properties:
-      minzoom: 7
-      maxzoom: 7
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_labels_z7.shp
-
-  - <<: *layer
-    name: city_labels_z8
-    id:   city_labels_z8
-    properties:
-      minzoom: 8
-      maxzoom: 8
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_labels_z8.shp
-
-  - <<: *layer
-    name: city_labels_z9
-    id:   city_labels_z9
-    properties:
-      minzoom: 9
-      maxzoom: 9
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_points_z9.shp
-
-  - <<: *layer
-    name: city_labels_z10
-    id:   city_labels_z10
-    properties:
-      minzoom: 10
       maxzoom: 16
     Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_points_z10.shp
+      <<: *shapefile      
+      file: shp/aries_places_merc.shp
 
   - <<: *layer
     name: water-bodies-labels-high
@@ -854,7 +752,7 @@ Layer:
             type,
             geometry,
             area
-          FROM osm_green_areas_z13
+          FROM osm_green_areas_z13_bu
           WHERE geometry && !bbox!
           ORDER BY area DESC
         ) AS _
@@ -971,4 +869,3 @@ Layer:
     Datasource:
       <<: *shapefile
       file: shp/continents_900913.shp
-
