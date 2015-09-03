@@ -271,7 +271,7 @@ Map {
 
 #admin1-labels-50m-z5 {
     text-face-name: @text_font_administrative;
-    text-wrap-width: 80;
+    text-wrap-width: 80;    
     text-fill: @label_color_administrative;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_halo_low;
@@ -304,7 +304,9 @@ Map {
 #admin0-labels-z3[longfrom>3] {
     text-name: "[shortname]";
     text-face-name: @text_font_administrative;
+    text-transform: uppercase;
     text-wrap-width: 80;
+    text-character-spacing: @text_character_spacing_sm;
     text-size: 18;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_halo_low;     
@@ -315,9 +317,11 @@ Map {
 #admin0-labels-z3[longfrom<=3] {
     text-name: "[name]";
     text-face-name: @text_font_administrative;
+    text-transform: uppercase;
     text-size: 22;
     text-line-spacing: -8;
     text-wrap-width: 100;
+    text-character-spacing: @text_character_spacing_sm;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_halo_low;
     text-fill: @label_color_administrative;
@@ -326,7 +330,9 @@ Map {
 #admin0-labels-z4 {
     text-name: [name];
     text-face-name: @text_font_administrative;
+    text-transform: uppercase;
     text-wrap-width: 80;
+    text-character-spacing: @text_character_spacing_lg;
     text-size: 22;
     text-min-distance: 15;
     text-halo-radius: @text_font_halo_radius_sm;
@@ -337,7 +343,9 @@ Map {
 #admin0-labels-z5 {
   text-name: [name];
   text-face-name: @text_font_administrative;
+  text-transform: uppercase;
   text-wrap-width: 80;
+  text-character-spacing: @text_character_spacing_xlg;
   text-size: 24;
   text-halo-radius: @text_font_halo_radius_sm;
   text-halo-fill: @label_color_halo_low;   
@@ -347,8 +355,10 @@ Map {
 #admin0-labels-z6 {
   text-name: [name];
   text-face-name: @text_font_administrative;
+  text-transform: uppercase;
   text-wrap-width: 80;
-  text-size: 24;
+  text-character-spacing: @text_character_spacing_xlg;
+  text-size: 34;
   text-halo-radius: @text_font_halo_radius_sm;
   text-halo-fill: @label_color_halo_low;   
   text-fill: @label_color_administrative;
@@ -383,27 +393,28 @@ Map {
 
     [zoom>=4] {
       text-size: @text_font_size_xsm;
-      text-placements: "W,E";
+      text-placements: "W,E,S";
       
       [population>700000] {
         text-size: @text_font_size_xsm * 1.2;
       }
 
       [population>7000000] {
-        text-size: @text_font_size_xsm * 1.5;
+        text-size: @text_font_size_xsm * 1.3;
       }      
     }
 
     [zoom>=5]{
       text-size: @text_font_size_sm;
-      text-placements: "E,W";
+      text-placements: "E,W,N";
+      text-min-distance: 5;
       
       [population>700000] {
         text-size: @text_font_size_sm * 1.2;
       }
 
       [population>7000000] {
-        text-size: @text_font_size_sm * 1.5;
+        text-size: @text_font_size_sm * 1.3;
         text-allow-overlap: true;
       }       
     }
@@ -456,122 +467,6 @@ Map {
 
   }
 }
-
-// #city_labels_z4,
-// #city_labels_z5,
-// #city_labels_z6 {
-//   // for debugging
-//   //::outline {
-//   //  polygon-fill: #fff;
-//   //  polygon-opacity: 0.1;
-//   //}
-//   text-name: [name];
-//   text-face-name: @text_font_city;
-//   text-fill: @label_color_city;
-//   text-placement: interior;
-//   text-vertical-alignment: bottom;
-//   text-min-distance: 5;
-//   text-dy: -5;
-//   text-halo-radius: @text_font_halo_radius_sm;
-//   text-halo-fill: @label_color_halo_low;   
-
-//   [justified='left'] {
-//     //text-horizontal-alignment: left;
-//     text-horizontal-alignment: middle;
-//     //text-dx: 20;
-//   }
-
-//   [justified='right'] {
-//     //text-horizontal-alignment: right;
-//     text-horizontal-alignment: middle;
-//     //text-dx: -20;
-//   }
-
-//   [zoom>=4]  {
-//     text-size: @text_font_size_xxsm;
-//   }
-
-//   [zoom>=5] {
-//     text-size: @text_font_size_xsm;
-//   }
-
-//   [font_size>=14] {
-//     text-size: @text_font_size_medium;
-//   }
-
-//   [font_size>=16] {
-//     text-size: @text_font_size_medium_plus;
-//   }
-
-//   [font_size>=18] {
-//     text-size: @text_font_size_large;
-//   }
-// }
-
-// #city_labels_z7,
-// #city_labels_z8, {
-//   // for debugging
-//   //::outline {
-//   //  polygon-fill: #fff;
-//   //  polygon-opacity: 0.3;
-//   //}
-//   [justified='left'] {
-//     text-horizontal-alignment: left;
-//     text-dx: 15;
-//   }
-
-//   [justified='right'] {
-//     text-horizontal-alignment: right;
-//     text-dx: -15;
-//   }
-
-//   text-name: [name];
-//   text-face-name: @text_font_city;
-//   text-fill: @label_color_city;
-//   text-size: @text_font_size_sm;
-//   text-min-distance: 5;
-//   text-allow-overlap: true;
-//   text-halo-radius: @text_font_halo_radius_sm;
-//   text-halo-fill: @label_color_halo_low;   
-
-//   [font_size>=14] {
-//     text-size: @text_font_size_medium;
-//   }
-
-//   [font_size>=20] {
-//     text-size: @text_font_size_large;
-//   }
-// }
-
-// #city_labels_z9,
-// #city_labels_z10 {
-//   text-name: [name];
-//   text-face-name: @text_font_city;
-//   text-fill: @label_color_city;
-//   text-size: @text_font_size_medium_plus;
-//   text-halo-radius: @text_font_halo_radius_large;
-//   text-halo-fill: @label_color_halo_high;
-//   text-halo-comp-op: overlay;
-
-//   [font_size>=20] {
-//     text-size: @text_font_size_large;
-//   }
-  
-//   [zoom>=11] {
-//     text-halo-fill: @label_color_places_halo_low;
-//   }
-// }
-
-// #city_points_z4,
-// #city_points_z5, 
-// #city_points_z6,
-// #city_points_z7,
-// #city_points_z8 {
-//   marker-ignore-placement: true;
-//   marker-width: 5;
-//   marker-fill: #2e2115;
-//   marker-line-width: 0;
-// }
 
 #airports {
   [zoom>=10] {
