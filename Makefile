@@ -154,6 +154,7 @@ db/postgres: db/functions/highroad
 
 db/shapefiles: shp/osmdata/land-polygons-complete-3857.zip \
 		   shp/osmdata/water-polygons-split-3857.zip \
+		   shp/aries/aries_places_merc.zip \
 		   shp/natural_earth/ne_50m_ocean-merc.zip \
 		   shp/natural_earth/ne_10m_ocean-merc.zip \
 		   shp/natural_earth/ne_50m_land-merc.zip \
@@ -354,6 +355,26 @@ landcover/LCType.tif: landcover/GlobalLandCover_tif.zip
 
 landcover/GlobalLandCover_tif.zip:
 	curl -fL "http://landcover.usgs.gov/documents/GlobalLandCover_tif.zip" -o $@
+
+data/aries/z4to10.json
+	# copy the json to shp so the attribute fields can be renamed, be sure to use UTF-8 encoding
+	ogr2ogr --config SHAPE_ENCODING UTF-8 data/aries/z4to10.shp data/aries/z4to10.json 
+	# create the projected version of the aries data with the zoom column renamed to scalerank
+	ogr2ogr -f 'ESRI Shapefile' \ 
+	-t_srs EPSG:3857 \ 
+	-skipfailures \ 
+	-sql "Select name, zoom as scalerank, population, capital from z4to10" \ 
+	shp/aries/aries_places_merc.shp \ 
+	data/aries/z4to10.shp
+
+shp/aries/aries_places_merc.index: shp/aries/aries_places_merc.shp
+	shapeindex $<
+
+shp/aries/aries_places_merc.zip: shp/aries/aries_places_merc.shp \
+	shp/aries/aries_places_merc.dbf \
+	shp/aries/aries_places_merc.prj \
+	shp/aries/aries_places_merc.shx \
+	shp/aries/aries_places_merc.index \
 
 # complete wrapping
 else
