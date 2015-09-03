@@ -1,0 +1,11 @@
+evergreen: 119, 180, 151
+other forest: 160, 188, 157
+shrub: 242 221 193
+dessert shrub: 226 192 154
+barren: 247 238 216
+cropland: 228 229 166
+pasture: 243 246 158
+orchard & vineyard: 209 226 172
+savanna / grassland & herbaceous: 255 246 180
+wetland: 173 208 202
+Savanna = r: 222 g: 224 b: 190
