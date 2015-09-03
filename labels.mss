@@ -2,8 +2,8 @@
 @text_font_administrative: 'PT Sans Narrow Regular', 'Unifont Medium';
 @text_font_city: 'PT Sans Narrow Regular', 'Unifont Medium';
 @text_font_parks: 'PT Sans Narrow Regular', 'Unifont Medium';
-@text_font_water: 'PT Sans Narrow Regular', 'Unifont Medium';
-@text_font_water_bold: 'PT Sans Narrow Bold', 'Unifont Bold';
+@text_font_water: 'PT Sans Italic', 'Unifont Medium';
+@text_font_water_bold: 'PT Sans Bold Italic', 'Unifont Bold';
 
 @label_color_transport: #524c4c;
 @label_color_administrative: #2e2115;
@@ -19,6 +19,7 @@
 @text_character_spacing_sm: 0.7;
 @text_character_spacing_md: 1.2;
 @text_character_spacing_lg: 1.7;
+@text_character_spacing_xlg: 2.2;
 
 @text_font_halo_radius_sm: 1;
 @text_font_halo_radius_large: 2;
@@ -115,35 +116,44 @@ Map {
 #ne_110m_geography_marine_polys[zoom=3][changed!=''],
 #ne_50m_geography_marine_polys[zoom=4][scalerank<4][changed!=''] {
     text-name: [name];
+    
     [namealt!=''] {
       text-name: [name] + '\n(' + [namealt] + ')';
     }
+    
     text-face-name: @text_font_water_bold;
     text-wrap-width: 40;
-    text-size: @text_font_size_medium;
-    text-character-spacing: @text_character_spacing_lg;
+    text-wrap-character: ' ';
+    text-size: @text_font_size_sm;
+    text-character-spacing: @text_character_spacing_xlg;
+    text-align: center;
+
     text-fill: @label_color_water;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_water_halo;
 }
 
-#ne_50m_geography_marine_polys[zoom=5][changed!=''],
-#ne_10m_geography_marine_polys[zoom>=6][zoom<=8][changed!='']
+#ne_50m_geography_marine_polys[zoom=5][scalerank<4][changed!=''],
+#ne_10m_geography_marine_polys[zoom>=6][zoom<=8][scalerank<7][changed!='']
 {
     text-name: [name];
+
     [namealt!=''] {
       text-name: [name] + '\n(' + [namealt] + ')';
     }
+
     [name = 'Hecate Straight'] {
       text-name: 'Hecate Strait' + [namealt]; // Becase we know namealt is empty
     }
+
     [name = 'Queen Charlotte Straight'] {
       text-name: 'Queen Charlotte Strait' + [namealt]; // Becase we know namealt is empty
     }
-    text-face-name: @text_font_water;
-    text-wrap-width: 80;
+
+    text-face-name: @text_font_water_bold;
+    text-wrap-width: 50;
     text-size: @text_font_size_medium;
-    text-character-spacing: @text_character_spacing_md;
+    text-character-spacing: @text_character_spacing_lg;
     text-fill: @label_color_water;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_water_halo;
