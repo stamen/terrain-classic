@@ -3,7 +3,7 @@
 name:             'Terrain Classic'
 description:      ''
 attribution:      'Map Data © OpenStreetMap'
-center:           [-122.3782, 37.7706, 5]
+center:           [-122.3782, 37.7706, 11]
 format:           png
 interactivity:    false
 minzoom:          0
@@ -860,6 +860,25 @@ Layer:
          LIMIT 25)
          AS _
 
+  # ---- Highway Shields ----------------------------------------------------
+  - <<: *layer
+    name: highway_shields
+    id:   highway_shields
+    properties:
+      minzoom: 10
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            ref,
+            highway,
+            geometry
+          FROM highway_shields
+          WHERE geometry && !bbox!
+        ) AS _
+
   - <<: *layer
     name: continents
     id:   continents
@@ -869,3 +888,4 @@ Layer:
     Datasource:
       <<: *shapefile
       file: shp/continents_900913.shp
+
