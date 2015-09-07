@@ -6,6 +6,8 @@
 @text_font_water_bold: 'PT Sans Bold Italic', 'Unifont Bold';
 
 @label_color_transport: #524c4c;
+@label_color_shield: #fff;
+@label_color_shield_fed: #333;
 @label_color_administrative: #2e2115;
 @label_color_city: #2e2115;
 
@@ -66,47 +68,44 @@ Map {
   [highway='trunk'],
   [highway='primary'] {
     // arbitrary default shield
-    shield-file: url(images/ca.svg);
-    shield-fill: white;
+    shield-file: url(shields/ca.svg);
+    shield-fill: @label_color_shield;
     shield-transform: scale(0.052, 0.052);
-    shield-face-name: "Roadgeek 2005 Series D Regular";
+    shield-face-name: @text_font_transport;
     shield-name: [ref];
-    shield-min-distance: 250;
-    shield-spacing: 250;
+    shield-min-distance: 50;
+    // shield-spacing: 250;
     // half the width of the shield to prevent from wrapping
-    shield-min-padding: 10;
+    // shield-min-padding: 10;
 
     [ref=~'I \d+'] {
-      shield-file: url(images/interstate_2.svg);
+      shield-file: url(shields/interstate_2.svg);
       shield-transform: scale(0.033, 0.033);
       shield-size: 9;
       shield-name: "[ref].replace('I ', '')";
-      shield-fill: white;
     }
 
     [ref=~'I \d{3,}'] {
-      shield-file: url(images/interstate_3.svg);
+      shield-file: url(shields/interstate_3.svg);
       shield-transform: scale(0.033, 0.033);
       shield-size: 9;
       shield-name: "[ref].replace('I ', '')";
-      shield-fill: white;
     }
 
     [ref=~'US \d+'] {
-      shield-file: url(images/us.svg);
+      shield-file: url(shields/us.svg);
       shield-transform: scale(0.052, 0.052);
       shield-size: 10;
       shield-name: "[ref].replace('US ', '')";
-      shield-fill: #333;
+      shield-fill: @label_color_shield_fed;
       shield-text-dy: 1;
     }
 
     [ref=~'CA \d+'] {
-      shield-file: url(images/ca.svg);
+      shield-file: url(shields/ca.svg);
       shield-transform: scale(0.052, 0.052);
       shield-size: 10;
       shield-name: "[ref].replace('CA ', '')";
-      shield-fill: white;
       shield-text-dy: 2.5;
     }
   }
