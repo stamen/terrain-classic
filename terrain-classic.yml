@@ -285,7 +285,7 @@ Layer:
             geometry,
             type,
             area
-          FROM osm_green_areas_z13_dissolved
+          FROM osm_green_areas
           WHERE geometry && !bbox!
         ) AS _
 
@@ -305,7 +305,7 @@ Layer:
             type,
             geometry,
             area
-          FROM osm_green_areas
+          FROM osm_green_areas_z13
           WHERE geometry && !bbox!
         ) AS _
 
@@ -752,7 +752,7 @@ Layer:
             type,
             geometry,
             area
-          FROM osm_green_areas_z13_bu
+          FROM osm_green_areas_z13
           WHERE geometry && !bbox!
           ORDER BY area DESC
         ) AS _
