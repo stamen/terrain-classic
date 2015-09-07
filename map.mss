@@ -283,9 +283,10 @@ Map {
 #green-areas-med[zoom=11][area>1000000],
 #green-areas-med[zoom=12][area> 500000],
 #green-areas-med[zoom=12][area> 200000],
-#green-areas-med[zoom=13][area>  75000],
-#green-areas-high[zoom=14][area> 10000],
-#green-areas-high[zoom>14],
+// #green-areas-med[zoom=13][area>  75000],
+// #green-areas-high[zoom=13][area> 10000],
+// #green-areas-high[zoom>13],
+#green-areas-high[zoom>=13],
 {
   polygon-fill: @color_green_areas;
   polygon-opacity: 0.5;
@@ -1055,14 +1056,14 @@ Map {
 
   [zoom>=16] {
     ::casing {
-      line-width: 10;
+      line-width: 0;//10;
     }
 
     line-width: 7;
 
     [is_link='yes'] {
       ::casing {
-        line-width: 6;
+        line-width: 0; //6;
       }
 
       line-width: 4;
@@ -1071,14 +1072,14 @@ Map {
 
   [zoom>=17] {
     ::outline {
-      line-width: 20;
+      // line-width: 20;
     }
 
     line-width: 14;
 
     [is_link='yes'] {
       ::casing{
-        line-width: 14;
+        // line-width: 14;
       }
 
       line-width: 7;
@@ -1087,14 +1088,14 @@ Map {
 
   [zoom>=18] {
     ::outline {
-      line-width: 25;
+      // line-width: 25;
     }
 
     line-width: 17;
 
     [is_link='yes'] {
       ::casing {
-        line-width: 19;
+        // line-width: 19;
       }
 
       line-width: 10;
@@ -1142,28 +1143,28 @@ Map {
 
   [zoom>=15] {
     ::casing {
-      line-width: 6;
+      line-width: 6.5;
     }
     line-width: 4;
   }
 
   [zoom>=16] {
     ::casing {
-      line-width: 6.5;
+      line-width: 0; //7.5;
     }    
     line-width: 4;    
   }
 
   [zoom>=17] {
     ::casing {
-      line-width: 11.5;
+      // line-width: 11.5;
     }
     line-width: 8;
   }
 
   [zoom>=18] {
     ::casing {
-      line-width: 14.5;
+      // line-width: 14.5;
     }    
     line-width: 11;
   }
@@ -1223,14 +1224,17 @@ Map {
 #roads[highway='service'],
 #bridges[highway='service'],
 {
-  [zoom>=15]
-  {
-    line-width: 1.5;
+  [zoom>=15] {
+    ::casing {
+     line-width: 2.8; 
+    }
+
+    line-width: 1.8;
   }
 
   [zoom>=16] {
     ::casing {
-      line-width: 4;
+      line-width: 0;
     }
 
     line-width: 2;
