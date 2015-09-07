@@ -12,12 +12,11 @@ CREATE MATERIALIZED VIEW highway_shields AS
     END AS priority
   FROM (
     SELECT
-      unnest(string_to_array(tags -> 'ref', ';')) AS ref,
-      tags -> 'highway' AS highway,
-      geom geom
-    FROM osm_planet
-    WHERE tags ? 'ref'
-      AND tags -> 'highway' IN ('motorway', 'trunk', 'primary', 'secondary', 'tertiary')
+      ref,
+      highway,
+      geometry geom
+    FROM osm_roads
+    WHERE highway IN ('motorway', 'trunk', 'primary', 'secondary', 'tertiary')
   ) AS _
   WHERE ref ~ '(CA|US|I) \d{1,3}$'
   GROUP BY ref, highway
