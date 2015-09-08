@@ -644,24 +644,24 @@ Layer:
       file: shp/labels_admin/admin-1-labels-z5.shp
 
   - <<: *layer
-    name: admin1-labels-50m-z6
-    id:   admin1-labels-50m-z6
+    name: admin1-labels
+    id:   admin1-labels
     properties:
-      minzoom: 6
-      maxzoom: 6
-    Datasource:
-      <<: *shapefile
-      file: shp/labels_admin/admin-1-labels-z6.shp
-
-  - <<: *layer
-    name: admin1-labels-50m-z7
-    id:   admin1-labels-50m-z7
-    properties:
-      minzoom: 7
+      minzoom: 5
       maxzoom: 7
     Datasource:
-      <<: *shapefile
-      file: shp/labels_admin/admin-1-labels-z7.shp
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            admin,
+            geometry,
+            scalerank
+          FROM ne_10m_admin_1_states_provinces_labels_merc
+          WHERE geometry && !bbox!
+        ) AS _
 
   - <<: *layer
     name: aries-places-labels

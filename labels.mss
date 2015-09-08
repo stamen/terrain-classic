@@ -334,10 +334,10 @@ Map {
 }
 
 #admin1-labels {  
-  [zoom>=4][scalerank<3],
-  [zoom>=5][scalerank<3],
+  // [zoom>=4][scalerank<3],
+  [zoom>=5][scalerank<3][admin!='United States of America'][admin!='Canada'],
   [zoom>=6][scalerank<6],
-  [zoom>=7][scalerank>=6] {
+  [zoom>=7][scalerank>=5] {
     text-name: [name];
     text-transform: uppercase;
     text-face-name: @text_font_administrative;    
