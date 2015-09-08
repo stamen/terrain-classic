@@ -1,6 +1,7 @@
 -- credit: Paul Ramsey's answer to http://gis.stackexchange.com/questions/162162/postgis-query-to-retrieve-the-largest-polygon-for-multi-polygons-by-grouping-on
 
 DROP TABLE IF EXISTS ne_10m_admin_1_states_provinces_labels;
+DROP TABLE IF EXISTS ne_10m_admin_1_states_provinces_labels_merc;
 
 CREATE TABLE ne_10m_admin_1_states_provinces_labels AS (
   WITH geoms AS (
@@ -11,3 +12,9 @@ CREATE TABLE ne_10m_admin_1_states_provinces_labels AS (
   FROM geoms
   ORDER BY name ASC, ST_Area(geometry) DESC
 );
+
+CREATE TABLE ne_10m_admin_1_states_provinces_labels_merc AS
+  SELECT name, admin, scalerank, ST_Transform(geometry, 3785) geometry
+  FROM ne_10m_admin_1_states_provinces_labels
+
+DROP TABLE ne_10m_admin_1_states_provinces_labels;
