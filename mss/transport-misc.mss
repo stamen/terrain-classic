@@ -489,91 +489,91 @@
   }
 }
 
-#tunnels[kind='rail'],
-#roads[kind='rail'],
-#bridges[kind='rail']
-{
-  ::casing,
-  ::outline,
-  {
-    line-color: @color_transport_rail;
-  }
+// #tunnels[kind='rail'],
+// #roads[kind='rail'],
+// #bridges[kind='rail']
+// {
+//   ::casing,
+//   ::outline,
+//   {
+//     line-color: @color_transport_rail;
+//   }
 
-  line-color: @color_transport_rail;
+//   line-color: @color_transport_rail;
 
-  [zoom>=14] {
-    ::casing {
-      line-width: 3;
-      line-dasharray: 1,3;
-    }
+//   [zoom>=14] {
+//     ::casing {
+//       line-width: 3;
+//       line-dasharray: 1,3;
+//     }
 
-    line-width: 1;
-  }
+//     line-width: 1;
+//   }
 
-  [zoom>=16] {
-    ::casing {
-      line-width: 5;
-      line-dasharray: 1,4;
-    }
-  }
+//   [zoom>=16] {
+//     ::casing {
+//       line-width: 5;
+//       line-dasharray: 1,4;
+//     }
+//   }
 
-  [zoom>=18] {
-    ::casing {
-      line-width: 6;
-      line-dasharray: 2,6;
-    }
+//   [zoom>=18] {
+//     ::casing {
+//       line-width: 6;
+//       line-dasharray: 2,6;
+//     }
 
-    line-width: 2;
-  }
+//     line-width: 2;
+//   }
 
-  [zoom>=19] {
-    line-width: 4;
-  }
-}
+//   [zoom>=19] {
+//     line-width: 4;
+//   }
+// }
 
-#tunnels[highway='service'],
-#roads[highway='service'],
-#bridges[highway='service'],
-{
-  [zoom>=15] {
-    ::casing {
-     line-width: 2.8; 
-    }
+// #tunnels[highway='service'],
+// #roads[highway='service'],
+// #bridges[highway='service'],
+// {
+//   [zoom>=15] {
+//     ::casing {
+//      line-width: 2.8; 
+//     }
 
-    line-width: 1.8;
-  }
+//     line-width: 1.8;
+//   }
 
-  [zoom>=16] {
-    ::casing {
-      line-width: 0;
-    }
+//   [zoom>=16] {
+//     ::casing {
+//       line-width: 0;
+//     }
 
-    line-width: 2;
-  }
+//     line-width: 2;
+//   }
 
-  [zoom>=17] {
-    line-width: 4;
-  }
-}
+//   [zoom>=17] {
+//     line-width: 4;
+//   }
+// }
 
-#tunnels[kind='path'],
-#roads[kind='path'],
-#bridges[kind='path'],
-{
-  line-color: @color_transport_path;
+// #tunnels[kind='path'],
+// #roads[kind='path'],
+// #bridges[kind='path'],
+// {
+//   line-color: @color_transport_path;
 
-  [zoom>=15] {
-    line-width: 0.5;
-    line-cap: butt;
-    line-dasharray: 2, 3;
-  }
+//   [zoom>=15] {
+//     line-width: 0.5;
+//     line-cap: butt;
+//     line-dasharray: 2, 3;
+//   }
 
-  [zoom>=16] {
-    line-width: 0.7;
-  }
+//   [zoom>=16] {
+//     line-width: 0.7;
+//   }
 
-  [zoom>=17] {
-    line-width: 1.2;
-    line-dasharray: 4, 6;
-  }
-}
+//   [zoom>=17] {
+//     line-width: 1.2;
+//     line-dasharray: 4, 6;
+//   }
+// }

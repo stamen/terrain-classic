@@ -111,7 +111,7 @@
 
   [zoom>=14] {
     ::outline {
-      line-width: 9;
+      line-width: 6;
     }
 
     line-width: 4;    
