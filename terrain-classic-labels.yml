@@ -42,24 +42,12 @@ _shp_default:     &shapefile
 Stylesheet:
   - map.mss
   - labels.mss
-  - terrain-classic-labels.mss
+  - mss/terrain-classic-labels.mss
 
 
 # == Layers ============================================================
 
 Layer:
-
-  - <<: *layer
-    name: lc5minglobal2012
-    id:   lc5minglobal2012
-    status: off
-    properties:
-      minzoom: 0
-      maxzoom: 18
-    geometry: raster
-    srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
-    Datasource:
-      file: landcover/LC_5min_global_2012-to-rgb.vrt
 
   - <<: *layer
     name: ne_50m_lakes

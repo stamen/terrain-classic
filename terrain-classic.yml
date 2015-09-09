@@ -57,7 +57,7 @@ Stylesheet:
   # - mss/labels_water.mss
   - map.mss
   - labels.mss
-  - terrain-classic.mss
+  - mss/terrain-classic.mss
 
 
 # == Layers ============================================================

@@ -1,0 +1,286 @@
+# == Global project settings ===========================================
+
+name:             'Terrain Classic'
+description:      ''
+attribution:      'Map Data © OpenStreetMap'
+center:           [-122.3782, 37.7706, 11]
+format:           png
+interactivity:    false
+minzoom:          0
+maxzoom:          20
+srs:              '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+metatile:         2
+
+
+# == Layer & Datasource defaults =======================================
+
+_layer_default:   &layer
+  'srs-name':     '3857'
+  srs:            '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+
+_pg_default:      &postgis
+  type:           postgis
+  dbname:         '{{PGDATABASE}}'
+  host:           '{{PGHOST}}'
+  user:           '{{PGUSER}}'
+  password:       '{{PGPASSWORD}}'
+  port:           '{{PGPORT}}'
+  geometry_field: way
+  srid:           3857
+  extent:         '-20037508.34,-20037508.34,20037508.34,20037508.34'
+  srs:            '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+
+_shp_default:     &shapefile
+  type:           shape
+  estimate_extent: false
+  extent:         '-20037508.34,-20037508.34,20037508.34,20037508.34'
+  srs:            '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+
+# == Stylesheets =======================================================
+
+Stylesheet:
+  # - mss/global_variables.mss
+  # - mss/water.mss
+  # - mss/admin.mss
+  # - mss/transport-misc.mss
+  # - mss/roads.mss
+  # - mss/buildings.mss
+  # - mss/land-fills.mss
+  # - mss/landcover.mss
+  # - mss/labels_admin.mss
+  # - mss/labels_airports.mss
+  # - mss/labels_geography.mss
+  # - mss/labels_green_areas.mss
+  # - mss/labels_hwy_shileds.mss
+  # - mss/labels_places.mss
+  # - mss/labels_roads.mss
+  # - mss/labels_water.mss
+  - map.mss
+  - mss/terrain-classic-lines.mss
+
+
+# == Layers ============================================================
+
+Layer:
+
+  - <<: *layer
+    name: ne_10m_rivers_lake_centerlines_scale_rank
+    id:   ne_10m_rivers_lake_centerlines_scale_rank
+    properties:
+      minzoom: 4
+      maxzoom: 8
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_rivers_lake_centerlines_scale_rank-merc.zip
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: admin0-map-units-10m
+    id:   admin0-map-units-10m
+    properties:
+      minzoom: 4
+      maxzoom: 9
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_admin_0_boundary_lines_map_units-merc.zip
+
+  - <<: *layer
+    name: admin1-lines-10m
+    id:   admin1-lines-10m
+    properties:
+      minzoom: 4
+      maxzoom: 9
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_admin_1_states_provinces_lines-merc.zip
+
+  - <<: *layer
+    name: ne_50m_admin_0_boundary_lines_land
+    id:   ne_50m_admin_0_boundary_lines_land
+    class: country-boundary
+    properties:
+      minzoom: 3
+      maxzoom: 4
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_50m_admin_0_boundary_lines_land-merc.zip
+
+  - <<: *layer
+    name: ne_10m_admin_0_boundary_lines_land
+    id:   ne_10m_admin_0_boundary_lines_land
+    class: country-boundary-10m
+    properties:
+      minzoom: 5
+      maxzoom: 9
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_admin_0_boundary_lines_land-merc.zip
+
+  - <<: *layer
+    name: admin1-lines-osm
+    id:   admin1-lines-osm
+    properties:
+      minzoom: 10
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            geometry,
+            name
+          FROM osm_admin
+          WHERE geometry && !bbox!
+            AND type = 'administrative'
+            AND admin_level = 4
+        ) AS _
+
+  - <<: *layer
+    name: ne-roads
+    id:   ne-roads
+    properties:
+      minzoom: 7
+      maxzoom: 8
+      cache-features: on
+    Datasource:
+      <<: *shapefile
+      file: shp/natural_earth/ne_10m_roads-merc.zip
+
+  - <<: *layer
+    name: tunnels
+    id:   tunnels
+    class: tunnels
+    properties:
+      minzoom: 14
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'is_tunnel=''yes''')
+        ) AS _
+
+  - <<: *layer
+    name: roads
+    id:   roads
+    class: roads
+    properties:
+      minzoom: 14
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!)
+        ) AS _
+
+  - <<: *layer
+    name: roads_med
+    id:   roads_med
+    properties:
+      minzoom: 9
+      maxzoom: 13
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'kind!=''highway''')
+        ) AS _
+
+  - <<: *layer
+    name: highways_med
+    id:   highways_med
+    properties:
+      minzoom: 9
+      maxzoom: 13
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'kind=''highway''')
+        ) AS _
+
+  - <<: *layer
+    name: bridges
+    id:   bridges
+    class: bridges
+    properties:
+      minzoom: 13
+      cache-features: on
+      group-by: explicit_layer
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'is_bridge=''yes''')
+        ) AS _
+
+  - <<: *layer
+    name: buildings-high
+    id:   buildings-high
+    properties:
+      minzoom: 14
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            osm_id,
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_buildings
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: buildings-med
+    id:   buildings-med
+    properties:
+      minzoom: 13
+      maxzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_buildings_z13
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: aeroways
+    id:   aeroways
+    properties:
+      minzoom: 12
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry
+          FROM osm_aeroways
+          WHERE geometry && !bbox!
+        ) AS _
