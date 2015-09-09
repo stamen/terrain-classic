@@ -336,7 +336,7 @@ Map {
 #admin1-labels {  
   // [zoom>=4][scalerank<3],
   [zoom>=5][scalerank<3][admin!='United States of America'][admin!='Canada'],
-  [zoom>=6][scalerank<6],
+  [zoom>=6][scalerank<5],
   [zoom>=7][scalerank>=5] {
     text-name: [name];
     text-transform: uppercase;
@@ -346,7 +346,7 @@ Map {
     text-halo-fill: @label_color_halo_low;
     text-halo-radius: @text_font_halo_radius_sm;
     text-size: @text_font_size_sm;
-    text-wrap-width: 80;
+    text-wrap-width: 40;
     text-placement-type: simple;
     text-placements: 'E,N,W,S';
     
