@@ -356,15 +356,6 @@ landcover/LCType.tif: landcover/GlobalLandCover_tif.zip
 landcover/GlobalLandCover_tif.zip:
 	curl -fL "http://landcover.usgs.gov/documents/GlobalLandCover_tif.zip" -o $@
 
-shp/aries/aries_places_merc.index: shp/aries/aries_places_merc.shp
-	shapeindex $<
-
-shp/aries/aries_places_merc.zip: shp/aries/aries_places_merc.shp \
-	shp/aries/aries_places_merc.dbf \
-	shp/aries/aries_places_merc.prj \
-	shp/aries/aries_places_merc.shx \
-	shp/aries/aries_places_merc.index \
-
 # complete wrapping
 else
 .DEFAULT:
