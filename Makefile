@@ -154,7 +154,6 @@ db/postgres: db/functions/highroad
 
 db/shapefiles: shp/osmdata/land-polygons-complete-3857.zip \
 		   shp/osmdata/water-polygons-split-3857.zip \
-		   shp/aries/aries_places_merc.zip \
 		   shp/natural_earth/ne_50m_ocean-merc.zip \
 		   shp/natural_earth/ne_10m_ocean-merc.zip \
 		   shp/natural_earth/ne_50m_land-merc.zip \
