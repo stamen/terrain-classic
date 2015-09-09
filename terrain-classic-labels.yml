@@ -170,6 +170,26 @@ Layer:
       file: merged_labels/merged_points_z8.shp
 
   - <<: *layer
+    name: aries-places-points
+    id:   aries-places-points
+    properties:
+      minzoom: 4
+      maxzoom: 8
+    Datasource:
+      <<: *postgis      
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+          name, 
+          zoom scalerank,
+          population,
+          geometry
+          FROM aries
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
     name: airports
     id:   airports
     properties:
@@ -260,74 +280,24 @@ Layer:
       file: shp/labels_admin/admin-1-labels-z7.shp
 
   - <<: *layer
-    name: city_labels_z4
-    id:   city_labels_z4
+    name: aries-places-labels
+    id:   aries-places-labels
     properties:
       minzoom: 4
-      maxzoom: 4
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_labels_z4.shp
-
-  - <<: *layer
-    name: city_labels_z5
-    id:   city_labels_z5
-    properties:
-      minzoom: 5
-      maxzoom: 5
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_labels_z5.shp
-
-  - <<: *layer
-    name: city_labels_z6
-    id:   city_labels_z6
-    properties:
-      minzoom: 6
-      maxzoom: 6
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_labels_z6.shp
-
-  - <<: *layer
-    name: city_labels_z7
-    id:   city_labels_z7
-    properties:
-      minzoom: 7
-      maxzoom: 7
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_labels_z7.shp
-
-  - <<: *layer
-    name: city_labels_z8
-    id:   city_labels_z8
-    properties:
-      minzoom: 8
-      maxzoom: 8
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_labels_z8.shp
-
-  - <<: *layer
-    name: city_labels_z9
-    id:   city_labels_z9
-    properties:
-      minzoom: 9
-      maxzoom: 9
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_points_z9.shp
-
-  - <<: *layer
-    name: city_labels_z10
-    id:   city_labels_z10
-    properties:
-      minzoom: 10
       maxzoom: 16
     Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_points_z10.shp
+      <<: *postgis      
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+          name, 
+          zoom scalerank,
+          population,
+          geometry
+          FROM aries
+          WHERE geometry && !bbox!
+        ) AS _
 
   - <<: *layer
     name: water-bodies-labels-high

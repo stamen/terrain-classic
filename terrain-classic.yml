@@ -570,8 +570,18 @@ Layer:
       minzoom: 4
       maxzoom: 8
     Datasource:
-      <<: *shapefile      
-      file: shp/aries_places_merc.shp
+      <<: *postgis      
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+          name, 
+          zoom scalerank,
+          population,
+          geometry
+          FROM aries
+          WHERE geometry && !bbox!
+        ) AS _
 
   - <<: *layer
     name: airports
@@ -670,8 +680,18 @@ Layer:
       minzoom: 4
       maxzoom: 16
     Datasource:
-      <<: *shapefile      
-      file: shp/aries_places_merc.shp
+      <<: *postgis      
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+          name, 
+          zoom scalerank,
+          population,
+          geometry
+          FROM aries
+          WHERE geometry && !bbox!
+        ) AS _
 
   - <<: *layer
     name: water-bodies-labels-high
