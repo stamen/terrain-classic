@@ -356,17 +356,6 @@ landcover/LCType.tif: landcover/GlobalLandCover_tif.zip
 landcover/GlobalLandCover_tif.zip:
 	curl -fL "http://landcover.usgs.gov/documents/GlobalLandCover_tif.zip" -o $@
 
-# data/aries/z4to10.json
-# 	# copy the json to shp so the attribute fields can be renamed, be sure to use UTF-8 encoding
-# 	ogr2ogr --config SHAPE_ENCODING UTF-8 data/aries/z4to10.shp data/aries/z4to10.json 
-# 	# create the projected version of the aries data with the zoom column renamed to scalerank
-# 	ogr2ogr -f 'ESRI Shapefile' \ 
-# 	-t_srs EPSG:3857 \ 
-# 	-skipfailures \ 
-# 	-sql "Select name, zoom as scalerank, population, capital from z4to10" \ 
-# 	shp/aries/aries_places_merc.shp \ 
-# 	data/aries/z4to10.shp
-
 shp/aries/aries_places_merc.index: shp/aries/aries_places_merc.shp
 	shapeindex $<
 
