@@ -144,7 +144,7 @@ db/hstore: db
 
 .PHONY: db/shared
 
-db/shared: db/postgres db/shapefiles db/landcover
+db/shared: db/postgres db/aries db/shapefiles db/landcover
 
 .PHONY: db/postgres
 
@@ -179,7 +179,7 @@ db/aries: db/postgis data/aries/z4to10.json
 		-t_srs EPSG:3857 \
 		-nlt PROMOTE_TO_MULTI \
 		-nln $(subst db/,,$@) \
-		-lco GEOMETRY_NAME=geom \
+		-lco GEOMETRY_NAME=geometry \
 		-lco SRID=3857 \
 		-f PGDump /vsistdout/ \
 		$(word 2,$^) | pv | psql -q
