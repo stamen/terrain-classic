@@ -170,26 +170,6 @@ Layer:
       file: merged_labels/merged_points_z8.shp
 
   - <<: *layer
-    name: aries-places-points
-    id:   aries-places-points
-    properties:
-      minzoom: 4
-      maxzoom: 8
-    Datasource:
-      <<: *postgis      
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-          name, 
-          zoom scalerank,
-          population,
-          geometry
-          FROM aries
-          WHERE geometry && !bbox!
-        ) AS _
-
-  - <<: *layer
     name: airports
     id:   airports
     properties:
