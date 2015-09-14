@@ -1,6 +1,6 @@
 @text_font_transport: 'PT Sans Narrow Regular', 'Unifont Medium';
 @text_font_shield: 'PT Sans Bold', 'Unifont';
-@text_font_administrative: 'PT Sans Narrow Regular', 'Unifont Medium';
+@text_font_administrative: 'PT Sans Bold', 'Unifont Medium';
 @text_font_city: 'PT Sans Narrow Regular', 'Unifont Medium';
 @text_font_parks: 'PT Sans Narrow Regular', 'Unifont Medium';
 @text_font_water: 'PT Sans Italic', 'Unifont Medium';
@@ -25,6 +25,7 @@
 @text_character_spacing_xlg: 2.2;
 
 @text_font_halo_radius_sm: 1.5;
+@text_font_halo_radius_md: 1.75;
 @text_font_halo_radius_large: 2;
 
 @label_color_halo_low: fadeout(rgba(255,255,255,0.7), 30%);
@@ -472,104 +473,94 @@ Map {
 #aries-places-labels {
   [zoom=4][scalerank<5],
   [zoom=5][scalerank<6],
-  [zoom=6][scalerank<6],
-  [zoom=7][scalerank<7],
-  [zoom=8][scalerank<8],
-  [zoom=9][scalerank<9],
-  [zoom=10][scalerank<10],
-  [zoom=11][scalerank<11],
-  [zoom=12][scalerank<12],
-  [zoom=13][scalerank<13], 
-  [zoom=14][scalerank<14] 
-  [zoom>=15][scalerank<17]{
+  [zoom=6][scalerank<7],
+  [zoom=7][scalerank<8],
+  [zoom=8][scalerank<9],
+  [zoom=9][scalerank<10],
+  [zoom=10][scalerank<11],
+  [zoom=11][scalerank<12],
+  [zoom=12][scalerank<13],
+  [zoom=13][scalerank<14], 
+  [zoom=14][scalerank<15] 
+  [zoom>=15][scalerank<15]{
 
-    text-name: [name];
-    text-face-name: @text_font_city;
-    text-fill: @label_color_city;
-    text-min-distance: 3;
-    // text-min-padding: 5;
-    text-dy: 5;
-    text-dx: 5;
-    text-halo-radius: @text_font_halo_radius_sm;
-    text-halo-fill: @label_color_halo_low;
-    // text-allow-overlap: true;
-    text-placement-type: simple;
-    // text-avoid-edges: true;    
+    shield-file: url(shields/circle-12.svg);
+    shield-fill: @label_color_city;
+    shield-halo-fill: @label_color_halo_low;
+    shield-halo-radius: @text_font_halo_radius_sm;
+    shield-unlock-image: true;    
+    // shield-placement-type: simple;
+    // shield-placements: 'E,W,N,S,NE,NW,SE,SW';
+    shield-transform: scale(0.5, 0.5);
+    shield-face-name: @text_font_city;
+    shield-name: [name];    
+    shield-min-distance: 2; 
 
     [zoom>=4] {
-      text-size: @text_font_size_xsm;
-      text-placements: "W,E,S";
+      shield-size: @text_font_size_xsm;
+      shield-text-dy: -7;
       
       [population>700000] {
-        text-size: @text_font_size_xsm * 1.2;
+        shield-size: @text_font_size_xsm * 1.2;
+        shield-transform: scale(0.7, 0.7);
+        shield-text-dy: -9;
       }
 
       [population>7000000] {
-        text-size: @text_font_size_xsm * 1.3;
+        shield-size: @text_font_size_xsm * 1.3;
+        shield-transform: scale(0.8, 0.8);
+        shield-text-dy: -10;
       }      
     }
 
     [zoom>=5]{
-      text-size: @text_font_size_sm;
-      text-placements: "E,W,N";
-      text-min-distance: 5;
+      shield-size: @text_font_size_sm; 
+      shield-text-dy: -7;     
       
       [population>700000] {
-        text-size: @text_font_size_sm * 1.2;
+        shield-size: @text_font_size_sm * 1.2;
+        shield-text-dy: -9;
       }
 
       [population>7000000] {
-        text-size: @text_font_size_sm * 1.3;
-        // text-allow-overlap: true;
+        shield-size: @text_font_size_sm * 1.3;
       }       
     }
 
     [zoom>=6]{
-      text-size: @text_font_size_medium;
-      text-placements: "W,E,N";
+      shield-size: @text_font_size_medium;      
+      shield-text-dy: -8;
 
       [population>700000] {
-        text-size: @text_font_size_medium * 1.2;
+        shield-size: @text_font_size_medium * 1.2;
       }
 
       [population>7000000] {
-        text-size: @text_font_size_medium * 1.5;
+        shield-size: @text_font_size_medium * 1.5;
       }       
+    }
+
+    [zoom>=8] {
+      shield-halo-radius: @text_font_halo_radius_md;
     }
 
     [zoom>=10]{
-      text-size: @text_font_size_medium_plus;
-      text-halo-radius: @text_font_halo_radius_large;
-      text-halo-fill: @label_color_halo_high;
+      shield-size: @text_font_size_medium_plus;      
+      shield-halo-radius: @text_font_halo_radius_large;
+      shield-halo-fill: @label_color_halo_high;
       
       [population>700000] {
-        text-size: @text_font_size_large * 1.2;
+        shield-size: @text_font_size_medium_plus * 1.2;
       }
 
       [population>7000000] {
-        text-size: @text_font_size_large * 1.5;
+        shield-size: @text_font_size_medium_plus * 1.3;
       }       
     }
 
-  }
-}
-
-#aries-places-points {
-  [zoom=4][scalerank<5],
-  [zoom=5][scalerank<6],
-  [zoom=6][scalerank<6],
-  [zoom=7][scalerank<7],
-  [zoom=8][scalerank<8] {
-
-    marker-fill: #2e2115;
-    marker-line-width: 0;
-    marker-width: 5;
-    marker-ignore-placement: true;
-
-    [population>700000] {
-      marker-width: 7;
+    [zoom>=11] {
+      shield-opacity: 0;
     }
-
   }
 }
 
