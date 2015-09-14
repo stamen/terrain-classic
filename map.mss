@@ -21,7 +21,7 @@
 @color_building_outline_special: #00aeef;
 @color_airport_runways: #c8cebe; // hsl(82,8,81)
 @color_airport_runways_detail: darken(@color_airport_runways,20);
-@color_green_areas: darken(#c0d3b5,20);
+@color_green_areas: darken(#c0d3b5,18);
 
 Map {
   background-color: @color_water;
