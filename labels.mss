@@ -18,6 +18,8 @@
 @text_font_size_medium: 17;
 @text_font_size_medium_plus: 18;
 @text_font_size_large: 20;
+@text_font_size_xlg: 22;
+@text_font_size_xxlg: 34;
 
 @text_character_spacing_sm: 0.7;
 @text_character_spacing_md: 1.2;
@@ -347,20 +349,23 @@ Map {
     text-halo-fill: @label_color_halo_low;
     text-halo-radius: @text_font_halo_radius_sm;
     text-size: @text_font_size_sm;
+    text-character-spacing: 1;
     text-wrap-width: 40;
     text-placement-type: simple;
     text-placements: 'E,N,W,S';
     
     [zoom>=5] {
-     text-size: @text_font_size_medium; 
+     text-size: @text_font_size_sm; 
     }
 
     [zoom>=6] {
-      text-size: @text_font_size_medium_plus;
+      text-size: @text_font_size_medium;
+      text-character-spacing: 2;
     }
 
     [zoom>=7] {
       text-size: @text_font_size_large;
+      text-character-spacing: 3;
     }    
   }
 }
@@ -373,6 +378,7 @@ Map {
     text-halo-fill: @label_color_halo_low; 
     text-name: "[label_z4]";
     text-size:  @text_font_size_xsm;
+    text-character-spacing: 1;
 }
 
 #admin1-labels-50m-z5 {
@@ -384,7 +390,8 @@ Map {
     text-halo-comp-op: overlay; 
     text-halo-rasterizer: fast;
     text-name: "[label_z5]";
-    text-size:  @text_font_size_medium_plus;
+    text-size:  @text_font_size_sm;
+    text-character-spacing: 1;
 }
 
 #admin1-labels-50m-z6 {
@@ -394,7 +401,8 @@ Map {
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_halo_low; 
     text-name: "[label_z6]";
-    text-size:  @text_font_size_large;
+    text-size:  @text_font_size_medium;
+    text-character-spacing: 2;
 }
 
 #admin1-labels-50m-z7 {
@@ -405,7 +413,10 @@ Map {
     text-halo-fill: @label_color_halo_low; 
     text-name: "[label_z7]";
     text-size:  @text_font_size_large;
+    text-character-spacing: 3;
 }
+
+/* Admin 0 labels */
 
 #admin0-labels-z3[longfrom>3] {
     text-name: "[shortname]";
@@ -413,7 +424,7 @@ Map {
     text-transform: uppercase;
     text-wrap-width: 80;
     text-character-spacing: @text_character_spacing_sm;
-    text-size: 18;
+    text-size: @text_font_size_medium_plus;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_halo_low;     
     text-fill: @label_color_administrative;
@@ -424,7 +435,7 @@ Map {
     text-name: "[name]";
     text-face-name: @text_font_administrative;
     text-transform: uppercase;
-    text-size: 22;
+    text-size: @text_font_size_large;
     text-line-spacing: -8;
     text-wrap-width: 100;
     text-character-spacing: @text_character_spacing_sm;
@@ -439,7 +450,7 @@ Map {
     text-transform: uppercase;
     text-wrap-width: 80;
     text-character-spacing: @text_character_spacing_lg;
-    text-size: 22;
+    text-size: @text_font_size_large;
     text-min-distance: 15;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_halo_low;     
@@ -452,7 +463,7 @@ Map {
   text-transform: uppercase;
   text-wrap-width: 80;
   text-character-spacing: @text_character_spacing_xlg;
-  text-size: 24;
+  text-size: @text_font_size_xlg;
   text-halo-radius: @text_font_halo_radius_sm;
   text-halo-fill: @label_color_halo_low;   
   text-fill: @label_color_administrative;
@@ -464,11 +475,13 @@ Map {
   text-transform: uppercase;
   text-wrap-width: 80;
   text-character-spacing: @text_character_spacing_xlg;
-  text-size: 34;
+  text-size: @text_font_size_xxlg;
   text-halo-radius: @text_font_halo_radius_sm;
   text-halo-fill: @label_color_halo_low;   
   text-fill: @label_color_administrative;
 }
+
+/* city labels */
 
 #aries-places-labels {
   [zoom=4][scalerank<5],
@@ -489,12 +502,14 @@ Map {
     shield-halo-fill: @label_color_halo_low;
     shield-halo-radius: @text_font_halo_radius_sm;
     shield-unlock-image: true;    
-    // shield-placement-type: simple;
-    // shield-placements: 'E,W,N,S,NE,NW,SE,SW';
     shield-transform: scale(0.5, 0.5);
     shield-face-name: @text_font_city;
     shield-name: [name];    
     shield-min-distance: 2; 
+    shield-placement-type: simple;
+    shield-placements: 'NE, N, NW, SE, S, SW';
+    shield-justify-alignment: auto;
+    shield-horizontal-alignment: auto;
 
     [zoom>=4] {
       shield-size: @text_font_size_xsm;
