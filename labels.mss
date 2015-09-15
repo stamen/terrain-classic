@@ -18,7 +18,7 @@
 @text_font_size_medium: 17;
 @text_font_size_medium_plus: 18;
 @text_font_size_large: 20;
-@text_font_size_xlg: 22;
+@text_font_size_xlg: 24;
 @text_font_size_xxlg: 34;
 
 @text_character_spacing_sm: 0.7;
@@ -54,16 +54,46 @@ Map {
 #major_road_labels,
 {
   text-name: [name];
-  text-face-name: @text_font_shield;
-  text-size: 14;
+  text-face-name: @text_font_transport;
   text-placement: line;
+  text-label-position-tolerance: 2;
   text-max-char-angle-delta: 20;
+  text-min-path-length: 30;
   text-fill: #444;
   text-spacing: 256;
+  text-min-distance: 5;
   text-character-spacing: @text_character_spacing_sm;
   text-avoid-edges: true;
   text-halo-fill: @label_color_transport_halo;
-  text-halo-radius: 2;
+  text-halo-radius: @text_font_halo_radius_md;
+
+  [kind='major_road'] {
+    text-size: @text_font_size_xxsm;  
+  }  
+
+  [zoom>=13] {
+    text-size: @text_font_size_xxsm;
+    
+    [kind='major_road'] {
+      text-size: @text_font_size_xxsm * 1.2;  
+    }
+  }
+
+  [zoom>=14] {
+    text-min-distance: 10;
+    text-size: @text_font_size_sm;
+    text-character-spacing: @text_character_spacing_md;
+    text-halo-radius: @text_font_halo_radius_large;
+    
+    [kind='major_road'] {
+      text-size: @text_font_size_sm * 1.2;  
+    }    
+  }
+
+  [zoom>=16]{
+    text-min-distance: 100;
+    text-character-spacing: @text_character_spacing_lg;
+  }
 }
 
 #highway_shields {
@@ -575,6 +605,18 @@ Map {
 
     [zoom>=11] {
       shield-opacity: 0;
+    }
+
+    [zoom>=12] {
+      shield-size: @text_font_size_xlg;
+      
+      [population>700000] {
+        shield-size: @text_font_size_xlg * 1.2;
+      }
+
+      [population>7000000] {
+        shield-size: @text_font_size_xlg * 1.3;
+      }       
     }
   }
 }
