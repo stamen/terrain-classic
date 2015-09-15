@@ -357,6 +357,7 @@ landcover/GlobalLandCover_tif.zip:
 
 # complete wrapping
 else
-.DEFAULT:
+.DEFAULT: default
+default:
 	$(error Please install pgexplode: "npm install pgexplode")
 endif
