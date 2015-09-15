@@ -55,7 +55,7 @@ Map {
 {
   text-name: [name];
   text-face-name: @text_font_shield;
-  text-size: 16;
+  text-size: 14;
   text-placement: line;
   text-max-char-angle-delta: 20;
   text-fill: #444;
@@ -71,10 +71,10 @@ Map {
   [highway='motorway'],
   [highway='trunk'],
   [highway='primary'] {
-    // arbitrary default shield
-    shield-file: url(shields/state-25.png);
+    // default rectangle shield
+    shield-file: url(shields/default.svg);
     shield-fill: @label_color_shield_fed;    
-    shield-transform: scale(1.2, 1.2);
+    shield-transform: scale(0.2,0.2);
     shield-face-name: @text_font_shield;
     shield-name: [ref];
     shield-size: 10;
@@ -387,7 +387,7 @@ Map {
     text-fill: @label_color_administrative;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_halo_low;
-    text-halo-comp-op: overlay; 
+    // text-halo-comp-op: overlay; 
     text-halo-rasterizer: fast;
     text-name: "[label_z5]";
     text-size:  @text_font_size_sm;
