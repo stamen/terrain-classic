@@ -806,7 +806,7 @@ Layer:
         (SELECT geometry,
             (CASE WHEN highway = 'motorway'
                   THEN ''
-                  ELSE name
+                  ELSE replace(name, ' ', '   ')
                   END) AS name,
             (CASE WHEN highway = 'motorway' AND CHAR_LENGTH(ref) BETWEEN 2 AND 15
                   THEN REGEXP_REPLACE(ref, E'\s*;\s*', E' / ', 'g')
@@ -850,7 +850,7 @@ Layer:
       geometry_field: geometry
       table: >
         (SELECT geometry,
-                name,
+                replace(name, ' ', '   ') AS name,
                 highway,
                 ST_Length(geometry) AS length,
                 (CASE WHEN highway IN ('motorway', 'motorway_link') THEN 0
