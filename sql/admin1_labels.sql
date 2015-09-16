@@ -15,6 +15,6 @@ CREATE TABLE ne_10m_admin_1_states_provinces_labels AS (
 
 CREATE TABLE ne_10m_admin_1_states_provinces_labels_merc AS
   SELECT name, admin, scalerank, ST_Transform(geometry, 3785) geometry
-  FROM ne_10m_admin_1_states_provinces_labels
+  FROM ne_10m_admin_1_states_provinces_labels;
 
 DROP TABLE ne_10m_admin_1_states_provinces_labels;
