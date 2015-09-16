@@ -3,7 +3,7 @@
 name:             'Terrain Classic'
 description:      ''
 attribution:      'Map Data © OpenStreetMap'
-center:           [-122.3782, 37.7706, 11]
+center:           [139.683333, 35.683333, 11]
 format:           png
 interactivity:    false
 minzoom:          0
