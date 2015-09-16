@@ -1,10 +1,10 @@
 @text_font_transport: 'PT Sans Narrow Regular', 'Unifont Medium';
-@text_font_shield: 'PT Sans Bold', 'Unifont';
+@text_font_shield: 'PT Sans Bold', 'Unifont Medium';
 @text_font_administrative: 'PT Sans Bold', 'Unifont Medium';
 @text_font_city: 'PT Sans Narrow Regular', 'Unifont Medium';
 @text_font_parks: 'PT Sans Narrow Regular', 'Unifont Medium';
 @text_font_water: 'PT Sans Italic', 'Unifont Medium';
-@text_font_water_bold: 'PT Sans Bold Italic', 'Unifont Bold';
+@text_font_water_bold: 'PT Sans Bold Italic', 'Unifont Medium';
 
 @label_color_transport: #524c4c;
 @label_color_shield: #fff;
