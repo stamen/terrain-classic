@@ -31,26 +31,6 @@ db/functions/$(strip $(1)): db
 		psql -v ON_ERROR_STOP=1 -qX1f sql/functions/$(1).sql
 endef
 
-$(foreach fn,$(shell ls sql/functions/ 2> /dev/null | sed 's/\..*//'),$(eval $(call register_function_target,$(fn))))
-
-# Import PBF ($2) as $1
-define import
-.PHONY: db/osm-$(strip $(word 1, $(subst :, ,$(1)))) db/$(strip $(word 1, $(subst :, ,$(1))))
-
-db/$(strip $(word 1, $(subst :, ,$(1)))): db/osm-$(strip $(word 1, $(subst :, ,$(1)))) db/shared
-
-db/osm-$(strip $(word 1, $(subst :, ,$(1)))): db/postgis db/hstore $(strip $(word 2, $(subst :, ,$(1))))
-	@psql -c "\d osm_roads" > /dev/null 2>&1 || \
-	imposm3 import \
-		--cachedir cache \
-		-mapping=imposm3_mapping.json \
-		-read $(strip $(word 2, $(subst :, ,$(1)))) \
-		-connection="$${DATABASE_URL}" \
-		-write \
-		-deployproduction \
-		-overwritecache
-endef
-
 default: terrain-classic
 
 link:
@@ -145,6 +125,27 @@ db/hstore: db
 .PHONY: db/shared
 
 db/shared: db/postgres db/aries db/shapefiles db/landcover
+
+# create targets for each file in sql/functions
+$(foreach fn,$(shell ls sql/functions/ 2> /dev/null | sed 's/\..*//'),$(eval $(call register_function_target,$(fn))))
+
+# Import PBF ($2) as $1
+define import
+.PHONY: db/osm-$(strip $(word 1, $(subst :, ,$(1)))) db/$(strip $(word 1, $(subst :, ,$(1))))
+
+db/$(strip $(word 1, $(subst :, ,$(1)))): db/osm-$(strip $(word 1, $(subst :, ,$(1)))) db/shared
+
+db/osm-$(strip $(word 1, $(subst :, ,$(1)))): db/postgis db/hstore $(strip $(word 2, $(subst :, ,$(1))))
+	@psql -c "\d osm_roads" > /dev/null 2>&1 || \
+	imposm3 import \
+		--cachedir cache \
+		-mapping=imposm3_mapping.json \
+		-read $(strip $(word 2, $(subst :, ,$(1)))) \
+		-connection="$${DATABASE_URL}" \
+		-write \
+		-deployproduction \
+		-overwritecache
+endef
 
 .PHONY: db/postgres
 
@@ -357,6 +358,6 @@ landcover/GlobalLandCover_tif.zip:
 
 # complete wrapping
 else
-.DEFAULT:
+default:
 	$(error Please install pgexplode: "npm install pgexplode")
 endif
