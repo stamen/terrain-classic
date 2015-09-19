@@ -26,6 +26,7 @@
 @text_character_spacing_lg: 1.7;
 @text_character_spacing_xlg: 2.2;
 
+@text_font_halo_radius_xsm: 1;
 @text_font_halo_radius_sm: 1.5;
 @text_font_halo_radius_md: 1.75;
 @text_font_halo_radius_large: 2;
@@ -35,7 +36,7 @@
 @label_color_administrative_halo: fadeout(#fff, 30%);
 @label_color_physical: #000;
 @label_color_physical_halo: #fff;
-@label_color_transport_halo: #F7F7E6;
+@label_color_transport_halo: desaturate(#F7F7E6,50%);
 @label_color_airport_halo: #f7f7e6;
 @label_color_places_halo_low: fadeout(rgba(255,255,255, 1), 30%);
 @label_color_places_halo_high: fadeout(rgba(255,255,255, 1), 30%);
@@ -252,7 +253,7 @@ Map {
     text-align: center;
 
     text-fill: @label_color_water;
-    text-halo-radius: @text_font_halo_radius_sm;
+    text-halo-radius: @text_font_halo_radius_xsm;
     text-halo-fill: @label_color_water_halo;
     text-placement: interior;
 }
@@ -279,7 +280,7 @@ Map {
     text-size: @text_font_size_medium;
     text-character-spacing: @text_character_spacing_lg;
     text-fill: @label_color_water;
-    text-halo-radius: @text_font_halo_radius_sm;
+    text-halo-radius: @text_font_halo_radius_xsm;
     text-halo-fill: @label_color_water_halo;
     text-placement: interior;
     text-align: center;
