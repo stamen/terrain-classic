@@ -14,3 +14,4 @@ secrets.json
 layers
 landcover/GlobalLandCover_tif.zip
 landcover/LCType.tif
+npm-debug.log
