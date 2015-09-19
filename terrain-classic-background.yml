@@ -96,8 +96,9 @@ Layer:
       minzoom: 4
       maxzoom: 8
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_10m_rivers_lake_centerlines_scale_rank-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_rivers_lake_centerlines_scale_rank
       encoding: "ISO-8859-1"
 
   - <<: *layer
@@ -107,8 +108,9 @@ Layer:
       minzoom: 2
       maxzoom: 5
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_50m_lakes-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_50m_lakes
       encoding: "ISO-8859-1"
 
   - <<: *layer
@@ -118,8 +120,9 @@ Layer:
       minzoom: 6
       maxzoom: 8
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_10m_lakes-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_lakes
       encoding: "ISO-8859-1"
 
   - <<: *layer
@@ -129,8 +132,9 @@ Layer:
       minzoom: 0
       maxzoom: 7
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_10m_ocean-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_ocean
       encoding: "ISO-8859-1"
 
   - <<: *layer
@@ -140,8 +144,9 @@ Layer:
       minzoom: 0
       maxzoom: 7
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_50m_ocean-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_50m_ocean
       encoding: "ISO-8859-1"
 
   - <<: *layer
@@ -162,8 +167,9 @@ Layer:
       minzoom: 2
       maxzoom: 3
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_50m_admin_0_countries_lakes-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_50m_admin_0_countries_lakes
 
   - <<: *layer
     name: country-shapes-10m
@@ -173,8 +179,9 @@ Layer:
       minzoom: 4
       maxzoom: 7
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_10m_admin_0_countries_lakes-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_admin_0_countries_lakes
 
   - <<: *layer
     name: admin0-map-units-10m
@@ -183,8 +190,9 @@ Layer:
       minzoom: 4
       maxzoom: 9
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_10m_admin_0_boundary_lines_map_units-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_admin_0_boundary_lines_map_units
 
   - <<: *layer
     name: admin1-lines-10m
@@ -193,8 +201,9 @@ Layer:
       minzoom: 4
       maxzoom: 9
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_10m_admin_1_states_provinces_lines-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_admin_1_states_provinces_lines
 
   - <<: *layer
     name: ne_50m_admin_0_boundary_lines_land
@@ -204,8 +213,9 @@ Layer:
       minzoom: 3
       maxzoom: 4
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_50m_admin_0_boundary_lines_land-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_50m_admin_0_boundary_lines_land
 
   - <<: *layer
     name: ne_10m_admin_0_boundary_lines_land
@@ -215,8 +225,9 @@ Layer:
       minzoom: 5
       maxzoom: 9
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_10m_admin_0_boundary_lines_land-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_admin_0_boundary_lines_land
 
   - <<: *layer
     name: admin1-lines-osm

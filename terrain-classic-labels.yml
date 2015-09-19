@@ -57,8 +57,9 @@ Layer:
       minzoom: 2
       maxzoom: 5
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_50m_lakes-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_50m_lakes
       encoding: "ISO-8859-1"
 
   - <<: *layer
@@ -69,8 +70,9 @@ Layer:
       minzoom: 6
       maxzoom: 8
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_10m_lakes-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_lakes
       encoding: "ISO-8859-1"
 
   - <<: *layer
@@ -81,8 +83,9 @@ Layer:
       minzoom: 2
       maxzoom: 3
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_110m_geography_marine_polys-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_110m_geography_marine_polys
       encoding: "ISO-8859-1"
 
   - <<: *layer
@@ -93,8 +96,9 @@ Layer:
       minzoom: 4
       maxzoom: 5
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_50m_geography_marine_polys-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_50m_geography_marine_polys
       encoding: "ISO-8859-1"
 
   - <<: *layer
@@ -105,8 +109,9 @@ Layer:
       minzoom: 6
       maxzoom: 8
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_10m_geography_marine_polys-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_geography_marine_polys
       encoding: "ISO-8859-1"
 
   - <<: *layer
@@ -175,8 +180,9 @@ Layer:
     properties:
       minzoom: 8
     Datasource:
-      <<: *shapefile
-      file: shp/natural_earth/ne_10m_airports-merc.zip
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_airports
 
 # Start Labels
   - <<: *layer
