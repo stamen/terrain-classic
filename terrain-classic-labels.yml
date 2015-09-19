@@ -42,7 +42,7 @@ _shp_default:     &shapefile
 Stylesheet:
   - map.mss
   - labels.mss
-  - mss/terrain-classic-labels.mss
+  - terrain-classic-labels.mss
 
 
 # == Layers ============================================================

@@ -39,25 +39,9 @@ _shp_default:     &shapefile
 # == Stylesheets =======================================================
 
 Stylesheet:
-  # - mss/global_variables.mss
-  # - mss/water.mss
-  # - mss/admin.mss
-  # - mss/transport-misc.mss
-  # - mss/roads.mss
-  # - mss/buildings.mss
-  # - mss/land-fills.mss
-  # - mss/landcover.mss
-  # - mss/labels_admin.mss
-  # - mss/labels_airports.mss
-  # - mss/labels_geography.mss
-  # - mss/labels_green_areas.mss
-  # - mss/labels_hwy_shileds.mss
-  # - mss/labels_places.mss
-  # - mss/labels_roads.mss
-  # - mss/labels_water.mss
   - map.mss
   - labels.mss
-  - mss/terrain-classic.mss
+  - terrain-classic.mss
 
 
 # == Layers ============================================================
