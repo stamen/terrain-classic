@@ -649,7 +649,7 @@ Layer:
             admin,
             geometry,
             scalerank
-          FROM ne_10m_admin_1_states_provinces_labels_merc
+          FROM ne_10m_admin_1_states_provinces_labels
           WHERE geometry && !bbox!
         ) AS _
 
