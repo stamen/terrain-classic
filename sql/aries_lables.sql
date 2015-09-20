@@ -1,3 +1,5 @@
+BEGIN;
+
 DROP TABLE IF EXISTS aries_xy;
 DROP TABLE IF EXISTS label_positions;
 
@@ -22,3 +24,9 @@ FROM (
   FROM aries
   ) a
 JOIN label_positions b ON b.id=a.r_id;
+
+DROP TABLE IF EXISTS aries;
+
+ALTER TABLE aries_xy RENAME TO aries;
+
+COMMIT;
