@@ -1,11 +1,14 @@
 @text_font_transport: 'PT Sans Narrow Regular', 'Unifont Medium';
-@text_font_administrative: 'PT Sans Narrow Regular', 'Unifont Medium';
+@text_font_shield: 'PT Sans Bold', 'Unifont Medium';
+@text_font_administrative: 'PT Sans Bold', 'Unifont Medium';
 @text_font_city: 'PT Sans Narrow Regular', 'Unifont Medium';
 @text_font_parks: 'PT Sans Narrow Regular', 'Unifont Medium';
 @text_font_water: 'PT Sans Italic', 'Unifont Medium';
-@text_font_water_bold: 'PT Sans Bold Italic', 'Unifont Bold';
+@text_font_water_bold: 'PT Sans Bold Italic', 'Unifont Medium';
 
 @label_color_transport: #524c4c;
+@label_color_shield: #fff;
+@label_color_shield_fed: #333;
 @label_color_administrative: #2e2115;
 @label_color_city: #2e2115;
 
@@ -15,6 +18,8 @@
 @text_font_size_medium: 17;
 @text_font_size_medium_plus: 18;
 @text_font_size_large: 20;
+@text_font_size_xlg: 24;
+@text_font_size_xxlg: 34;
 
 @text_character_spacing_sm: 0.7;
 @text_character_spacing_md: 1.2;
@@ -22,6 +27,7 @@
 @text_character_spacing_xlg: 2.2;
 
 @text_font_halo_radius_sm: 1.5;
+@text_font_halo_radius_md: 1.75;
 @text_font_halo_radius_large: 2;
 
 @label_color_halo_low: fadeout(rgba(255,255,255,0.7), 30%);
@@ -49,15 +55,45 @@ Map {
 {
   text-name: [name];
   text-face-name: @text_font_transport;
-  text-size: 16;
   text-placement: line;
+  text-label-position-tolerance: 2;
   text-max-char-angle-delta: 20;
+  text-min-path-length: 30;
   text-fill: #444;
   text-spacing: 256;
+  text-min-distance: 5;
   text-character-spacing: @text_character_spacing_sm;
   text-avoid-edges: true;
   text-halo-fill: @label_color_transport_halo;
-  text-halo-radius: 2;
+  text-halo-radius: @text_font_halo_radius_md;
+
+  [kind='major_road'] {
+    text-size: @text_font_size_xxsm;  
+  }  
+
+  [zoom>=13] {
+    text-size: @text_font_size_xxsm;
+    
+    [kind='major_road'] {
+      text-size: @text_font_size_xxsm * 1.2;  
+    }
+  }
+
+  [zoom>=14] {
+    text-min-distance: 10;
+    text-size: @text_font_size_sm;
+    text-character-spacing: @text_character_spacing_md;
+    text-halo-radius: @text_font_halo_radius_large;
+    
+    [kind='major_road'] {
+      text-size: @text_font_size_sm * 1.2;  
+    }    
+  }
+
+  [zoom>=16]{
+    text-min-distance: 100;
+    text-character-spacing: @text_character_spacing_lg;
+  }
 }
 
 #highway_shields {
@@ -65,49 +101,120 @@ Map {
   [highway='motorway'],
   [highway='trunk'],
   [highway='primary'] {
-    // arbitrary default shield
-    shield-file: url(images/ca.svg);
-    shield-fill: white;
-    shield-transform: scale(0.052, 0.052);
-    shield-face-name: "Roadgeek 2005 Series D Regular";
+    // default rectangle shield
+    shield-file: url(shields/default.svg);
+    shield-fill: @label_color_shield_fed;    
+    shield-transform: scale(0.2,0.2);
+    shield-face-name: @text_font_shield;
     shield-name: [ref];
-    shield-min-distance: 250;
-    shield-spacing: 250;
+    shield-size: 10;
+    shield-min-distance: 44;
+    shield-spacing: 20;
     // half the width of the shield to prevent from wrapping
     shield-min-padding: 10;
 
     [ref=~'I \d+'] {
-      shield-file: url(images/interstate_2.svg);
+      shield-file: url(shields/interstate_2.svg);
       shield-transform: scale(0.033, 0.033);
+      shield-fill: @label_color_shield;
       shield-size: 9;
       shield-name: "[ref].replace('I ', '')";
-      shield-fill: white;
+
+      [zoom>=13] {
+        shield-size: 11;
+        shield-transform: scale(0.038, 0.038);
+        shield-min-distance: 65;
+      }
+
+      [zoom>=15] {
+        shield-size: 13;
+        shield-transform: scale(0.045, 0.045);
+      }
+
+      [zoom>=17] {
+        shield-size: 15;
+        shield-transform: scale(0.05, 0.05);
+      }      
     }
 
     [ref=~'I \d{3,}'] {
-      shield-file: url(images/interstate_3.svg);
+      shield-file: url(shields/interstate_3.svg);
       shield-transform: scale(0.033, 0.033);
+      shield-fill: @label_color_shield;
       shield-size: 9;
       shield-name: "[ref].replace('I ', '')";
-      shield-fill: white;
+
+      [zoom>=13] {
+        shield-size: 11;
+        shield-transform: scale(0.038, 0.038);
+        shield-min-distance: 40;
+      }
+
+      [zoom>=15] {
+        shield-size: 13;
+        shield-transform: scale(0.045, 0.045);
+      }
+
+      [zoom>=17] {
+        shield-size: 13;
+        shield-transform: scale(0.05, 0.05);
+      }         
     }
 
     [ref=~'US \d+'] {
-      shield-file: url(images/us.svg);
-      shield-transform: scale(0.052, 0.052);
+      shield-file: url(shields/us.svg);
+      shield-transform: scale(0.062, 0.062);
       shield-size: 10;
       shield-name: "[ref].replace('US ', '')";
-      shield-fill: #333;
+      shield-fill: @label_color_shield_fed;
       shield-text-dy: 1;
+      shield-character-spacing: -1;
+
+      [zoom>=13] {
+        shield-size: 12;
+        shield-transform: scale(0.075, 0.075);
+      }
+
+      [zoom>=15] {
+        shield-size: 14;
+        shield-transform: scale(0.088, 0.088);
+      }
+
+      [zoom>=17] {
+        shield-size: 16;
+        shield-transform: scale(0.091, 0.091);
+      }         
     }
 
     [ref=~'CA \d+'] {
-      shield-file: url(images/ca.svg);
+      shield-file: url(shields/ca.svg);
+      shield-fill: @label_color_shield;
       shield-transform: scale(0.052, 0.052);
       shield-size: 10;
       shield-name: "[ref].replace('CA ', '')";
-      shield-fill: white;
-      shield-text-dy: 2.5;
+      shield-dy: -2.5;
+      shield-character-spacing: -1;
+
+      [zoom>=13] {
+        shield-size: 12;
+        shield-transform: scale(0.060, 0.060);
+        shield-min-distance: 50;
+      }
+
+      [zoom>=14] {
+        shield-min-distance: 80;
+      }
+
+      [zoom>=15] {
+        shield-size: 14;
+        shield-transform: scale(0.080, 0.080);
+        shield-dy: -3.5;
+      }
+
+      [zoom>=17] {
+        shield-size: 16;
+        shield-transform: scale(0.090, 0.090);        
+      }       
     }
   }
 }
@@ -131,6 +238,7 @@ Map {
     text-fill: @label_color_water;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_water_halo;
+    text-placement: interior;
 }
 
 #ne_50m_geography_marine_polys[zoom=5][scalerank<4][changed!=''],
@@ -157,6 +265,8 @@ Map {
     text-fill: @label_color_water;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_water_halo;
+    text-placement: interior;
+    text-align: center;
 }
 
 #water-bodies-labels-low,
@@ -259,6 +369,44 @@ Map {
   text-halo-fill: @label_color_halo_low;   
 }
 
+#admin1-labels {  
+  // [zoom>=4][scalerank<3],
+  [zoom>=5][scalerank<3][admin!='United States of America'][admin!='Canada'],
+  [zoom>=6][scalerank<5],
+  [zoom>=7][scalerank>=5] {
+    text-name: [name];
+    text-transform: uppercase;
+    text-face-name: @text_font_administrative;    
+    text-face-name: @text_font_administrative;
+    text-fill: @label_color_administrative;
+    text-halo-fill: @label_color_halo_low;
+    text-halo-radius: @text_font_halo_radius_sm;
+    text-size: @text_font_size_sm;
+    text-character-spacing: 1;
+    text-wrap-width: 40;
+    text-placement-type: simple;
+    text-placements: 'E,N,W,S';
+    text-allow-overlap: false;
+    text-min-distance: 3;
+    text-avoid-edges: true;
+    text-min-padding: 5;
+    
+    [zoom>=5] {
+     text-size: @text_font_size_sm; 
+    }
+
+    [zoom>=6] {
+      text-size: @text_font_size_medium;
+      text-character-spacing: 2;
+    }
+
+    [zoom>=7] {
+      text-size: @text_font_size_large;
+      text-character-spacing: 3;
+    }    
+  }
+}
+
 #admin1-labels-50m-z4 {
     text-face-name: @text_font_administrative;
     text-wrap-width: 80;
@@ -267,45 +415,53 @@ Map {
     text-halo-fill: @label_color_halo_low; 
     text-name: "[label_z4]";
     text-size:  @text_font_size_xsm;
+    text-character-spacing: 1;
 }
 
 #admin1-labels-50m-z5 {
     text-face-name: @text_font_administrative;
-    text-wrap-width: 80;
+    text-wrap-width: 80;    
     text-fill: @label_color_administrative;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_halo_low;
-    text-halo-comp-op: overlay; 
+    // text-halo-comp-op: overlay; 
     text-halo-rasterizer: fast;
     text-name: "[label_z5]";
-    text-size:  @text_font_size_medium_plus;
+    text-size:  @text_font_size_sm;
+    text-character-spacing: 1;
 }
 
-#admin1-labels-50m-z6 {
-    text-face-name: @text_font_administrative;
-    text-wrap-width: 80;
-    text-fill: @label_color_administrative;
-    text-halo-radius: @text_font_halo_radius_sm;
-    text-halo-fill: @label_color_halo_low; 
-    text-name: "[label_z6]";
-    text-size:  @text_font_size_large;
-}
+// #admin1-labels-50m-z6 {
+//     text-face-name: @text_font_administrative;
+//     text-wrap-width: 80;
+//     text-fill: @label_color_administrative;
+//     text-halo-radius: @text_font_halo_radius_sm;
+//     text-halo-fill: @label_color_halo_low; 
+//     text-name: "[label_z6]";
+//     text-size:  @text_font_size_medium;
+//     text-character-spacing: 2;
+// }
 
-#admin1-labels-50m-z7 {
-    text-face-name: @text_font_administrative;
-    text-wrap-width: 80;
-    text-fill: @label_color_administrative;
-    text-halo-radius: @text_font_halo_radius_sm;
-    text-halo-fill: @label_color_halo_low; 
-    text-name: "[label_z7]";
-    text-size:  @text_font_size_large;
-}
+// #admin1-labels-50m-z7 {
+//     text-face-name: @text_font_administrative;
+//     text-wrap-width: 80;
+//     text-fill: @label_color_administrative;
+//     text-halo-radius: @text_font_halo_radius_sm;
+//     text-halo-fill: @label_color_halo_low; 
+//     text-name: "[label_z7]";
+//     text-size:  @text_font_size_large;
+//     text-character-spacing: 3;
+// }
+
+/* Admin 0 labels */
 
 #admin0-labels-z3[longfrom>3] {
     text-name: "[shortname]";
     text-face-name: @text_font_administrative;
+    text-transform: uppercase;
     text-wrap-width: 80;
-    text-size: 18;
+    text-character-spacing: @text_character_spacing_sm;
+    text-size: @text_font_size_medium_plus;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_halo_low;     
     text-fill: @label_color_administrative;
@@ -315,9 +471,11 @@ Map {
 #admin0-labels-z3[longfrom<=3] {
     text-name: "[name]";
     text-face-name: @text_font_administrative;
-    text-size: 22;
+    text-transform: uppercase;
+    text-size: @text_font_size_large;
     text-line-spacing: -8;
     text-wrap-width: 100;
+    text-character-spacing: @text_character_spacing_sm;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_halo_low;
     text-fill: @label_color_administrative;
@@ -326,8 +484,10 @@ Map {
 #admin0-labels-z4 {
     text-name: [name];
     text-face-name: @text_font_administrative;
+    text-transform: uppercase;
     text-wrap-width: 80;
-    text-size: 22;
+    text-character-spacing: @text_character_spacing_lg;
+    text-size: @text_font_size_large;
     text-min-distance: 15;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_halo_low;     
@@ -337,8 +497,10 @@ Map {
 #admin0-labels-z5 {
   text-name: [name];
   text-face-name: @text_font_administrative;
+  text-transform: uppercase;
   text-wrap-width: 80;
-  text-size: 24;
+  text-character-spacing: @text_character_spacing_xlg;
+  text-size: @text_font_size_xlg;
   text-halo-radius: @text_font_halo_radius_sm;
   text-halo-fill: @label_color_halo_low;   
   text-fill: @label_color_administrative;
@@ -347,231 +509,118 @@ Map {
 #admin0-labels-z6 {
   text-name: [name];
   text-face-name: @text_font_administrative;
+  text-transform: uppercase;
   text-wrap-width: 80;
-  text-size: 24;
+  text-character-spacing: @text_character_spacing_xlg;
+  text-size: @text_font_size_xxlg;
   text-halo-radius: @text_font_halo_radius_sm;
   text-halo-fill: @label_color_halo_low;   
   text-fill: @label_color_administrative;
 }
 
+/* city labels - using hwy shields */
 #aries-places-labels {
   [zoom=4][scalerank<5],
   [zoom=5][scalerank<6],
-  [zoom=6][scalerank<6],
-  [zoom=7][scalerank<7],
-  [zoom=8][scalerank<8],
-  [zoom=9][scalerank<9],
-  [zoom=10][scalerank<10],
-  [zoom=11][scalerank<11],
-  [zoom=12][scalerank<12],
-  [zoom=13][scalerank<13], 
-  [zoom=14][scalerank<14] 
-  [zoom>=15][scalerank<17]{
+  [zoom=6][scalerank<7],
+  [zoom=7][scalerank<8],
+  [zoom=8][scalerank<9],
+  [zoom=9][scalerank<10],
+  [zoom=10][scalerank<11],
+  [zoom=11][scalerank<12],
+  [zoom=12][scalerank<13],
+  [zoom=13][scalerank<14], 
+  [zoom=14][scalerank<15] 
+  [zoom>=15][scalerank<15]{
 
-    text-name: [name];
-    text-face-name: @text_font_city;
-    text-fill: @label_color_city;
-    text-min-distance: 3;
-    // text-min-padding: 5;
-    text-dy: 5;
-    text-dx: 5;
-    text-halo-radius: @text_font_halo_radius_sm;
-    text-halo-fill: @label_color_halo_low;
-    // text-allow-overlap: true;
-    text-placement-type: simple;
-    // text-avoid-edges: true;    
+    shield-file: url(shields/circle-12.svg);
+    shield-fill: @label_color_city;
+    shield-halo-fill: @label_color_halo_low;
+    shield-halo-radius: @text_font_halo_radius_sm;
+    shield-unlock-image: true;
+    shield-avoid-edges: true;    
+    shield-transform: scale(0.5, 0.5);
+    shield-face-name: @text_font_city;
+    shield-name: [name];    
+    shield-min-distance: 2; 
+    shield-justify-alignment: auto;
+    shield-horizontal-alignment: auto;
+    shield-text-dy: [y];
+    shield-text-dx: [x];
 
     [zoom>=4] {
-      text-size: @text_font_size_xsm;
-      text-placements: "W,E";
+      shield-size: @text_font_size_xsm;
       
       [population>700000] {
-        text-size: @text_font_size_xsm * 1.2;
+        shield-size: @text_font_size_xsm * 1.2;
+        shield-transform: scale(0.7, 0.7);
       }
 
       [population>7000000] {
-        text-size: @text_font_size_xsm * 1.5;
+        shield-size: @text_font_size_xsm * 1.3;
+        shield-transform: scale(0.8, 0.8);
       }      
     }
 
     [zoom>=5]{
-      text-size: @text_font_size_sm;
-      text-placements: "E,W";
+      shield-size: @text_font_size_sm; 
       
       [population>700000] {
-        text-size: @text_font_size_sm * 1.2;
+        shield-size: @text_font_size_sm * 1.2;
       }
 
       [population>7000000] {
-        text-size: @text_font_size_sm * 1.5;
-        text-allow-overlap: true;
+        shield-size: @text_font_size_sm * 1.3;
       }       
     }
 
     [zoom>=6]{
-      text-size: @text_font_size_medium;
-      text-placements: "W,E,N";
+      shield-size: @text_font_size_medium;      
 
       [population>700000] {
-        text-size: @text_font_size_medium * 1.2;
+        shield-size: @text_font_size_medium * 1.2;
       }
 
       [population>7000000] {
-        text-size: @text_font_size_medium * 1.5;
+        shield-size: @text_font_size_medium * 1.5;
       }       
+    }
+
+    [zoom>=8] {
+      shield-halo-radius: @text_font_halo_radius_md;
     }
 
     [zoom>=10]{
-      text-size: @text_font_size_medium_plus;
-      text-halo-radius: @text_font_halo_radius_large;
-      text-halo-fill: @label_color_halo_high;
+      shield-size: @text_font_size_medium_plus;      
+      shield-halo-radius: @text_font_halo_radius_large;
+      shield-halo-fill: @label_color_halo_high;
       
       [population>700000] {
-        text-size: @text_font_size_large * 1.2;
+        shield-size: @text_font_size_medium_plus * 1.2;
       }
 
       [population>7000000] {
-        text-size: @text_font_size_large * 1.5;
+        shield-size: @text_font_size_medium_plus * 1.3;
       }       
     }
 
-  }
-}
-
-#aries-places-points {
-  [zoom=4][scalerank<5],
-  [zoom=5][scalerank<6],
-  [zoom=6][scalerank<6],
-  [zoom=7][scalerank<7],
-  [zoom=8][scalerank<8] {
-
-    marker-fill: #2e2115;
-    marker-line-width: 0;
-    marker-width: 5;
-    marker-ignore-placement: true;
-
-    [population>700000] {
-      marker-width: 7;
+    [zoom>=11] {
+      shield-opacity: 0;
     }
 
+    [zoom>=12] {
+      shield-size: @text_font_size_xlg;
+      
+      [population>700000] {
+        shield-size: @text_font_size_xlg * 1.2;
+      }
+
+      [population>7000000] {
+        shield-size: @text_font_size_xlg * 1.3;
+      }       
+    }
   }
 }
-
-// #city_labels_z4,
-// #city_labels_z5,
-// #city_labels_z6 {
-//   // for debugging
-//   //::outline {
-//   //  polygon-fill: #fff;
-//   //  polygon-opacity: 0.1;
-//   //}
-//   text-name: [name];
-//   text-face-name: @text_font_city;
-//   text-fill: @label_color_city;
-//   text-placement: interior;
-//   text-vertical-alignment: bottom;
-//   text-min-distance: 5;
-//   text-dy: -5;
-//   text-halo-radius: @text_font_halo_radius_sm;
-//   text-halo-fill: @label_color_halo_low;   
-
-//   [justified='left'] {
-//     //text-horizontal-alignment: left;
-//     text-horizontal-alignment: middle;
-//     //text-dx: 20;
-//   }
-
-//   [justified='right'] {
-//     //text-horizontal-alignment: right;
-//     text-horizontal-alignment: middle;
-//     //text-dx: -20;
-//   }
-
-//   [zoom>=4]  {
-//     text-size: @text_font_size_xxsm;
-//   }
-
-//   [zoom>=5] {
-//     text-size: @text_font_size_xsm;
-//   }
-
-//   [font_size>=14] {
-//     text-size: @text_font_size_medium;
-//   }
-
-//   [font_size>=16] {
-//     text-size: @text_font_size_medium_plus;
-//   }
-
-//   [font_size>=18] {
-//     text-size: @text_font_size_large;
-//   }
-// }
-
-// #city_labels_z7,
-// #city_labels_z8, {
-//   // for debugging
-//   //::outline {
-//   //  polygon-fill: #fff;
-//   //  polygon-opacity: 0.3;
-//   //}
-//   [justified='left'] {
-//     text-horizontal-alignment: left;
-//     text-dx: 15;
-//   }
-
-//   [justified='right'] {
-//     text-horizontal-alignment: right;
-//     text-dx: -15;
-//   }
-
-//   text-name: [name];
-//   text-face-name: @text_font_city;
-//   text-fill: @label_color_city;
-//   text-size: @text_font_size_sm;
-//   text-min-distance: 5;
-//   text-allow-overlap: true;
-//   text-halo-radius: @text_font_halo_radius_sm;
-//   text-halo-fill: @label_color_halo_low;   
-
-//   [font_size>=14] {
-//     text-size: @text_font_size_medium;
-//   }
-
-//   [font_size>=20] {
-//     text-size: @text_font_size_large;
-//   }
-// }
-
-// #city_labels_z9,
-// #city_labels_z10 {
-//   text-name: [name];
-//   text-face-name: @text_font_city;
-//   text-fill: @label_color_city;
-//   text-size: @text_font_size_medium_plus;
-//   text-halo-radius: @text_font_halo_radius_large;
-//   text-halo-fill: @label_color_halo_high;
-//   text-halo-comp-op: overlay;
-
-//   [font_size>=20] {
-//     text-size: @text_font_size_large;
-//   }
-  
-//   [zoom>=11] {
-//     text-halo-fill: @label_color_places_halo_low;
-//   }
-// }
-
-// #city_points_z4,
-// #city_points_z5, 
-// #city_points_z6,
-// #city_points_z7,
-// #city_points_z8 {
-//   marker-ignore-placement: true;
-//   marker-width: 5;
-//   marker-fill: #2e2115;
-//   marker-line-width: 0;
-// }
 
 #airports {
   [zoom>=10] {
@@ -666,4 +715,3 @@ Map {
       point-file: url('icons/intergalactic_xl.png');
   }
 }
-
