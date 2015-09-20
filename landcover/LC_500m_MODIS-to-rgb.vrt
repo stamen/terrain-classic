@@ -6,13 +6,13 @@
     <ColorTable>
       <Entry c1="0" c2="0" c3="255" c4="0" comment="water"/>
       <Entry c1="133" c2="180" c3="127" c4="255" comment="evergreen needleleaf forest"/>
-      <Entry c1="133" c2="180" c3="127" c4="255" comment="evergreen broadleaf forest"/>
+      <Entry c1="130" c2="162" c3="95" c4="255" comment="evergreen broadleaf forest"/>
       <Entry c1="149" c2="188" c3="133" c4="255" comment="deciduous needleleaf forest"/>
-      <Entry c1="149" c2="188" c3="133" c4="255" comment="deciduous broadleaf forest"/>
-      <Entry c1="149" c2="188" c3="133" c4="255" comment="mixed forest"/>
+      <Entry c1="158" c2="188" c3="133" c4="255" comment="deciduous broadleaf forest"/>
+      <Entry c1="137" c2="174" c3="107" c4="255" comment="mixed forest"/>
       <Entry c1="232" c2="225" c3="186" c4="255" comment="closed shrublands"/>
       <Entry c1="232" c2="225" c3="186" c4="255" comment="open shrublands (southern nevada)"/>
-      <Entry c1="222" c2="224" c3="190" c4="255" comment="woody savannas"/>
+      <Entry c1="153" c2="180" c3="126" c4="255" comment="woody savannas"/>
       <Entry c1="222" c2="224" c3="190" c4="255" comment="savannas"/>
       <Entry c1="236" c2="234" c3="191" c4="255" comment="grasslands (northern nevada)"/>
       <Entry c1="175" c2="214" c3="195" c4="255" comment="permanent wetlands"/>

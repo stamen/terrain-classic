@@ -5,6 +5,12 @@
   "/labels": {
     "source": "mapnik://./terrain-classic-labels.xml"
   },
+  "/lines": {
+    "source": "mapnik://./terrain-classic-lines.xml"
+  },
+  "/background": {
+    "source": "mapnik://./terrain-classic-background.xml"
+  },
   "/": {
     "source": {
       "protocol": "blend:",

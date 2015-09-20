@@ -488,6 +488,7 @@ Map {
     text-wrap-width: 80;
     text-character-spacing: @text_character_spacing_lg;
     text-size: @text_font_size_large;
+    [population<100] { text-size: @text_font_size_medium_plus; }
     text-min-distance: 15;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_halo_low;     
@@ -501,6 +502,7 @@ Map {
   text-wrap-width: 80;
   text-character-spacing: @text_character_spacing_xlg;
   text-size: @text_font_size_xlg;
+  [population<100] { text-size: @text_font_size_large; }
   text-halo-radius: @text_font_halo_radius_sm;
   text-halo-fill: @label_color_halo_low;   
   text-fill: @label_color_administrative;
@@ -513,6 +515,7 @@ Map {
   text-wrap-width: 80;
   text-character-spacing: @text_character_spacing_xlg;
   text-size: @text_font_size_xxlg;
+  [population<100] { text-size: @text_font_size_xlg; }
   text-halo-radius: @text_font_halo_radius_sm;
   text-halo-fill: @label_color_halo_low;   
   text-fill: @label_color_administrative;

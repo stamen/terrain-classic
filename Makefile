@@ -53,7 +53,7 @@ xml: $(subst .yml,.xml,$(filter-out circle.yml,$(wildcard *.yml)))
 
 .PRECIOUS: %.mml
 
-%.mml: %.yml map.mss labels.mss mss/%.mss interp js-yaml
+%.mml: %.yml map.mss labels.mss %.mss interp js-yaml
 	@echo Building $@
 	@cat $< | interp | js-yaml > tmp.mml && mv tmp.mml $@
 
@@ -124,7 +124,7 @@ db/hstore: db
 
 .PHONY: db/shared
 
-db/shared: db/postgres db/aries db/shapefiles db/landcover
+db/shared: db/postgres db/aries db/shapefiles db/generalizations db/landcover
 
 # create targets for each file in sql/functions
 $(foreach fn,$(shell ls sql/functions/ 2> /dev/null | sed 's/\..*//'),$(eval $(call register_function_target,$(fn))))
@@ -149,7 +149,11 @@ endef
 
 .PHONY: db/postgres
 
-db/postgres: db/functions/highroad
+db/postgres: db/functions/highroad db/functions/highway_shields
+
+.PHONY: db/generalizations
+
+db/generalizations: db/functions/admin1_labels
 
 .PHONY: db/shapefiles
 
@@ -172,6 +176,7 @@ db/shapefiles: shp/osmdata/land-polygons-complete-3857.zip \
 		   shp/natural_earth/ne_50m_lakes-merc.zip \
 		   shp/natural_earth/ne_10m_admin_0_boundary_lines_land-merc.zip \
 		   shp/natural_earth/ne_50m_admin_0_boundary_lines_land-merc.zip \
+		   shp/natural_earth/ne_10m_admin_1_states_provinces_scale_rank-merc.zip \
 		   shp/natural_earth/ne_10m_admin_1_states_provinces_lines-merc.zip
 
 db/aries: db/postgis data/aries/z4to10.json
@@ -258,6 +263,22 @@ shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp \
 			-clipsrc -180 -85.05112878 180 85.05112878 \
 			-segmentize 1 \
 			-skipfailures $$@ /vsizip/$$</$(strip $(word 3, $(subst :, ,$(1))))
+	ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
+			--config SHAPE_ENCODING WINDOWS-1252 \
+			--config PG_USE_COPY YES \
+			-nln $$(strip $(word 1, $(subst :, ,$(1)))) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-clipsrc -180 -85.05112878 180 85.05112878 \
+			-segmentize 1 \
+			-skipfailures \
+			-f PGDump /vsistdout/ \
+			/vsizip/$$</$(strip $(word 3, $(subst :, ,$(1)))) | psql -q
 
 shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.index: shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp
 	shapeindex $$<
@@ -290,6 +311,7 @@ NATURAL_EARTH=ne_50m_land:data/ne/50m/physical/ne_50m_land.zip \
 	ne_50m_lakes:data/ne/50m/physical/ne_50m_lakes.zip \
 	ne_10m_admin_0_boundary_lines_land:data/ne/10m/cultural/ne_10m_admin_0_boundary_lines_land.zip \
 	ne_50m_admin_0_boundary_lines_land:data/ne/50m/cultural/ne_50m_admin_0_boundary_lines_land.zip \
+	ne_10m_admin_1_states_provinces_scale_rank:data/ne/10m/cultural/ne_10m_admin_1_states_provinces_scale_rank.zip:ne_10m_admin_1_states_provinces_scale_rank.shp \
 	ne_10m_admin_1_states_provinces_lines:data/ne/10m/cultural/ne_10m_admin_1_states_provinces_lines.zip:ne_10m_admin_1_states_provinces_lines.shp
 
 $(foreach shape,$(NATURAL_EARTH),$(eval $(call natural_earth,$(shape))))
