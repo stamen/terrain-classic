@@ -113,6 +113,14 @@ Map {
     // half the width of the shield to prevent from wrapping
     shield-min-padding: 10;
 
+    [zoom>=11][zoom<=12][highway='trunk'],
+    [zoom>=11][zoom<=12][highway='primary'],
+    [zoom>=11][zoom<=12][highway='secondary'],
+    [zoom>=11][zoom<=12][highway='tertiary'] {
+      shield-opacity: 0;
+      shield-size: 0;
+    }    
+
     [ref=~'I \d+'] {
       shield-file: url(shields/interstate_2.svg);
       shield-transform: scale(0.033, 0.033);
@@ -194,6 +202,14 @@ Map {
       shield-name: "[ref].replace('CA ', '')";
       shield-dy: -2.5;
       shield-character-spacing: -1;
+
+      [zoom>=11][zoom<=12][highway='trunk'],
+      [zoom>=11][zoom<=12][highway='primary'],
+      [zoom>=11][zoom<=12][highway='secondary'],
+      [zoom>=11][zoom<=12][highway='tertiary'] {
+        shield-opacity: 0;
+        shield-size: 0;
+      }     
 
       [zoom>=13] {
         shield-size: 12;

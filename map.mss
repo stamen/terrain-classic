@@ -981,7 +981,7 @@ Map {
 {
 
   [zoom<=12] {
-    line-color: @color_transport;
+    line-color: @color_transport;    
   }
 
   [zoom>=9] {
@@ -995,6 +995,7 @@ Map {
   [zoom>=11] {
     ::outline {
       line-width: 1.25;
+      line-color: @color_transport_casing;
     }
 
     line-width: 0.7;
@@ -1128,6 +1129,27 @@ Map {
 
   [zoom>=10] {
     line-width: 1;
+  }
+
+  [zoom>=11][highway='trunk'],
+  [zoom>=11][highway='primary'],
+  [zoom>=11][highway='secondary'] {
+    ::casing{
+      line-width: 1.9;
+      line-color: @color_transport_casing;
+    }
+    line-width: 1.5;
+  }
+
+  [zoom>=12][highway='trunk'],
+  [zoom>=12][highway='primary'],
+  [zoom>=12][highway='secondary'],
+  [zoom>=12][highway='tertiary'] {
+    ::casing{
+      line-width: 1.9;
+      line-color: @color_transport_casing;
+    }
+    line-width: 1.5;
   }
 
   [zoom>=13] {
