@@ -3,7 +3,7 @@
 name:             'Terrain Classic'
 description:      ''
 attribution:      'Map Data © OpenStreetMap'
-center:           [139.683333, 35.683333, 11]
+center:           [-122.3782, 37.7706, 11]
 format:           png
 interactivity:    false
 minzoom:          0
@@ -572,6 +572,26 @@ Layer:
       <<: *shapefile
       file: shp/natural_earth/ne_10m_airports-merc.zip
 
+  - <<: *layer
+    name: aries-places-points
+    id:   aries-places-points
+    properties:
+      minzoom: 4
+      maxzoom: 11
+    Datasource:
+      <<: *postgis      
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+          name, 
+          zoom scalerank,
+          population,
+          geometry
+          FROM aries
+          WHERE geometry && !bbox!
+        ) AS _
+
 # Start Labels
   - <<: *layer
     name: admin0-labels-z3
@@ -650,26 +670,6 @@ Layer:
             geometry,
             scalerank
           FROM ne_10m_admin_1_states_provinces_labels_merc
-          WHERE geometry && !bbox!
-        ) AS _
-
-  - <<: *layer
-    name: aries-places-labels
-    id:   aries-places-labels
-    properties:
-      minzoom: 4
-      maxzoom: 16
-    Datasource:
-      <<: *postgis      
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-          name, 
-          zoom scalerank,
-          population,
-          geometry
-          FROM aries
           WHERE geometry && !bbox!
         ) AS _
 
@@ -905,3 +905,26 @@ Layer:
       <<: *shapefile
       file: shp/continents_900913.shp
 
+# ---- Aries Places ----------------------------------------------------
+
+  - <<: *layer
+    name: aries-places-labels
+    id:   aries-places-labels
+    properties:
+      minzoom: 4
+      maxzoom: 16
+    Datasource:
+      <<: *postgis      
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+          name, 
+          zoom scalerank,
+          population,
+          x,
+          y,
+          geometry
+          FROM aries
+          WHERE geometry && !bbox!
+        ) AS _
