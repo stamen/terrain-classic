@@ -922,8 +922,6 @@ Layer:
           name, 
           zoom scalerank,
           population,
-          x,
-          y,
           geometry
           FROM aries
           WHERE geometry && !bbox!

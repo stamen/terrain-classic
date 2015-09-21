@@ -558,15 +558,17 @@ Map {
     shield-halo-fill: @label_color_halo_low;
     shield-halo-radius: @text_font_halo_radius_sm;
     shield-unlock-image: true;
-    shield-avoid-edges: true;    
+    shield-avoid-edges: true;
     shield-transform: scale(0.5, 0.5);
     shield-face-name: @text_font_city;
-    shield-name: [name];    
-    shield-min-distance: 2; 
-    shield-justify-alignment: auto;
-    shield-horizontal-alignment: auto;
-    shield-text-dy: [y];
-    shield-text-dx: [x];
+    shield-name: [name];
+    shield-min-distance: 2;
+    shield-placement-type: simple;
+    shield-placements: 'NE,SW,NW,SE,E,W';
+    shield-text-dy: 3;
+    shield-text-dx: 3;
+    shield-min-distance: 10;
+
 
     [zoom>=4] {
       shield-size: @text_font_size_xsm;
