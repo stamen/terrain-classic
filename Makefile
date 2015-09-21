@@ -194,6 +194,7 @@ db/aries: db/postgis data/aries/z4to10.json
 PLACES=BC:data/extract/north-america/ca/british-columbia-latest.osm.pbf \
 	   CA:data/extract/north-america/us/california-latest.osm.pbf \
 	   belize:data/extract/central-america/belize-latest.osm.pbf \
+	   mexico:data/extract/north-america/mexico-latest.osm.pbf \
 	   japan:data/extract/asia/japan-latest.osm.pbf \
 	   cle:data/metro/cleveland_ohio.osm.pbf \
 	   MA:data/extract/north-america/us/massachusetts-latest.osm.pbf \
