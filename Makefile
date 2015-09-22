@@ -264,22 +264,10 @@ shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp \
 			-clipsrc -180 -85.05112878 180 85.05112878 \
 			-segmentize 1 \
 			-skipfailures $$@ /vsizip/$$</$(strip $(word 3, $(subst :, ,$(1))))
-	ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
-			--config SHAPE_ENCODING WINDOWS-1252 \
-			--config PG_USE_COPY YES \
-			-nln $$(strip $(word 1, $(subst :, ,$(1)))) \
-			-t_srs EPSG:3857 \
-			-lco ENCODING=UTF-8 \
-			-nlt PROMOTE_TO_MULTI \
-			-lco POSTGIS_VERSION=2.0 \
-			-lco GEOMETRY_NAME=geom \
-			-lco SRID=3857 \
-			-lco PRECISION=NO \
-			-clipsrc -180 -85.05112878 180 85.05112878 \
-			-segmentize 1 \
-			-skipfailures \
-			-f PGDump /vsistdout/ \
-			/vsizip/$$</$(strip $(word 3, $(subst :, ,$(1)))) | psql -q
+	shp2pgsql -d -s 3857 -I -g geom \
+			-W "WINDOWS-1252" \
+			shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp \
+			$$(strip $(word 1, $(subst :, ,$(1)))) | psql -q
 
 shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.index: shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp
 	shapeindex $$<
