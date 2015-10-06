@@ -263,6 +263,7 @@ shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp \
 			-lco ENCODING=UTF-8 \
 			-clipsrc -180 -85.05112878 180 85.05112878 \
 			-segmentize 1 \
+			-overwrite \
 			-skipfailures $$@ /vsizip/$$</$(strip $(word 3, $(subst :, ,$(1))))
 	ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
 			--config SHAPE_ENCODING WINDOWS-1252 \
