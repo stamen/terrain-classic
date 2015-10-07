@@ -17,12 +17,15 @@
       "query": {
         "layers": [
           {
-            "source": "mapnik://./terrain-classic.xml"
+            "source": "mapnik://./terrain-classic-background.xml"
           },
           {
             "source": "http://ec2-54-174-39-10.compute-1.amazonaws.com/positron-terrain/{z}/{x}/{y}.png",
             "comp-op": "hard-light",
             "opacity": "0.3"
+          },
+          {
+            "source" : "mapnik://./terrain-classic-lines.xml"
           },
           {
             "source": "mapnik://./terrain-classic-labels.xml"
