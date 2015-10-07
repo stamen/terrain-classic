@@ -124,7 +124,7 @@ db/hstore: db
 
 .PHONY: db/shared
 
-db/shared: db/postgres db/aries db/shapefiles db/generalizations db/landcover
+db/shared: db/postgres db/aries db/shapefiles db/natearth db/generalizations db/landcover
 
 # create targets for each file in sql/functions
 $(foreach fn,$(shell ls sql/functions/ 2> /dev/null | sed 's/\..*//'),$(eval $(call register_function_target,$(fn))))
@@ -158,26 +158,29 @@ db/generalizations: db/functions/admin1_labels
 .PHONY: db/shapefiles
 
 db/shapefiles: shp/osmdata/land-polygons-complete-3857.zip \
-		   shp/osmdata/water-polygons-split-3857.zip \
-		   shp/natural_earth/ne_50m_ocean-merc.zip \
-		   shp/natural_earth/ne_10m_ocean-merc.zip \
-		   shp/natural_earth/ne_50m_land-merc.zip \
-		   shp/natural_earth/ne_10m_rivers_lake_centerlines_scale_rank-merc.zip \
-		   shp/natural_earth/ne_50m_admin_0_countries_lakes-merc.zip \
-		   shp/natural_earth/ne_10m_admin_0_countries_lakes-merc.zip \
-		   shp/natural_earth/ne_10m_admin_0_boundary_lines_map_units-merc.zip \
-		   shp/natural_earth/ne_50m_admin_1_states_provinces_lines-merc.zip \
-		   shp/natural_earth/ne_10m_geography_marine_polys-merc.zip \
-		   shp/natural_earth/ne_50m_geography_marine_polys-merc.zip \
-		   shp/natural_earth/ne_110m_geography_marine_polys-merc.zip \
-		   shp/natural_earth/ne_10m_airports-merc.zip \
-		   shp/natural_earth/ne_10m_roads-merc.zip \
-		   shp/natural_earth/ne_10m_lakes-merc.zip \
-		   shp/natural_earth/ne_50m_lakes-merc.zip \
-		   shp/natural_earth/ne_10m_admin_0_boundary_lines_land-merc.zip \
-		   shp/natural_earth/ne_50m_admin_0_boundary_lines_land-merc.zip \
-		   shp/natural_earth/ne_10m_admin_1_states_provinces_scale_rank-merc.zip \
-		   shp/natural_earth/ne_10m_admin_1_states_provinces_lines-merc.zip
+		   shp/osmdata/water-polygons-split-3857.zip
+
+.PHONY: db/natearth
+
+db/natearth: db/ne_50m_ocean \
+		   db/ne_10m_ocean \
+		   db/ne_50m_land \
+		   db/ne_10m_rivers_lake_centerlines_scale_rank \
+		   db/ne_50m_admin_0_countries_lakes \
+		   db/ne_10m_admin_0_countries_lakes \
+		   db/ne_10m_admin_0_boundary_lines_map_units \
+		   db/ne_50m_admin_1_states_provinces_lines \
+		   db/ne_10m_geography_marine_polys \
+		   db/ne_50m_geography_marine_polys \
+		   db/ne_110m_geography_marine_polys \
+		   db/ne_10m_airports \
+		   db/ne_10m_roads \
+		   db/ne_10m_lakes \
+		   db/ne_50m_lakes \
+		   db/ne_10m_admin_0_boundary_lines_land \
+		   db/ne_50m_admin_0_boundary_lines_land \
+		   db/ne_10m_admin_1_states_provinces_scale_rank \
+		   db/ne_10m_admin_1_states_provinces_lines
 
 db/aries: db/postgis data/aries/z4to10.json
 	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
@@ -234,7 +237,7 @@ data/osmdata/water_polygons.zip:
 
 define natural_earth
 db/$(strip $(word 1, $(subst :, ,$(1)))): $(strip $(word 2, $(subst :, ,$(1)))) db/postgis
-	psql -c "\d $$(subst db/,,$$@)" > /dev/null 2>&1 || \
+	@psql -c "\d $(strip $(word 1, $(subst :, ,$(1))))" > /dev/null 2>&1 || \
 	ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
 			--config SHAPE_ENCODING WINDOWS-1252 \
 			--config PG_USE_COPY YES \
@@ -251,48 +254,6 @@ db/$(strip $(word 1, $(subst :, ,$(1)))): $(strip $(word 2, $(subst :, ,$(1)))) 
 			-skipfailures \
 			-f PGDump /vsistdout/ \
 			/vsizip/$$</$(strip $(word 3, $(subst :, ,$(1)))) | psql -q
-
-shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.dbf \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.prj \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shx: $(strip $(word 2, $(subst :, ,$(1))))
-	@mkdir -p $$$$(dirname $$@)
-	ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
-			--config SHAPE_ENCODING WINDOWS-1252 \
-			-t_srs EPSG:3857 \
-			-lco ENCODING=UTF-8 \
-			-clipsrc -180 -85.05112878 180 85.05112878 \
-			-segmentize 1 \
-			-overwrite \
-			-skipfailures $$@ /vsizip/$$</$(strip $(word 3, $(subst :, ,$(1))))
-	ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
-			--config SHAPE_ENCODING WINDOWS-1252 \
-			--config PG_USE_COPY YES \
-			-nln $$(strip $(word 1, $(subst :, ,$(1)))) \
-			-t_srs EPSG:3857 \
-			-lco ENCODING=UTF-8 \
-			-nlt PROMOTE_TO_MULTI \
-			-lco POSTGIS_VERSION=2.0 \
-			-lco GEOMETRY_NAME=geom \
-			-lco SRID=3857 \
-			-lco PRECISION=NO \
-			-clipsrc -180 -85.05112878 180 85.05112878 \
-			-segmentize 1 \
-			-skipfailures \
-			-f PGDump /vsistdout/ \
-			/vsizip/$$</$(strip $(word 3, $(subst :, ,$(1)))) | psql -q
-
-shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.index: shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp
-	shapeindex $$<
-
-.SECONDARY: shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.zip
-
-shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.zip: shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shp \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.dbf \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.prj \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.shx \
-	shp/natural_earth/$(strip $(word 1, $(subst :, ,$(1))))-merc.index
-	zip -j $$@ $$^
 endef
 
 # <name>:<source file>:[shapefile]
