@@ -36,7 +36,6 @@ _shp_default:     &shapefile
   extent:         '-20037508.34,-20037508.34,20037508.34,20037508.34'
   srs:            '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
 
-
 # == Stylesheets =======================================================
 
 Stylesheet:
@@ -48,131 +47,6 @@ Stylesheet:
 # == Layers ============================================================
 
 Layer:
-
-  - <<: *layer
-    name: ne_50m_lakes
-    id:   ne_50m_lakes
-    status: off
-    properties:
-      minzoom: 2
-      maxzoom: 5
-    Datasource:
-      <<: *postgis
-      geometry_field: geom
-      table: ne_50m_lakes
-      encoding: "ISO-8859-1"
-
-  - <<: *layer
-    name: ne_10m_lakes
-    id:   ne_10m_lakes
-    status: off
-    properties:
-      minzoom: 6
-      maxzoom: 8
-    Datasource:
-      <<: *postgis
-      geometry_field: geom
-      table: ne_10m_lakes
-      encoding: "ISO-8859-1"
-
-  - <<: *layer
-    name: ne_110m_geography_marine_polys
-    id:   ne_110m_geography_marine_polys
-    status: off
-    properties:
-      minzoom: 2
-      maxzoom: 3
-    Datasource:
-      <<: *postgis
-      geometry_field: geom
-      table: ne_110m_geography_marine_polys
-      encoding: "ISO-8859-1"
-
-  - <<: *layer
-    name: ne_50m_geography_marine_polys
-    id:   ne_50m_geography_marine_polys
-    status: off
-    properties:
-      minzoom: 4
-      maxzoom: 5
-    Datasource:
-      <<: *postgis
-      geometry_field: geom
-      table: ne_50m_geography_marine_polys
-      encoding: "ISO-8859-1"
-
-  - <<: *layer
-    name: ne_10m_geography_marine_polys
-    id:   ne_10m_geography_marine_polys
-    status: off
-    properties:
-      minzoom: 6
-      maxzoom: 8
-    Datasource:
-      <<: *postgis
-      geometry_field: geom
-      table: ne_10m_geography_marine_polys
-      encoding: "ISO-8859-1"
-
-  - <<: *layer
-    name: water
-    id:   water
-    status: off
-    properties:
-      minzoom: 8
-    Datasource:
-      <<: *shapefile
-      file: shp/osmdata/water_polygons.shp
-
-  - <<: *layer
-    name: city_points_z4
-    id:   city_points_z4
-    properties:
-      minzoom: 4
-      maxzoom: 4
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_points_z4.shp
-
-  - <<: *layer
-    name: city_points_z5
-    id:   city_points_z5
-    properties:
-      minzoom: 5
-      maxzoom: 5
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_points_z5.shp
-
-  - <<: *layer
-    name: city_points_z6
-    id:   city_points_z6
-    properties:
-      minzoom: 6
-      maxzoom: 6
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_points_z6.shp
-
-  - <<: *layer
-    name: city_points_z7
-    id:   city_points_z7
-    properties:
-      minzoom: 7
-      maxzoom: 7
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_points_z7.shp
-
-  - <<: *layer
-    name: city_points_z8
-    id:   city_points_z8
-    properties:
-      minzoom: 8
-      maxzoom: 8
-    Datasource:
-      <<: *shapefile
-      file: merged_labels/merged_points_z8.shp
 
   - <<: *layer
     name: airports
@@ -266,42 +140,22 @@ Layer:
       file: shp/labels_admin/admin-1-labels-z5.shp
 
   - <<: *layer
-    name: admin1-labels-50m-z6
-    id:   admin1-labels-50m-z6
+    name: admin1-labels
+    id:   admin1-labels
     properties:
-      minzoom: 6
-      maxzoom: 6
-    Datasource:
-      <<: *shapefile
-      file: shp/labels_admin/admin-1-labels-z6.shp
-
-  - <<: *layer
-    name: admin1-labels-50m-z7
-    id:   admin1-labels-50m-z7
-    properties:
-      minzoom: 7
+      minzoom: 5
       maxzoom: 7
     Datasource:
-      <<: *shapefile
-      file: shp/labels_admin/admin-1-labels-z7.shp
-
-  - <<: *layer
-    name: aries-places-labels
-    id:   aries-places-labels
-    properties:
-      minzoom: 4
-      maxzoom: 16
-    Datasource:
-      <<: *postgis      
+      <<: *postgis
       geometry_field: geometry
       table: >
         (
           SELECT
-          name, 
-          zoom scalerank,
-          population,
-          geometry
-          FROM aries
+            name,
+            admin,
+            geometry,
+            scalerank
+          FROM ne_10m_admin_1_states_provinces_labels
           WHERE geometry && !bbox!
         ) AS _
 
@@ -438,7 +292,7 @@ Layer:
         (SELECT geometry,
             (CASE WHEN highway = 'motorway'
                   THEN ''
-                  ELSE name
+                  ELSE replace(name, ' ', '   ')
                   END) AS name,
             (CASE WHEN highway = 'motorway' AND CHAR_LENGTH(ref) BETWEEN 2 AND 15
                   THEN REGEXP_REPLACE(ref, E'\s*;\s*', E' / ', 'g')
@@ -482,7 +336,7 @@ Layer:
       geometry_field: geometry
       table: >
         (SELECT geometry,
-                name,
+                replace(name, ' ', '   ') AS name,
                 highway,
                 ST_Length(geometry) AS length,
                 (CASE WHEN highway IN ('motorway', 'motorway_link') THEN 0
@@ -508,6 +362,25 @@ Layer:
          LIMIT 25)
          AS _
 
+  # ---- Highway Shields ----------------------------------------------------
+  - <<: *layer
+    name: highway_shields
+    id:   highway_shields
+    properties:
+      minzoom: 11
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            ref,
+            highway,
+            geometry
+          FROM highway_shields
+          WHERE geometry && !bbox!
+        ) AS _
+
   - <<: *layer
     name: continents
     id:   continents
@@ -518,3 +391,24 @@ Layer:
       <<: *shapefile
       file: shp/continents_900913.shp
 
+# ---- Aries Places ----------------------------------------------------
+
+  - <<: *layer
+    name: aries-places-labels
+    id:   aries-places-labels
+    properties:
+      minzoom: 4
+      maxzoom: 16
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+          name,
+          zoom scalerank,
+          population,
+          geometry
+          FROM aries
+          WHERE geometry && !bbox!
+        ) AS _

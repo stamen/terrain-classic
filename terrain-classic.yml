@@ -914,12 +914,12 @@ Layer:
       minzoom: 4
       maxzoom: 16
     Datasource:
-      <<: *postgis      
+      <<: *postgis
       geometry_field: geometry
       table: >
         (
           SELECT
-          name, 
+          name,
           zoom scalerank,
           population,
           geometry
