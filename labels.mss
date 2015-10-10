@@ -109,8 +109,8 @@ Map {
     shield-face-name: @text_font_shield;
     shield-name: [ref];
     shield-size: 10;
-    shield-min-distance: 44;
-    shield-spacing: 20;
+    shield-min-distance: 80;
+    shield-spacing: 80;
     // half the width of the shield to prevent from wrapping
     shield-min-padding: 10;
 
@@ -120,7 +120,7 @@ Map {
     [zoom>=11][zoom<=12][highway='tertiary'] {
       shield-opacity: 0;
       shield-size: 0;
-    }    
+    }
 
     [ref=~'I \d+'] {
       shield-file: url(shields/interstate_2.svg);
@@ -156,7 +156,7 @@ Map {
       [zoom>=13] {
         shield-size: 11;
         shield-transform: scale(0.038, 0.038);
-        shield-min-distance: 40;
+        shield-min-distance: 65;
       }
 
       [zoom>=15] {
@@ -215,7 +215,7 @@ Map {
       [zoom>=13] {
         shield-size: 12;
         shield-transform: scale(0.060, 0.060);
-        shield-min-distance: 50;
+        shield-min-distance: 70;
       }
 
       [zoom>=14] {
