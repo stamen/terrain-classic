@@ -104,7 +104,7 @@ Map {
   [highway='primary'] {
 
     // default rectangle shield
-    shield-file: url(shields/default-sheild-export.svg);
+    shield-file: url(shields/default.svg);
     shield-fill: @label_color_shield_fed;
     shield-transform: scale(1.1,1.1);
     shield-face-name: @text_font_shield;
