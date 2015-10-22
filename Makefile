@@ -198,7 +198,9 @@ PLACES=BC:data/extract/north-america/ca/british-columbia-latest.osm.pbf \
 	   CA:data/extract/north-america/us/california-latest.osm.pbf \
 	   belize:data/extract/central-america/belize-latest.osm.pbf \
 	   mexico:data/extract/north-america/mexico-latest.osm.pbf \
+	   mexico_city:data/metro/mexico-city_mexico.osm.pbf \
 	   japan:data/extract/asia/japan-latest.osm.pbf \
+	   tokyo:data/metro/tokyo_japan.osm.pbf \
 	   cle:data/metro/cleveland_ohio.osm.pbf \
 	   MA:data/extract/north-america/us/massachusetts-latest.osm.pbf \
 	   NY:data/extract/north-america/us/new-york-latest.osm.pbf \
@@ -206,7 +208,8 @@ PLACES=BC:data/extract/north-america/ca/british-columbia-latest.osm.pbf \
 	   sf:data/metro/san-francisco-bay_california.osm.pbf \
 	   sfbay:data/metro/sf-bay-area.osm.pbf \
 	   seattle:data/metro/seattle_washington.osm.pbf \
-	   WA:data/extract/north-america/us/washington-latest.osm.pbf
+	   WA:data/extract/north-america/us/washington-latest.osm.pbf \
+	   vancouver:data/metro/vancouver_canada.osm.pbf
 
 $(foreach place,$(PLACES),$(eval $(call import,$(place))))
 
