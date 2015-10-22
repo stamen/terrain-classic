@@ -102,15 +102,16 @@ Map {
   [highway='motorway'],
   [highway='trunk'],
   [highway='primary'] {
+
     // default rectangle shield
-    shield-file: url(shields/default.svg);
-    shield-fill: @label_color_shield_fed;    
-    shield-transform: scale(0.2,0.2);
+    shield-file: url(shields/default-sheild-export.svg);
+    shield-fill: @label_color_shield_fed;
+    shield-transform: scale(1.1,1.1);
     shield-face-name: @text_font_shield;
     shield-name: [ref];
     shield-size: 10;
-    shield-min-distance: 80;
-    shield-spacing: 80;
+    shield-min-distance: 60;
+    shield-spacing: 60;
     // half the width of the shield to prevent from wrapping
     shield-min-padding: 10;
 
