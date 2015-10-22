@@ -18,7 +18,7 @@ CREATE MATERIALIZED VIEW highway_shields AS
     FROM osm_roads
     WHERE highway IN ('motorway', 'trunk', 'primary', 'secondary', 'tertiary')
   ) AS _
-  WHERE ref ~ '(CA|US|I) \d{1,3}$'
+  WHERE ref ~ '([A-Z]+ )?\d+$'
   GROUP BY ref, highway
   -- shuffle to ensure that routes carrying more than 1 number can display all
   -- of them
