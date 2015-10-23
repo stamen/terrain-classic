@@ -77,9 +77,9 @@ To test the terrain style with a hillshade overlay, a `tessera.json` config is p
 
 ## Testing with the side-by-side viewer (experimental)
 
-In the root folder run `npm install && npm start` which will start tessera running at http://localhost:8080
+In the root folder run `npm install && npm start` which will start tessera running at [http://localhost:8080](http://localhost:8080)
 
-Then, in the `side-by-side` folder, run a simple webserver such as `python -m SimpleHTTPServer`. Then go to `http://localhost:8000` (or whatever port the webserver is running at) to view the side-by-side viewer.
+Then, in the `side-by-side` folder, run a simple webserver such as `python -m SimpleHTTPServer`. Then go to [http://localhost:8000](http://localhost:8000) (or whatever port the webserver is running at) to view the side-by-side viewer.
 
 ## FAQ
 
