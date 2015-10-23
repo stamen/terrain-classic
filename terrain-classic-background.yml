@@ -241,7 +241,8 @@ Layer:
         (
           SELECT
             geometry,
-            name
+            name,
+            osm_km2
           FROM osm_admin
           WHERE geometry && !bbox!
             AND type = 'administrative'

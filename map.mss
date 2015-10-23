@@ -214,12 +214,20 @@ Map {
   polygon-fill: @color_physical;
 }
 
-#admin1-lines-osm,
-{
-  line-width: 2.0;
-  line-color: @color_administrative_medium_high2;
-  line-dasharray: 1,5;
-  line-cap: round;
+/**
+  * Use OSM administrative boundaries at zooms >= 10
+  * Filter out really small admin areas for features like 
+  * Indian Reservations at higher zooms 
+  **/
+#admin1-lines-osm{
+  [zoom>=10][area_km2>1000],
+  [zoom>=12][area_km2>500],
+  [zoom>=14][area_km2>0]{
+    line-width: 2.0;
+    line-color: @color_administrative_medium_high2;
+    line-dasharray: 1,5;
+    line-cap: round;
+  }
 }
 
 /**

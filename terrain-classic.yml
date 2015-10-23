@@ -3,7 +3,7 @@
 name:             'Terrain Classic'
 description:      ''
 attribution:      'Map Data © OpenStreetMap'
-center:           [-122.3782, 37.7706, 11]
+center:           [-122.33, 47.60, 11]
 format:           png
 interactivity:    false
 minzoom:          0
@@ -278,7 +278,8 @@ Layer:
         (
           SELECT
             geometry,
-            name
+            name,
+            area_km2
           FROM osm_admin
           WHERE geometry && !bbox!
             AND type = 'administrative'
