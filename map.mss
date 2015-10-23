@@ -1303,24 +1303,37 @@ Map {
   [zoom>=0][zoom<9] {
     raster-opacity:1;
     raster-scaling:gaussian;
-    image-filters: agg-stack-blur(0,0);  
+    image-filters: agg-stack-blur(0,0);
   }
+  [zoom>=7] { raster-opacity:0.9; }
+  [zoom>=8] { raster-opacity:0.8; }
 }
 
 #lc500mMODIS_med {
   [zoom>=9] {
-    raster-opacity:1;
+    raster-opacity:0.7;
     raster-scaling:gaussian;
     image-filters: agg-stack-blur(3,3);
   }
+  [zoom>=10] { raster-opacity:0.6; }
+  [zoom>=11] {
+    raster-opacity:0.5;
+    image-filters: agg-stack-blur(10,10);
+  }
+  [zoom>=12] { raster-opacity:0.4; }
+  [zoom>=13] { raster-opacity:0.3; }
 }
 
 #lc500mMODIS_high {
   [zoom>=14] {
-    raster-opacity:0.8;
+    raster-opacity:0.2;
     raster-scaling:gaussian;
-    image-filters: agg-stack-blur(20,20);    
+    image-filters: agg-stack-blur(20,20);
   }
+  [zoom>=15] { raster-opacity:0.2; }
+  [zoom>=16] { raster-opacity:0.15; }
+  [zoom>=17] { raster-opacity:0.1; }
+  [zoom>=18] { raster-opacity:0.05; }
 }
 
 #land {
