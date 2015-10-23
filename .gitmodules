@@ -1,0 +1,3 @@
+[submodule "side-by-side"]
+	path = side-by-side
+	url = https://github.com/stamen/side-by-side

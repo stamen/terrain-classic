@@ -75,6 +75,12 @@ re-run `make [variant]` to re-generate the `project.mml` that TileMill reads.
 
 To test the terrain style with a hillshade overlay, a `tessera.json` config is provided. Install tessera with `npm install tessera` and then run `npm start` in the terrain-classic directory. Open http://localhost:8080/ to view the `terrain-classic` style composited with Open Terrain hillshades.
 
+## Testing with the side-by-side viewer (experimental)
+
+In the root folder run `npm install && npm start` which will start tessera running at [http://localhost:8080](http://localhost:8080)
+
+Then, in the `side-by-side` folder, run a simple webserver such as `python -m SimpleHTTPServer`. Then go to [http://localhost:8000](http://localhost:8000) (or whatever port the webserver is running at) to view the side-by-side viewer.
+
 ## FAQ
 
 > What's the deal with the `Makefile`? Why is it so complicated?
