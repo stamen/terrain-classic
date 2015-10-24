@@ -91,6 +91,16 @@ Layer:
       file: landcover/LC_500m_MODIS-to-rgb.vrt
 
   - <<: *layer
+    name: lc500mMODIS_urban
+    id:   lc500mMODIS_urban
+    properties:
+      minzoom: 9
+    geometry: raster
+    srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+    Datasource:
+      file: landcover/LC_500m_MODIS-to-rgb-urban.vrt
+
+  - <<: *layer
     name: ne_10m_rivers_lake_centerlines_scale_rank
     id:   ne_10m_rivers_lake_centerlines_scale_rank
     properties:
@@ -525,25 +535,25 @@ Layer:
           WHERE geometry && !bbox!
         ) AS _
 
-  - <<: *layer
-    name: buildings-med
-    id:   buildings-med
-    properties:
-      minzoom: 13
-      maxzoom: 13
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-            name,
-            type,
-            geometry,
-            area
-          FROM osm_buildings_z13
-          WHERE geometry && !bbox!
-        ) AS _
+  # - <<: *layer
+  #   name: buildings-med
+  #   id:   buildings-med
+  #   properties:
+  #     minzoom: 13
+  #     maxzoom: 13
+  #   Datasource:
+  #     <<: *postgis
+  #     geometry_field: geometry
+  #     table: >
+  #       (
+  #         SELECT
+  #           name,
+  #           type,
+  #           geometry,
+  #           area
+  #         FROM osm_buildings_z13
+  #         WHERE geometry && !bbox!
+  #       ) AS _
 
   - <<: *layer
     name: aeroways
@@ -890,6 +900,7 @@ Layer:
         (
           SELECT
             ref,
+            CHAR_LENGTH(ref) as ref_length,
             highway,
             geometry
           FROM highway_shields

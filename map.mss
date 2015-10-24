@@ -1336,6 +1336,14 @@ Map {
   [zoom>=18] { raster-opacity:0.05; }
 }
 
+#lc500mMODIS_urban {
+  [zoom > 9] {
+    raster-opacity: 1;
+    raster-scaling: gaussian;
+    image-filters: agg-stack-blur(20,20);
+  }
+}
+
 #land {
   polygon-fill: @color_physical;
 }
