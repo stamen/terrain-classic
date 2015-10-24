@@ -25,6 +25,16 @@
             "sql_filter": "highway in ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary','secondary_link', 'tertiary','tertiary_link','residential','unclassified','road','minor') OR railway = 'rail'",
             "tolerance": 4
         },
+        "urban_areas_z13": {
+          "source": "urban_areas",
+          "sql_filter": "area > 100000",
+          "tolerance": 9
+        },
+        "urban_areas_z10": {
+          "source": "urban_areas_z13",
+          "sql_filter": "area > 500000",
+          "tolerance": 76
+        },
         "green_areas_z13": {
           "source": "green_areas",
           "sql_filter": "area > 75000",
@@ -351,6 +361,60 @@
                   "recreation_ground",
                   "forest",
                   "wood"
+                ]
+              }
+            }
+          }
+        },
+        "urban_areas": {
+          "fields": [
+            {
+              "type": "id",
+              "name": "osm_id",
+              "key": null
+            },
+            {
+              "type": "geometry",
+              "name": "geometry",
+              "key": null
+            },
+            {
+              "type": "pseudoarea",
+              "name": "area",
+              "key": null
+            },
+            {
+              "type": "string",
+              "name": "name",
+              "key": "name"
+            },
+            {
+              "type": "mapping_value",
+              "name": "type",
+              "key": null
+            }
+          ],
+          "type":"polygon",
+          "mappings": {
+            "urban_areas": {
+              "mapping": {
+                "leisure": [
+                  "playground",
+                  "sports_centre",
+                  "stadium",
+                  "track",
+                  "pitch"
+                ],
+                "amenity":[
+                  "graveyard"
+                ],
+                "landuse":[
+                  "cemetery",
+                  "commercial",
+                  "retail",
+                  "brownfield",
+                  "residential",
+                  "industrial"
                 ]
               }
             }
