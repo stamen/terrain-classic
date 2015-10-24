@@ -1,5 +1,6 @@
 @color_physical: #dee0be;
 @color_physical_bright: #fff;
+@color_urban: #EDEDED; // 7% k
 @color_water: #99b3cc;
 @color_administrative_lowzoom: #000;
 @color_administrative_dark: #000;
@@ -1344,7 +1345,7 @@ Map {
 }
 
 .urban-landuse {
-  polygon-fill: white;
+  polygon-fill: @color_urban;
   image-filters: agg-stack-blur(10,10);
 }
 
