@@ -961,6 +961,7 @@ Layer:
           SELECT
             ref,
             CHAR_LENGTH(ref) as ref_length,
+            priority,
             highway,
             geometry
           FROM highway_shields

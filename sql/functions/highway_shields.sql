@@ -8,6 +8,7 @@ CREATE MATERIALIZED VIEW highway_shields AS
     CASE WHEN ref ~ 'I \d+' THEN 1
          WHEN ref ~ 'US \d+' THEN 2
          WHEN ref ~ 'CA \d+' THEN 3
+         WHEN ref !~ '(I|US|CA)( \d{1,3})' THEN 4
          ELSE 100
     END AS priority
   FROM (

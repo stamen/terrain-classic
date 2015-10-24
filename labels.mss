@@ -115,17 +115,17 @@ Map {
       shield-min-padding: 10;
       shield-file: url(shields/default-rg.svg);  
 
-      // [ref!~'(I|US|CA)( \d{1,3})'] {
-      //   [ref_length>6][ref_length<8] {
-      //     shield-file: url(shields/default-lg.svg);
-      //   }
-      //   [ref_length<=4][ref_length>=3] {
-      //     shield-file: url(shields/default-sm.svg);
-      //   }
-      //   [ref_length<3][ref_length>0] {
-      //     shield-file: url(shields/default-xsm.svg); 
-      //   }
-      // }
+      [priority=4] {
+        [ref_length>6][ref_length<8] {
+          shield-file: url(shields/default-lg.svg);
+        }
+        [ref_length<=4][ref_length>=3] {
+          shield-file: url(shields/default-sm.svg);
+        }
+        [ref_length<3][ref_length>0] {
+          shield-file: url(shields/default-xsm.svg); 
+        }
+      }
 
       // hide state shields at lower zooms
       [zoom>=11][zoom<=12][highway='trunk'],
