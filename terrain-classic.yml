@@ -77,7 +77,7 @@ Layer:
     geometry: raster
     srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
     Datasource:
-      file: landcover/LC_500m_MODIS-to-rgb.vrt      
+      file: landcover/LC_500m_MODIS-to-rgb.vrt
 
   - <<: *layer
     name: lc500mMODIS_high
@@ -95,10 +95,11 @@ Layer:
     id:   lc500mMODIS_urban
     properties:
       minzoom: 9
+      maxzoom: 18
     geometry: raster
     srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
     Datasource:
-      file: landcover/LC_500m_MODIS-to-rgb-urban.vrt
+      file: landcover/LC_500m_MODIS-urban-only.vrt
 
   - <<: *layer
     name: ne_10m_rivers_lake_centerlines_scale_rank
@@ -294,6 +295,65 @@ Layer:
           WHERE geometry && !bbox!
             AND type = 'administrative'
             AND admin_level = 4
+        ) AS _
+
+  - <<: *layer
+    name: urban-landuse-high
+    id:   urban-landuse-high
+    class: urban-landuse
+    properties:
+      minzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            geometry,
+            type,
+            area
+          FROM osm_urban_areas
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: urban-landuse-med
+    id:   urban-landuse-med
+    class: urban-landuse
+    properties:
+      minzoom: 11
+      maxzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            geometry,
+            type,
+            area
+          FROM osm_urban_areas_z13
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: urban-landuse-low
+    id:   urban-landuse-low
+    class: urban-landuse
+    properties:
+      minzoom: 9
+      maxzoom: 11
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            geometry,
+            type,
+            area
+          FROM osm_urban_areas_z10
+          WHERE geometry && !bbox!
         ) AS _
 
   - <<: *layer

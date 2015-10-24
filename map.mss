@@ -1336,12 +1336,16 @@ Map {
   [zoom>=18] { raster-opacity:0.05; }
 }
 
+// A special landover raster with urban areas only, so we can keep them full opacity
 #lc500mMODIS_urban {
-  [zoom > 9] {
-    raster-opacity: 1;
-    raster-scaling: gaussian;
-    image-filters: agg-stack-blur(20,20);
-  }
+  raster-scaling:gaussian;
+  image-filters: agg-stack-blur(10,10);
+  raster-opacity:1;
+}
+
+.urban-landuse {
+  polygon-fill: white;
+  image-filters: agg-stack-blur(10,10);
 }
 
 #land {
