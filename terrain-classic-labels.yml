@@ -376,6 +376,8 @@ Layer:
           SELECT
             ref,
             highway,
+            CHAR_LENGTH(ref) as ref_length,
+            priority,
             geometry
           FROM highway_shields
           WHERE geometry && !bbox!
