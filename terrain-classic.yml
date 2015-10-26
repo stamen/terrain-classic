@@ -3,7 +3,7 @@
 name:             'Terrain Classic'
 description:      ''
 attribution:      'Map Data © OpenStreetMap'
-center:           [-122.33, 47.60, 11]
+center:           [-99.13, 19.43, 11]
 format:           png
 interactivity:    false
 minzoom:          0
@@ -631,55 +631,15 @@ Layer:
           WHERE geometry && !bbox!
         ) AS _
 
-  # - <<: *layer
-  #   name: buildings-med
-  #   id:   buildings-med
-  #   properties:
-  #     minzoom: 13
-  #     maxzoom: 13
-  #   Datasource:
-  #     <<: *postgis
-  #     geometry_field: geometry
-  #     table: >
-  #       (
-  #         SELECT
-  #           name,
-  #           type,
-  #           geometry,
-  #           area
-  #         FROM osm_buildings_z13
-  #         WHERE geometry && !bbox!
-  #       ) AS _
-
   - <<: *layer
     name: airports
     id:   airports
     properties:
-      minzoom: 8
+      minzoom: 12
     Datasource:
       <<: *postgis
       geometry_field: geom
       table: ne_10m_airports
-
-  - <<: *layer
-    name: aries-places-points
-    id:   aries-places-points
-    properties:
-      minzoom: 4
-      maxzoom: 11
-    Datasource:
-      <<: *postgis      
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-          name, 
-          zoom scalerank,
-          population,
-          geometry
-          FROM aries
-          WHERE geometry && !bbox!
-        ) AS _
 
 # Start Labels
   - <<: *layer
@@ -1003,6 +963,26 @@ Layer:
     id:   aries-places-labels
     properties:
       minzoom: 4
+      maxzoom: 11
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+          name,
+          zoom scalerank,
+          population,
+          geometry
+          FROM aries
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: aries-places-labels-high
+    id:   aries-places-labels-high
+    properties:
+      minzoom: 12
       maxzoom: 16
     Datasource:
       <<: *postgis

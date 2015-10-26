@@ -58,26 +58,6 @@ Layer:
       geometry_field: geom
       table: ne_10m_airports
 
-  - <<: *layer
-    name: aries-places-points
-    id:   aries-places-points
-    properties:
-      minzoom: 4
-      maxzoom: 11
-    Datasource:
-      <<: *postgis      
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-          name, 
-          zoom scalerank,
-          population,
-          geometry
-          FROM aries
-          WHERE geometry && !bbox!
-        ) AS _
-
 # Start Labels
   - <<: *layer
     name: admin0-labels-z3

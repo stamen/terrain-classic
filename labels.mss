@@ -304,7 +304,7 @@ Map {
 #water-bodies-labels-low,
 #water-bodies-labels-med,
 #water-bodies-labels-high {
-  [zoom=9][area>100000000],
+  [zoom=9][area>1000000000],
   [zoom=10][area>100000000],
   [zoom=11][area>25000000],
   [zoom=12][area>5000000],
@@ -559,10 +559,10 @@ Map {
   [zoom=5][scalerank<6],
   [zoom=6][scalerank<7],
   [zoom=7][scalerank<8],
-  [zoom=8][scalerank<9],
-  [zoom=9][scalerank<10],
-  [zoom=10][scalerank<11],
-  [zoom=11][scalerank<12],
+  [zoom=8][scalerank<9][population>=50000],
+  [zoom=9][scalerank<10][population>=50000],
+  [zoom=10][scalerank<11][population>=50000],
+  [zoom=11][scalerank<12][population>=20000],
   [zoom=12][scalerank<13],
   [zoom=13][scalerank<14], 
   [zoom=14][scalerank<15] 
@@ -583,7 +583,8 @@ Map {
     shield-text-dy: 3;
     shield-text-dx: 3;
     shield-min-distance: 10;
-
+    shield-wrap-width: 30;
+    shield-line-spacing: -7;
 
     [zoom>=4] {
       shield-size: @text_font_size_xsm;
@@ -619,7 +620,7 @@ Map {
       }
 
       [population>7000000] {
-        shield-size: @text_font_size_medium * 1.5;
+        shield-size: @text_font_size_medium * 1.4;
       }       
     }
 
@@ -631,35 +632,79 @@ Map {
       shield-size: @text_font_size_medium_plus;      
       shield-halo-radius: @text_font_halo_radius_large;
       shield-halo-fill: @label_color_halo_high;
+
+      [population>100000] {
+        shield-size: @text_font_size_medium_plus * 1.2;
+      }
       
       [population>700000] {
         shield-size: @text_font_size_medium_plus * 1.2;
       }
 
       [population>7000000] {
-        shield-size: @text_font_size_medium_plus * 1.3;
+        shield-size: @text_font_size_medium_plus * 1.4;
       }       
     }
 
     [zoom>=11] {
       shield-opacity: 0;
     }
-
-    [zoom>=12] {
-      shield-size: @text_font_size_xlg;
-      
-      [population>700000] {
-        shield-size: @text_font_size_xlg * 1.2;
-      }
-
-      [population>7000000] {
-        shield-size: @text_font_size_xlg * 1.3;
-      }       
-    }
   }
 }
 
-#airports {
+#aries-places-labels-high {
+  [zoom=11][scalerank<12][population>=20000],
+  [zoom=12][scalerank<13],
+  [zoom=13][scalerank<14], 
+  [zoom=14][scalerank<15] 
+  [zoom>=15][scalerank<15]{
+    text-name: [name];
+    text-face-name: @text_font_city;
+    text-size: @text_font_size_medium_plus;
+    text-fill:  @label_color_city;
+    text-halo-fill: @label_color_halo_high;
+    text-halo-radius: @text_font_halo_radius_large;
+    text-avoid-edges: true;
+    text-min-distance: 3;
+    text-wrap-width: 20;
+    text-line-spacing: -5;
+    text-placement-type: simple;
+    text-placements: 'NE,SW,NW,SE,E,W,N,S';
+
+    [zoom>=12] {
+      [population>100000] {
+        text-size: @text_font_size_medium_plus * 1.2;
+      }
+      
+      [population>700000] {
+        text-size: @text_font_size_medium_plus * 1.2;
+      }
+
+      [population>7000000] {
+        text-size: @text_font_size_medium_plus * 1.4;
+      }   
+    }
+
+    [zoom>=13] {
+      text-size: @text_font_size_large;
+      
+      [population>100000] {
+        text-size: @text_font_size_large * 1.2;
+      }
+      
+      [population>700000] {
+        text-size: @text_font_size_large * 1.2;
+      }
+
+      [population>7000000] {
+        text-size: @text_font_size_large * 1.3;
+      }   
+    }
+
+  }
+}
+
+#airports {  
   [zoom>=10] {
     text-name: [abbrev];
     text-face-name: @text_font_transport;
