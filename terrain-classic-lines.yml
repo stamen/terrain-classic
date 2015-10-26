@@ -138,6 +138,24 @@ Layer:
       table: ne_10m_roads
 
   - <<: *layer
+    name: aeroways
+    id:   aeroways
+    properties:
+      minzoom: 12
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry
+          FROM osm_aeroways
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
     name: tunnels
     id:   tunnels
     class: tunnels
@@ -255,23 +273,5 @@ Layer:
             geometry,
             area
           FROM osm_buildings_z13
-          WHERE geometry && !bbox!
-        ) AS _
-
-  - <<: *layer
-    name: aeroways
-    id:   aeroways
-    properties:
-      minzoom: 12
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-            name,
-            type,
-            geometry
-          FROM osm_aeroways
           WHERE geometry && !bbox!
         ) AS _

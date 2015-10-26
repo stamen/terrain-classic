@@ -357,6 +357,24 @@ Layer:
         ) AS _
 
   - <<: *layer
+    name: aerodromes
+    id:   aerodromes
+    properties:
+      minzoom: 12
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry
+          FROM osm_aeroways
+          WHERE type='aerodrome' and geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
     name: green-areas-high
     id:   green-areas-high
     properties:
@@ -495,6 +513,24 @@ Layer:
       table: ne_10m_roads
 
   - <<: *layer
+    name: aeroways
+    id:   aeroways
+    properties:
+      minzoom: 12
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry
+          FROM osm_aeroways
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
     name: tunnels
     id:   tunnels
     class: tunnels
@@ -614,24 +650,6 @@ Layer:
   #         FROM osm_buildings_z13
   #         WHERE geometry && !bbox!
   #       ) AS _
-
-  - <<: *layer
-    name: aeroways
-    id:   aeroways
-    properties:
-      minzoom: 12
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-            name,
-            type,
-            geometry
-          FROM osm_aeroways
-          WHERE geometry && !bbox!
-        ) AS _
 
   - <<: *layer
     name: airports
