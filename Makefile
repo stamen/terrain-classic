@@ -149,7 +149,7 @@ endef
 
 .PHONY: db/postgres
 
-db/postgres: db/functions/highroad db/functions/highway_shields
+db/postgres: db/functions/highroad db/functions/highway_shields db/functions/osm_admin_area
 
 .PHONY: db/generalizations
 
