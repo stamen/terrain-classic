@@ -22,6 +22,7 @@
 @color_building_outline_special: #00aeef;
 @color_airport_runways: #c8cebe; // hsl(82,8,81)
 @color_airport_runways_detail: darken(@color_airport_runways,20);
+@color_airport_area: lighten(@color_airport_runways,30);
 @color_green_areas: darken(#c0d3b5,18);
 
 Map {
@@ -312,6 +313,14 @@ Map {
   line-color: @color_airport_runways;
   line-cap: square;
   line-join: miter;
+
+  [type='aerodrome'] {
+    [zoom>=10] {
+      // this currently doesn't render because "aerodromes" 
+      // are of geometry type line-string, not polygon
+      polygon-fill: @color_airport_fill;
+    }
+  }
 
   [type='runway'] {
     [zoom=10] {
