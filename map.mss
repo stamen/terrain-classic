@@ -226,9 +226,16 @@ Map {
   [zoom>=12][area_km2>500],
   [zoom>=14][area_km2>0]{
     line-width: 2.0;
+    opacity: 0.2; // apply to layer, not line
     line-color: @color_administrative_medium_high2;
     line-dasharray: 1,5;
     line-cap: round;
+    ::glow {
+      line-color: @color_administrative_dark;
+      opacity: 0.08;
+      line-width: 4;
+      line-dasharray: 1,5;
+    }
   }
 }
 
