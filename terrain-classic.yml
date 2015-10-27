@@ -433,6 +433,65 @@ Layer:
         ) AS _
 
   - <<: *layer
+    name: landcover-high
+    id:   landcover-high
+    class: landcover
+    properties:
+      minzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            geometry,
+            type,
+            area
+          FROM osm_landcover
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: landcover-med
+    id:   landcover-med
+    class: landcover
+    properties:
+      minzoom: 11
+      maxzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            geometry,
+            type,
+            area
+          FROM osm_landcover_z13
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: landcover-low
+    id:   landcover-low
+    class: landcover
+    properties:
+      minzoom: 9
+      maxzoom: 11
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            geometry,
+            type,
+            area
+          FROM osm_landcover_z10
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
     name: water
     id:   water
     properties:
@@ -497,6 +556,64 @@ Layer:
             geometry,
             area
           FROM osm_water_areas_z10
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: brown-areas-high
+    id:   brown-areas-high
+    properties:
+      minzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            geometry,
+            type,
+            area
+          FROM osm_brown_areas
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: brown-areas-med
+    id:   brown-areas-med
+    properties:
+      minzoom: 11
+      maxzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_brown_areas_z13
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: brown-areas-low
+    id:   brown-areas-low
+    properties:
+      minzoom: 10
+      maxzoom: 10
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_brown_areas_z10
           WHERE geometry && !bbox!
         ) AS _
 

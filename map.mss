@@ -300,14 +300,89 @@ Map {
 #green-areas-high[zoom>=13],
 {
   polygon-fill: @color_green_areas;
-  // polygon-opacity: 0.5;
+  polygon-opacity: 0.7;
   polygon-comp-op: src;
 
   [type='nature_reserve'] {
     polygon-fill: @color_green_areas;
+    polygon-opacity: 0.5;
+  }
+}
+
+#brown-areas-low[zoom=10][area>5000000],
+#brown-areas-med[zoom=11][area>1000000],
+#brown-areas-med[zoom=12][area> 500000],
+#brown-areas-med[zoom=12][area> 200000],
+#brown-areas-med[zoom=13][area>  75000],
+#brown-areas-high[zoom=13][area> 10000],
+#brown-areas-high[zoom>13],
+#brown-areas-high[zoom>=13],
+{
+  // DO NOT match wetlands color in landcover .vrt
+  // This includes a mix of brownfields, mud, and wetlands. Needs to be neutral brownish
+  polygon-fill: #b8b894;
+  polygon-opacity: 0.6;
+
+  [type='wetland'] {
+    polygon-fill: darken(#a0b8c8,10%); // more blueish
+    polygon-opacity: 0.4;
+  }
+}
+
+/*
+.landcover[zoom=10][area>5000000],
+.landcover[zoom=11][area>1000000],
+.landcover[zoom=12][area> 500000],
+.landcover[zoom=13][area> 10000],
+.landcover[zoom>13],
+{
+  polygon-fill: purple;
+  // polygon-opacity: 0.5;
+  //polygon-comp-op: src;
+
+  [type='wetland'] {
     // polygon-opacity: 0.3;
   }
 }
+*/
+
+.landcover[type='scrub'],
+.landcover[type='grassland'],
+.landcover[type='heath'],
+.landcover[type='grass'],
+.landcover[type='meadow'] {
+  polygon-fill: #d4daaa; // Greener than grasslands color in landcover .vrt
+}
+
+.landcover[type='beach'],
+.landcover[type='sand'] {
+  polygon-fill: #fff0b9;
+  polygon-opacity: 0.7;
+}
+
+.landcover[type='rock'],
+.landcover[type='bare_rock'],
+.landcover[type='scree'],
+.landcover[type='fell'] {
+  polygon-fill: rgb(240,240,210); // Match bare rock color in landcover .vrt
+}
+
+.landcover[type='glacier'] {
+  polygon-fill: rgb(244,255,255); // Match snow and ice color in landcover .vrt
+}
+
+.landcover[type='orchard'] {
+  polygon-fill: rgb(209,226,172); // Match cropand/natural mosiac color in landcover .vrt
+}
+
+.landcover[type='farmland'],
+.landcover[type='farmyard'],
+.landcover[type='farm'],
+.landcover[type='orchard'],
+.landcover[type='vineyard'] {
+  polygon-fill: rgb(228,229,195); // Match croplands color in landcover .vrt
+}
+
 
 /** 
  * airport area fills

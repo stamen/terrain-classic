@@ -25,6 +25,16 @@
             "sql_filter": "highway in ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary','secondary_link', 'tertiary','tertiary_link','residential','unclassified','road','minor','raceway') OR railway = 'rail'",
             "tolerance": 4
         },
+        "landcover_z13": {
+          "source": "landcover",
+          "sql_filter": "area > 100000",
+          "tolerance": 9
+        },
+        "landcover_z10": {
+          "source": "landcover_z13",
+          "sql_filter": "area > 500000",
+          "tolerance": 76
+        },
         "urban_areas_z13": {
           "source": "urban_areas",
           "sql_filter": "area > 100000",
@@ -213,6 +223,9 @@
               "mapping": {
                 "building": [
                   "__any__"
+                ],
+                "waterway": [
+                  "dam"
                 ]
               }
             }
@@ -297,10 +310,13 @@
             "brown_areas": {
               "mapping": {
                 "landuse": [
-                  "brownfield"
+                  "brownfield",
+                  "landfill",
+                  "quarry"
                 ],
                 "natural":[
                   "mud",
+                  "marsh",
                   "wetland"
                 ]
               }
@@ -356,11 +372,71 @@
                 "amenity":[
                   "graveyard"
                 ],
+                "natural":[
+                  "wood"
+                ],
                 "landuse":[
                   "cemetery",
                   "recreation_ground",
                   "forest",
                   "wood"
+                ]
+              }
+            }
+          }
+        },
+        "landcover": {
+          "fields": [
+            {
+              "type": "id",
+              "name": "osm_id",
+              "key": null
+            },
+            {
+              "type": "geometry",
+              "name": "geometry",
+              "key": null
+            },
+            {
+              "type": "pseudoarea",
+              "name": "area",
+              "key": null
+            },
+            {
+              "type": "string",
+              "name": "name",
+              "key": "name"
+            },
+            {
+              "type": "mapping_value",
+              "name": "type",
+              "key": null
+            }
+          ],
+          "type":"polygon",
+          "mappings": {
+            "landcover": {
+              "mapping": {
+                "natural": [
+                  "scrub",
+                  "grassland",
+                  "heath",
+                  "rock",
+                  "bare_rock",
+                  "beach",
+                  "sand",
+                  "scree",
+                  "fell",
+                  "glacier"
+                ],
+                "landuse":[
+                  "farmland",
+                  "grass",
+                  "meadow",
+                  "farm",
+                  "farmyard",
+                  "vineyard",
+                  "orchard"
                 ]
               }
             }
