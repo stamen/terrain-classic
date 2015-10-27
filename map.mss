@@ -226,7 +226,7 @@ Map {
   [zoom>=12][area_km2>500],
   [zoom>=14][area_km2>0]{
     line-width: 2.0;
-    opacity: 0.2; // apply to layer, not line
+    opacity: 0.2; // apply to layer, not line. Helps overlaps.
     line-color: @color_administrative_medium_high2;
     line-dasharray: 1,5;
     line-cap: round;
@@ -336,22 +336,10 @@ Map {
   }
 }
 
-/*
-.landcover[zoom=10][area>5000000],
-.landcover[zoom=11][area>1000000],
-.landcover[zoom=12][area> 500000],
-.landcover[zoom=13][area> 10000],
-.landcover[zoom>13],
-{
-  polygon-fill: purple;
-  // polygon-opacity: 0.5;
-  //polygon-comp-op: src;
-
-  [type='wetland'] {
-    // polygon-opacity: 0.3;
-  }
+.landcover[type='parking'] {
+  polygon-fill: #ddd;
+  polygon-opacity: 0.5;
 }
-*/
 
 .landcover[type='scrub'],
 .landcover[type='grassland'],

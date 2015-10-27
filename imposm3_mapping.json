@@ -429,6 +429,9 @@
                   "fell",
                   "glacier"
                 ],
+                "amenity":[
+                  "parking"
+                ],
                 "landuse":[
                   "farmland",
                   "grass",
