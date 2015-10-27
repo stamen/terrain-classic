@@ -72,7 +72,7 @@ CREATE VIEW highroad_z13 AS
          highway,
          railway,
          (CASE WHEN highway IN ('motorway', 'motorway_link') THEN 'highway'
-               WHEN highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link') THEN 'major_road'
+               WHEN highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link', 'raceway') THEN 'major_road'
                ELSE 'minor_road' END) AS kind,
          (CASE WHEN highway IN ('motorway_link', 'secondary_link','tertiary_link') THEN 'yes'
                ELSE 'no' END) AS is_link,
@@ -113,7 +113,7 @@ CREATE VIEW highroad_z14 AS
                WHEN highway IN ('trunk') THEN 1
                WHEN highway IN ('primary') THEN 2
                WHEN highway IN ('secondary') THEN 3
-               WHEN highway IN ('tertiary') THEN 4
+               WHEN highway IN ('tertiary', 'raceway') THEN 4
                WHEN highway IN ('motorway_link','trunk_link','primary_link','secondary_link','tertiary_link') THEN 5
                WHEN highway IN ('residential', 'unclassified', 'road', 'minor') THEN 6
                WHEN railway IN ('rail') THEN 7
@@ -150,14 +150,14 @@ CREATE VIEW highroad_z15plus AS
                WHEN highway IN ('trunk') THEN 1
                WHEN highway IN ('primary') THEN 2
                WHEN highway IN ('secondary') THEN 3
-               WHEN highway IN ('tertiary') THEN 4
+               WHEN highway IN ('tertiary', 'raceway') THEN 4
                WHEN highway IN ('motorway_link','trunk_link','primary_link','secondary_link','tertiary_link') THEN 5
                WHEN highway IN ('residential', 'unclassified', 'road') THEN 6
                WHEN highway IN ('unclassified', 'service', 'minor') THEN 7
                ELSE 99 END) AS priority
       FROM osm_roads
       WHERE highway IN ('motorway', 'motorway_link')
-         OR highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link')
+         OR highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link', 'raceway')
          OR highway IN ('residential', 'unclassified', 'road', 'unclassified', 'service', 'minor')
          OR highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway')
          OR railway IN ('rail', 'tram', 'light_rail', 'narrow_gauge', 'monorail')
