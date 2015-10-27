@@ -308,7 +308,6 @@ Map {
 {
   polygon-fill: @color_green_areas;
   polygon-opacity: 0.7;
-  polygon-comp-op: src;
 
   [type='nature_reserve'] {
     polygon-fill: @color_green_areas;
