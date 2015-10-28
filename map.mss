@@ -1393,42 +1393,21 @@ Map {
   }
 }
 
-#lc500mMODIS_low {
-  [zoom>=0][zoom<9] {
-    raster-opacity:1;
-    raster-scaling:gaussian;
-    image-filters: agg-stack-blur(0,0);
-  }
-  [zoom>=7] { raster-opacity:0.9; }
-  [zoom>=8] { raster-opacity:0.8; }
-}
-
-#lc500mMODIS_med {
-  [zoom>=9] {
-    raster-opacity:0.7;
-    raster-scaling:gaussian;
-    //image-filters: agg-stack-blur(3,3); // causes discontinuities at metatile boundaries
-  }
+.landcover {
+  raster-scaling:gaussian;
+  raster-opacity:1;
+  /* Note: we can't start reducing opacity until the land layer comes in, which starts at z8 */
+  [zoom>=9] { raster-opacity:0.8; }
   [zoom>=10] { raster-opacity:0.6; }
-  [zoom>=11] {
-    raster-opacity:0.5;
-    //image-filters: agg-stack-blur(10,10); // causes discontinuities at metatile boundaries
-  }
-  [zoom>=12] { raster-opacity:0.4; }
-  [zoom>=13] { raster-opacity:0.3; }
+  [zoom>=11] { raster-opacity:0.4; }
+  [zoom>=12] { raster-opacity:0.3; }
+  [zoom>=13] { raster-opacity:0.25; }
+  [zoom>=14] { raster-opacity:0.2; }
+  [zoom>=15] { raster-opacity:0.15; }
+  [zoom>=16] { raster-opacity:0.1; }
+  [zoom>=17] { raster-opacity:0.05; }
 }
 
-#lc500mMODIS_high {
-  [zoom>=14] {
-    raster-opacity:0.2;
-    raster-scaling:gaussian;
-    //image-filters: agg-stack-blur(20,20); // causes discontinuities at metatile boundaries
-  }
-  [zoom>=15] { raster-opacity:0.2; }
-  [zoom>=16] { raster-opacity:0.15; }
-  [zoom>=17] { raster-opacity:0.1; }
-  [zoom>=18] { raster-opacity:0.05; }
-}
 
 // A special landover raster with urban areas only, so we can keep them full opacity
 #lc500mMODIS_urban {
@@ -1437,9 +1416,16 @@ Map {
   raster-opacity:1;
 }
 
-.urban-landuse {
+.urban-landuse[zoom<12] {
   polygon-fill: @color_urban;
-  image-filters: agg-stack-blur(10,10);
+  //image-filters: agg-stack-blur(2,2);
+  //[zoom>=12] { image-filters: agg-stack-blur(5,5); }
+  //[zoom>=15] { image-filters: agg-stack-blur(10,10); }
+}
+
+.urban-landuse[zoom>=12] {
+  polygon-fill: @color_urban;
+  image-filters: agg-stack-blur(5,5);
 }
 
 #land {
