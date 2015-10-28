@@ -42,7 +42,7 @@
 @label_color_places_halo_high: fadeout(rgba(255,255,255, 1), 30%);
 
 @label_color_green_area: #374c30; 
-@label_color_green_area_halo: #c0d3b5;
+@label_color_green_area_halo: #dee0be; // same as @color_physical, the land background
 @label_color_water: darken(@color_water,20);
 @label_color_water_halo: @color_water;
 
