@@ -685,19 +685,35 @@ Map {
       }   
     }
 
-    [zoom>=13] {
+    [zoom>=13],[zoom>=14] {
       text-size: @text_font_size_large;
       
       [population>100000] {
-        text-size: @text_font_size_large * 1.2;
+        text-size: @text_font_size_large * 1.5;
       }
       
       [population>700000] {
-        text-size: @text_font_size_large * 1.2;
+        text-size: @text_font_size_large * 1.5;
       }
 
       [population>7000000] {
-        text-size: @text_font_size_large * 1.3;
+        text-size: @text_font_size_large * 1.75;
+      }   
+    }
+
+    [zoom>=15] {
+      text-size: @text_font_size_xlg;
+      
+      [population>100000] {
+        text-size: @text_font_size_xlg * 1.5;
+      }
+      
+      [population>700000] {
+        text-size: @text_font_size_xlg * 1.5;
+      }
+
+      [population>7000000] {
+        text-size: @text_font_size_xlg * 1.75;
       }   
     }
 

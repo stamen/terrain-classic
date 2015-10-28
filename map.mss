@@ -240,6 +240,26 @@ Map {
 }
 
 /**
+  * Contour lines ---testing
+  */
+
+#contour-lines-50m {
+  line-width: 1.0;
+  opacity: 0.8;
+  line-color: #b0a688;
+  line-cap: round;
+  // line-simplify-algorithm: visvalingam-whyatt;
+  // line-simplify: 0;
+  line-smooth: 1;
+
+  [zoom>=17] {
+    line-smooth: 2;
+    line-simplify-algorithm: visvalingam-whyatt;
+    line-simplify: 100;
+  }
+}
+
+/**
  * Zoom 13 buildings.
  * Already filtered by size upon import.
  */
@@ -303,7 +323,6 @@ Map {
 #green-areas-med[zoom=12][area> 200000],
 #green-areas-med[zoom=13][area>  75000],
 #green-areas-high[zoom=13][area> 10000],
-#green-areas-high[zoom>13],
 #green-areas-high[zoom>=13],
 {
   polygon-fill: @color_green_areas;
@@ -313,6 +332,10 @@ Map {
     polygon-fill: @color_green_areas;
     polygon-opacity: 0.5;
   }
+
+  #green-areas-high[zoom>=14] {
+    image-filters: agg-stack-blur(15,15);
+  }  
 }
 
 #brown-areas-low[zoom=10][area>5000000],
@@ -1376,6 +1399,7 @@ Map {
 #bridges[kind='path'],
 {
   line-color: @color_transport_path;
+  line-smooth: 0.8  ;
 
   [zoom>=15] {
     line-width: 0.5;

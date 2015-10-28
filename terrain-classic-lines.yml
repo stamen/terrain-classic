@@ -156,6 +156,25 @@ Layer:
         ) AS _
 
   - <<: *layer
+    name: contour-lines-50m
+    id:   contour-lines-50m
+    class: contours
+    properties:
+      minzoom: 14
+      maxzoom: 18
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            geometry,
+            elev_intv
+          FROM contours
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
     name: tunnels
     id:   tunnels
     class: tunnels

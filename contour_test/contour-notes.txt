@@ -1,0 +1,27 @@
+example searching for terrain on openterrain’s srtm 30m AWS S3 bucket:
+`aws s3 ls s3://srtm-30.openterrain.org/source/ | grep -i "n36_w119”`
+
+
+Reproject Raster to EPSG:3857
+```
+gdalwarp -overwrite -s_srs EPSG:4326 -t_srs EPSG:3857 -r bilinear -of GTiff /Users/clhenrick/data/srtm_30m/n36_w119_1arc_v3.bil /Users/clhenrick/data/srtm_30m/epsg_3857/n36_w119_1arc_v3_3857.tif
+```
+
+Create the contours:
+```
+gdal_contour -a elev -i 10.0 \
+/Users/clhenrick/data/srtm_30m/epsg_3857/n36_w119_1arc_v3_3857.tif \
+/Users/clhenrick/projects/Stamen/terrain-classic/contour_test/contours_n36_w119_30m_10e.shp
+```
+
+Override the source projection of the contour lines, GDAL gives it the wrong EPSG code when making the contours for some reason:
+```
+ogr2ogr -s_srs EPSG:3857 -t_srs EPSG:3857 \
+contours_n36_w119_30m_10e_3857.shp \
+contours_n36_w119_30m_10e.shp
+```
+
+Simplify the lines
+```
+ogr2ogr output.shp input.shp -simplify 0.0001
+```

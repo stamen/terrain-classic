@@ -3,7 +3,7 @@
 name:             'Terrain Classic'
 description:      ''
 attribution:      'Map Data © OpenStreetMap'
-center:           [-99.13, 19.43, 11]
+center:           [-118.291995, 36.578581, 14]
 format:           png
 interactivity:    false
 minzoom:          0
@@ -467,6 +467,25 @@ Layer:
             type,
             area
           FROM osm_landcover_z10
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: contour-lines-50m
+    id:   contour-lines-50m
+    class: contours
+    properties:
+      minzoom: 14
+      maxzoom: 18
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            geometry,
+            elev_intv
+          FROM contours
           WHERE geometry && !bbox!
         ) AS _
 
@@ -1079,7 +1098,7 @@ Layer:
     id:   aries-places-labels-high
     properties:
       minzoom: 12
-      maxzoom: 16
+      maxzoom: 18
     Datasource:
       <<: *postgis
       geometry_field: geometry
