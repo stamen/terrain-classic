@@ -406,6 +406,7 @@ Layer:
             name,
             name_alt,
             elevation,
+            comment,
             geom,
             featurecla
           FROM ne_10m_geography_regions_elevation_points
