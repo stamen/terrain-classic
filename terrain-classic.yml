@@ -3,7 +3,7 @@
 name:             'Terrain Classic'
 description:      ''
 attribution:      'Map Data © OpenStreetMap'
-center:           [-99.13, 19.43, 11]
+center:           [ 8.33, 46.83, 10]
 format:           png
 interactivity:    false
 minzoom:          0
@@ -1052,7 +1052,26 @@ Layer:
       <<: *shapefile
       file: shp/continents_900913.shp
 
-# ---- Aries Places ----------------------------------------------------
+  # ---- Mountain Peaks -----------------
+  - <<: *layer
+    name: mountain_peaks
+    id: mountain_peaks
+    properties:
+      minzoom: 10
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry
+          FROM osm_mountain_peaks
+          WHERE geometry && !bbox!
+        ) AS _
+
+  # ---- Aries Places ----------------------------------------------------
 
   - <<: *layer
     name: aries-places-labels

@@ -51,6 +51,30 @@ Map {
   buffer-size: 128;
 }
 
+#mountain_peaks {
+  [type='peak'] {
+    shield-name: [name];
+    shield-face-name: @text_font_water;
+    shield-size: @text_font_size_xxsm;
+    shield-file: url('icons/triangle-18.svg');
+    shield-transform: scale(0.5,0.5);
+    shield-unlock-image: true;
+    shield-avoid-edges: true;
+    shield-fill: @label_color_physical;
+    shield-halo-fill: @label_color_physical_halo;
+    shield-halo-radius: 1;
+    shield-halo-comp-op: overlay; 
+    shield-min-distance: 2;
+    shield-placement-type: simple;
+    shield-placements: 'NE,SW,NW,SE,E,W';
+    shield-text-dy: 5;
+    shield-text-dx: 5;
+    shield-min-distance: 100;
+    shield-wrap-width: 30;
+    shield-line-spacing: 0;
+  }
+}
+
 #minor_road_labels,
 #major_road_labels,
 {

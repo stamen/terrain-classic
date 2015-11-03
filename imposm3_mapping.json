@@ -189,6 +189,64 @@
             }
           }
         },
+        "mountain_peaks": {
+          "fields": [
+            {
+              "type": "id",
+              "name": "osm_id",
+              "key": null
+            },
+            {
+              "type": "geometry",
+              "name": "geometry",
+              "key": null
+            },
+            {
+              "type": "string",
+              "name": "name",
+              "key": "name"
+            },
+            {
+              "type":"string",
+              "name": "elev",
+              "key": "ele"
+            },
+            {
+              "type": "mapping_value",
+              "name": "type",
+              "key": null
+            }
+          ],
+          "type":"point",
+          "mappings": {
+            "type": {
+              "mapping": {
+                "natural": [
+                  "peak",
+                  "volcano",
+                  "saddle"
+                ],
+                "tourism":[
+                  "viewpoint"
+                ],
+                "man_made":[
+                  "tower",
+                  "water_tower",
+                  "monitoring_station",
+                  "survey_point",
+                  "cairn"
+                ]
+              }
+            },
+            "elev": {
+              "mapping": {
+                "ele" : [
+                  "__any__"
+                ]
+              }
+            }
+          }
+        },
         "buildings": {
           "fields": [
             {
