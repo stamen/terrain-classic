@@ -3,8 +3,8 @@
 @text_font_administrative: 'PT Sans Bold', 'Unifont Medium';
 @text_font_city: 'PT Sans Narrow Regular', 'Unifont Medium';
 @text_font_parks: 'PT Sans Narrow Regular', 'Unifont Medium';
-@text_font_water: 'PT Sans Italic', 'Unifont Medium';
-@text_font_water_bold: 'PT Sans Bold Italic', 'Unifont Medium';
+@text_font_italic: 'PT Sans Italic', 'Unifont Medium';
+@text_font_bold_italic: 'PT Sans Bold Italic', 'Unifont Medium';
 
 @label_color_transport: #524c4c;
 @label_color_shield: #fff;
@@ -51,10 +51,13 @@ Map {
   buffer-size: 128;
 }
 
+/** 
+ * These need to be filtered some how, else too many display
+ */
 // #mountain_peaks {
 //   [type='peak'] {
 //     shield-name: [name];
-//     shield-face-name: @text_font_water;
+//     shield-face-name: @text_font_italic;
 //     shield-size: @text_font_size_xxsm;
 //     shield-file: url('icons/triangle-18.svg');
 //     shield-transform: scale(0.5,0.5);
@@ -74,6 +77,42 @@ Map {
 //     shield-line-spacing: 0;
 //   }
 // }
+
+#mountain_peaks_ne {
+    [zoom>=7][elevation>=2000],
+    [zoom>=8][elevation>=1500],
+    [zoom>=9][elevation>=1000],
+    [zoom>=10][elevation>=500],
+    [zoom>=11][elevation>0] {
+      shield-name: [name];
+      shield-face-name: @text_font_italic;
+      shield-size: @text_font_size_xxsm;
+      shield-file: url('icons/triangle-18.svg');
+      shield-transform: scale(0.5,0.5);
+      shield-unlock-image: true;
+      shield-avoid-edges: true;
+      shield-fill: @label_color_physical;
+      shield-halo-fill: @label_color_physical_halo;
+      shield-halo-radius: 1;
+      shield-halo-opacity: 0.7;
+      shield-min-distance: 2;
+      shield-placement-type: simple;
+      shield-placements: 'NW,SE,N,S,E,W,NE,SW';
+      shield-text-dy: 5;
+      shield-text-dx: 5;
+      shield-min-distance: 1000;
+      shield-wrap-width: 30;
+      shield-line-spacing: -2;
+      
+      [zoom>=8] {
+        shield-size: @text_font_size_xsm;        
+      }
+      [zoom>=10] {
+        shield-size: @text_font_size_sm;
+        shield-transform: scale(0.8,0.8);
+      }
+    }
+}
 
 #minor_road_labels,
 #major_road_labels,
@@ -284,7 +323,7 @@ Map {
       text-name: [name] + '\n(' + [namealt] + ')';
     }
     
-    text-face-name: @text_font_water_bold;
+    text-face-name: @text_font_bold_italic;
     text-wrap-width: 40;
     text-wrap-character: ' ';
     text-size: @text_font_size_sm;
@@ -314,7 +353,7 @@ Map {
       text-name: 'Queen Charlotte Strait' + [namealt]; // Becase we know namealt is empty
     }
 
-    text-face-name: @text_font_water_bold;
+    text-face-name: @text_font_bold_italic;
     text-wrap-width: 50;
     text-size: @text_font_size_medium;
     text-character-spacing: @text_character_spacing_lg;
@@ -338,7 +377,7 @@ Map {
   [zoom=16][area>10000],
   [zoom>=17] {
     text-name: "[name]";
-    text-face-name: @text_font_water;
+    text-face-name: @text_font_italic;
     text-placement: interior;
     text-max-char-angle-delta: 30;
     text-wrap-width: 40;
@@ -649,13 +688,18 @@ Map {
     }
 
     [zoom>=8] {
+      shield-line-spacing: -4;
       shield-halo-radius: @text_font_halo_radius_md;
+      shield-transform: scale(0.75, 0.75);
+      shield-text-dy: 5;
+      shield-text-dx: 5;
     }
 
     [zoom>=10]{
       shield-size: @text_font_size_medium_plus;      
       shield-halo-radius: @text_font_halo_radius_large;
       shield-halo-fill: @label_color_halo_high;
+      shield-transform: scale(1, 1);
 
       [population>100000] {
         shield-size: @text_font_size_medium_plus * 1.2;

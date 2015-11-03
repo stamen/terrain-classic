@@ -373,6 +373,45 @@ Layer:
       <<: *shapefile
       file: shp/continents_900913.shp
 
+  # ---- Mountain Peaks -----------------
+  - <<: *layer
+    name: mountain_peaks
+    id: mountain_peaks
+    properties:
+      minzoom: 10
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry
+          FROM osm_mountain_peaks
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: mountain_peaks_ne
+    id: mountain_peaks_ne
+    properties:
+      minzoom: 7
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: >
+        (
+          SELECT
+            name,
+            name_alt,
+            elevation,
+            geom,
+            featurecla
+          FROM ne_10m_geography_regions_elevation_points
+          WHERE geom && !bbox!
+        ) AS _
+
 # ---- Aries Places ----------------------------------------------------
 
   - <<: *layer

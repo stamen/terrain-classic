@@ -180,7 +180,8 @@ db/natearth: db/ne_50m_ocean \
 		   db/ne_10m_admin_0_boundary_lines_land \
 		   db/ne_50m_admin_0_boundary_lines_land \
 		   db/ne_10m_admin_1_states_provinces_scale_rank \
-		   db/ne_10m_admin_1_states_provinces_lines
+		   db/ne_10m_admin_1_states_provinces_lines \
+		   db/ne_10m_geography_regions_elevation_points
 
 db/aries: db/postgis data/aries/z4to10.json
 	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
@@ -279,7 +280,8 @@ NATURAL_EARTH=ne_50m_land:data/ne/50m/physical/ne_50m_land.zip \
 	ne_10m_admin_0_boundary_lines_land:data/ne/10m/cultural/ne_10m_admin_0_boundary_lines_land.zip \
 	ne_50m_admin_0_boundary_lines_land:data/ne/50m/cultural/ne_50m_admin_0_boundary_lines_land.zip \
 	ne_10m_admin_1_states_provinces_scale_rank:data/ne-stamen/10m/cultural/ne_10m_admin_1_states_provinces_scale_rank.zip:ne_10m_admin_1_states_provinces_scale_rank/ne_10m_admin_1_states_provinces_scale_rank.shp \
-	ne_10m_admin_1_states_provinces_lines:data/ne/10m/cultural/ne_10m_admin_1_states_provinces_lines.zip:ne_10m_admin_1_states_provinces_lines.shp
+	ne_10m_admin_1_states_provinces_lines:data/ne/10m/cultural/ne_10m_admin_1_states_provinces_lines.zip:ne_10m_admin_1_states_provinces_lines.shp \
+	ne_10m_geography_regions_elevation_points:data/ne/10m/physical/ne_10m_geography_regions_elevation_points.zip:ne_10m_geography_regions_elevation_points.shp
 
 $(foreach shape,$(NATURAL_EARTH),$(eval $(call natural_earth,$(shape))))
 

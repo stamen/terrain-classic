@@ -3,7 +3,7 @@
 name:             'Terrain Classic'
 description:      ''
 attribution:      'Map Data © OpenStreetMap'
-center:           [ 8.33, 46.83, 10]
+center:           [ 8.33, 46.83, 7]
 format:           png
 interactivity:    false
 minzoom:          0
@@ -1069,6 +1069,26 @@ Layer:
             geometry
           FROM osm_mountain_peaks
           WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: mountain_peaks_ne
+    id: mountain_peaks_ne
+    properties:
+      minzoom: 7
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: >
+        (
+          SELECT
+            name,
+            name_alt,
+            elevation,
+            geom,
+            featurecla
+          FROM ne_10m_geography_regions_elevation_points
+          WHERE geom && !bbox!
         ) AS _
 
   # ---- Aries Places ----------------------------------------------------
