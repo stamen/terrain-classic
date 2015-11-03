@@ -1075,7 +1075,7 @@ Layer:
     name: mountain_peaks_ne
     id: mountain_peaks_ne
     properties:
-      minzoom: 7
+      minzoom: 6
     Datasource:
       <<: *postgis
       geometry_field: geom
@@ -1085,6 +1085,7 @@ Layer:
             name,
             name_alt,
             elevation,
+            comment,
             geom,
             featurecla
           FROM ne_10m_geography_regions_elevation_points

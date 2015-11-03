@@ -79,12 +79,15 @@ Map {
 // }
 
 #mountain_peaks_ne {
+    [zoom>=6][comment =~'.*Highest.*'],
+    [zoom>=6][comment =~'.*highest.*'],
+    [zoom>=6][name =~'.*Vinson.*'],
     [zoom>=7][elevation>=2000],
     [zoom>=8][elevation>=1500],
     [zoom>=9][elevation>=1000],
     [zoom>=10][elevation>=500],
     [zoom>=11][elevation>0] {
-      shield-name: [name];
+      shield-name: [name] + ' '  + [elevation] + 'm';
       shield-face-name: @text_font_italic;
       shield-size: @text_font_size_xxsm;
       shield-file: url('icons/triangle-18.svg');
@@ -103,14 +106,58 @@ Map {
       shield-min-distance: 1000;
       shield-wrap-width: 30;
       shield-line-spacing: -2;
+
+      [comment =~'.*Highest.*'],
+      [comment =~'.*highest.*'],
+      [name =~'.*Vinson.*'] {
+        shield-face-name: @text_font_bold_italic; // special call out to the tallest peaks on each continent!
+        shield-transform: scale(0.65,0.65);
+      }
       
       [zoom>=8] {
         shield-size: @text_font_size_xsm;        
       }
+
       [zoom>=10] {
         shield-size: @text_font_size_sm;
         shield-transform: scale(0.8,0.8);
+        shield-text-dy: 7;
+        shield-text-dx: 7;
       }
+      
+      // replace McKinley with Denali (not the dryest solution but TileMill is being weird...)
+      [zoom>=6][zoom<=18][name=~'.*McKinley'] {
+          shield-name: "Denali" + ' '  + [elevation] + 'm';
+          shield-face-name: @text_font_bold_italic;
+          shield-size: @text_font_size_xxsm;
+          shield-file: url('icons/triangle-18.svg');
+          shield-transform: scale(0.5,0.5);
+          shield-unlock-image: true;
+          shield-avoid-edges: true;
+          shield-fill: @label_color_physical;
+          shield-halo-fill: @label_color_physical_halo;
+          shield-halo-radius: 1;
+          shield-halo-opacity: 0.7;
+          shield-min-distance: 2;
+          shield-placement-type: simple;
+          shield-placements: 'NW,SE,N,S,E,W,NE,SW';
+          shield-text-dy: 5;
+          shield-text-dx: 5;
+          shield-min-distance: 1000;
+          shield-wrap-width: 30;
+          shield-line-spacing: -2;
+
+          [zoom>=8] {
+            shield-size: @text_font_size_xsm;        
+          }
+
+          [zoom>=10] {
+            shield-size: @text_font_size_sm;
+            shield-transform: scale(0.8,0.8);
+            shield-text-dy: 7;
+            shield-text-dx: 7;
+          }
+       }
     }
 }
 
@@ -480,7 +527,7 @@ Map {
     text-placement-type: simple;
     text-placements: 'E,N,W,S';
     text-allow-overlap: false;
-    text-min-distance: 3;
+    text-min-distance: 30;
     text-avoid-edges: true;
     text-min-padding: 5;
     
@@ -680,6 +727,8 @@ Map {
 
       [population>700000] {
         shield-size: @text_font_size_medium * 1.2;
+        shield-text-dy: 5;
+        shield-text-dx: 5;
       }
 
       [population>7000000] {
@@ -699,10 +748,15 @@ Map {
       shield-size: @text_font_size_medium_plus;      
       shield-halo-radius: @text_font_halo_radius_large;
       shield-halo-fill: @label_color_halo_high;
-      shield-transform: scale(1, 1);
+      shield-transform: scale(0.85, 0.85);
+      shield-text-dy: 7;
+      shield-text-dx: 7;
 
       [population>100000] {
         shield-size: @text_font_size_medium_plus * 1.2;
+        shield-transform: scale(1, 1);
+        shield-text-dy: 8;
+        shield-text-dx: 8;
       }
       
       [population>700000] {

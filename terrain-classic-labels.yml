@@ -396,7 +396,7 @@ Layer:
     name: mountain_peaks_ne
     id: mountain_peaks_ne
     properties:
-      minzoom: 7
+      minzoom: 6
     Datasource:
       <<: *postgis
       geometry_field: geom
