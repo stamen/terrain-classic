@@ -208,7 +208,7 @@
             },
             {
               "type":"string",
-              "name": "elev",
+              "name": "height_meters",
               "key": "ele"
             },
             {
@@ -238,7 +238,7 @@
                 ]
               }
             },
-            "elev": {
+            "height_meters": {
               "mapping": {
                 "ele" : [
                   "__any__"

@@ -8,8 +8,8 @@
 
 @label_color_transport: #524c4c;
 @label_color_shield: #fff;
-@label_color_shield_fed: #333;
-@label_color_administrative: #2e2115;
+@label_color_shield_fed: #333; // 80 K
+@label_color_administrative: #2e2115; //
 @label_color_city: #2e2115;
 
 @text_font_size_xxsm: 12;
@@ -51,29 +51,29 @@ Map {
   buffer-size: 128;
 }
 
-#mountain_peaks {
-  [type='peak'] {
-    shield-name: [name];
-    shield-face-name: @text_font_water;
-    shield-size: @text_font_size_xxsm;
-    shield-file: url('icons/triangle-18.svg');
-    shield-transform: scale(0.5,0.5);
-    shield-unlock-image: true;
-    shield-avoid-edges: true;
-    shield-fill: @label_color_physical;
-    shield-halo-fill: @label_color_physical_halo;
-    shield-halo-radius: 1;
-    shield-halo-comp-op: overlay; 
-    shield-min-distance: 2;
-    shield-placement-type: simple;
-    shield-placements: 'NE,SW,NW,SE,E,W';
-    shield-text-dy: 5;
-    shield-text-dx: 5;
-    shield-min-distance: 100;
-    shield-wrap-width: 30;
-    shield-line-spacing: 0;
-  }
-}
+// #mountain_peaks {
+//   [type='peak'] {
+//     shield-name: [name];
+//     shield-face-name: @text_font_water;
+//     shield-size: @text_font_size_xxsm;
+//     shield-file: url('icons/triangle-18.svg');
+//     shield-transform: scale(0.5,0.5);
+//     shield-unlock-image: true;
+//     shield-avoid-edges: true;
+//     shield-fill: @label_color_physical;
+//     shield-halo-fill: @label_color_physical_halo;
+//     shield-halo-radius: 1;
+//     shield-halo-opacity: 0.7;
+//     shield-min-distance: 2;
+//     shield-placement-type: simple;
+//     shield-placements: 'NE,SW,NW,SE,E,W';
+//     shield-text-dy: 5;
+//     shield-text-dx: 5;
+//     shield-min-distance: 1000;
+//     shield-wrap-width: 30;
+//     shield-line-spacing: 0;
+//   }
+// }
 
 #minor_road_labels,
 #major_road_labels,
@@ -427,18 +427,16 @@ Map {
 
 #admin1-labels {  
   // [zoom>=4][scalerank<3],
-  [zoom>=5][scalerank<3][admin!='United States of America'][admin!='Canada'],
-  [zoom>=6][scalerank<5],
-  [zoom>=7][scalerank>=5] {
+  [zoom>=5][scalerank<=3][admin!='United States of America'][admin!='Canada'],
+  [zoom>=6][scalerank<=5],
+  [zoom>=7][scalerank>=6] {
     text-name: [name];
     text-transform: uppercase;
     text-face-name: @text_font_administrative;    
-    text-face-name: @text_font_administrative;
-    text-fill: @label_color_administrative;
+    text-fill: #333; //@label_color_administrative;
     text-halo-fill: @label_color_halo_low;
     text-halo-radius: @text_font_halo_radius_sm;
     text-size: @text_font_size_sm;
-    text-character-spacing: 1;
     text-wrap-width: 40;
     text-placement-type: simple;
     text-placements: 'E,N,W,S';
@@ -448,17 +446,19 @@ Map {
     text-min-padding: 5;
     
     [zoom>=5] {
-     text-size: @text_font_size_sm; 
+     text-size: @text_font_size_xsm; 
+     text-character-spacing: 0;
+     text-min-distance: 30;
     }
 
     [zoom>=6] {
-      text-size: @text_font_size_medium;
-      text-character-spacing: 2;
+      text-size: @text_font_size_xsm;
+      text-character-spacing: 1;
     }
 
     [zoom>=7] {
-      text-size: @text_font_size_large;
-      text-character-spacing: 3;
+      text-size: @text_font_size_sm;
+      text-character-spacing: 2;
     }    
   }
 }
