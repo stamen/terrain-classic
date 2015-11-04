@@ -17,7 +17,7 @@
         },
         "planet_osm_line_z13": {
             "source": "planet_osm_line_z14",
-            "sql_filter": "highway in ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary','secondary_link', 'tertiary','residential','unclassified','road','raceway')",
+            "sql_filter": "highway in ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary','secondary_link', 'tertiary','residential','unclassified','road','raceway','service')",
             "tolerance": 9
         },
         "planet_osm_line_z14": {

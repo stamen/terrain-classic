@@ -115,7 +115,7 @@ CREATE VIEW highroad_z14 AS
                WHEN highway IN ('secondary') THEN 3
                WHEN highway IN ('tertiary', 'raceway') THEN 4
                WHEN highway IN ('motorway_link','trunk_link','primary_link','secondary_link','tertiary_link') THEN 5
-               WHEN highway IN ('residential', 'unclassified', 'road', 'minor') THEN 6
+               WHEN highway IN ('residential', 'service', 'unclassified', 'road', 'minor') THEN 6
                WHEN railway IN ('rail') THEN 7
                ELSE 99 END) AS priority
       FROM osm_planet_osm_line_z14

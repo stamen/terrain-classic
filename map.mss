@@ -1354,7 +1354,7 @@ Map {
 #roads[highway='service'],
 #bridges[highway='service'],
 {
-  [zoom>=15] {
+  [zoom>=14] {
     ::casing {
      line-width: 2.8; 
     }
