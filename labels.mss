@@ -35,7 +35,7 @@
 @label_color_halo_high: fadeout(rgba(255,255,255,1), 30%);
 @label_color_administrative_halo: fadeout(#fff, 30%);
 @label_color_physical: #000;
-@label_color_physical_halo: #fff;
+@label_color_physical_halo: fadeout(@color_physical,30%);
 @label_color_transport_halo: desaturate(#F7F7E6,50%);
 @label_color_airport_halo: #f7f7e6;
 @label_color_places_halo_low: fadeout(rgba(255,255,255, 1), 30%);
@@ -51,33 +51,6 @@ Map {
   buffer-size: 128;
 }
 
-/** 
- * These need to be filtered some how, else too many display
- */
-// #mountain_peaks {
-//   [type='peak'] {
-//     shield-name: [name];
-//     shield-face-name: @text_font_italic;
-//     shield-size: @text_font_size_xxsm;
-//     shield-file: url('icons/triangle-18.svg');
-//     shield-transform: scale(0.5,0.5);
-//     shield-unlock-image: true;
-//     shield-avoid-edges: true;
-//     shield-fill: @label_color_physical;
-//     shield-halo-fill: @label_color_physical_halo;
-//     shield-halo-radius: 1;
-//     shield-halo-opacity: 0.7;
-//     shield-min-distance: 2;
-//     shield-placement-type: simple;
-//     shield-placements: 'NE,SW,NW,SE,E,W';
-//     shield-text-dy: 5;
-//     shield-text-dx: 5;
-//     shield-min-distance: 1000;
-//     shield-wrap-width: 30;
-//     shield-line-spacing: 0;
-//   }
-// }
-
 #mountain_peaks_ne {
     [zoom>=6][comment =~'.*Highest.*'],
     [zoom>=6][comment =~'.*highest.*'],
@@ -87,7 +60,7 @@ Map {
     [zoom>=9][elevation>=1000],
     [zoom>=10][elevation>=500],
     [zoom>=11][elevation>0] {
-      shield-name: [name] + ' '  + [elevation] + 'm';
+      shield-name: [name] + '\n'  + [elevation] + 'm';
       shield-face-name: @text_font_italic;
       shield-size: @text_font_size_xxsm;
       shield-file: url('icons/triangle-18.svg');
@@ -97,7 +70,7 @@ Map {
       shield-fill: @label_color_physical;
       shield-halo-fill: @label_color_physical_halo;
       shield-halo-radius: 1;
-      shield-halo-opacity: 0.7;
+      //shield-halo-opacity: 0.7; // Was causing mapnik errors
       shield-min-distance: 2;
       shield-placement-type: simple;
       shield-placements: 'NW,SE,N,S,E,W,NE,SW';
@@ -113,9 +86,9 @@ Map {
         shield-face-name: @text_font_bold_italic; // special call out to the tallest peaks on each continent!
         shield-transform: scale(0.65,0.65);
       }
-      
+
       [zoom>=8] {
-        shield-size: @text_font_size_xsm;        
+        shield-size: @text_font_size_xsm;
       }
 
       [zoom>=10] {
@@ -124,7 +97,7 @@ Map {
         shield-text-dy: 7;
         shield-text-dx: 7;
       }
-      
+
       // replace McKinley with Denali (not the dryest solution but TileMill is being weird...)
       [zoom>=6][zoom<=18][name=~'.*McKinley'] {
           shield-name: "Denali" + ' '  + [elevation] + 'm';
@@ -137,7 +110,7 @@ Map {
           shield-fill: @label_color_physical;
           shield-halo-fill: @label_color_physical_halo;
           shield-halo-radius: 1;
-          shield-halo-opacity: 0.7;
+          //shield-halo-opacity: 0.7;
           shield-min-distance: 2;
           shield-placement-type: simple;
           shield-placements: 'NW,SE,N,S,E,W,NE,SW';
