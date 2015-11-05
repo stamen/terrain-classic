@@ -727,16 +727,6 @@ Layer:
           WHERE geometry && !bbox!
         ) AS _
 
-  - <<: *layer
-    name: airports
-    id:   airports
-    properties:
-      minzoom: 12
-    Datasource:
-      <<: *postgis
-      geometry_field: geom
-      table: ne_10m_airports
-
 # Start Labels
   - <<: *layer
     name: admin0-labels-z3
@@ -777,6 +767,63 @@ Layer:
     Datasource:
       <<: *shapefile
       file: shp/labels_admin/admin-0-labels-z6.shp
+
+  # ---- Mountain Peaks -----------------
+  - <<: *layer
+    name: mountain_peaks_ne
+    id: mountain_peaks_ne
+    properties:
+      minzoom: 6
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: >
+        (
+          SELECT
+            name,
+            name_alt,
+            elevation,
+            comment,
+            geom,
+            featurecla
+          FROM ne_10m_geography_regions_elevation_points
+          WHERE geom && !bbox!
+        ) AS _
+
+# ---- Aries Places ----------------------------------------------------
+
+  - <<: *layer
+    name: aries-places-labels
+    id:   aries-places-labels
+    properties:
+      minzoom: 4
+      maxzoom: 16
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+          name,
+          zoom scalerank,
+          population,
+          geometry
+          FROM aries
+          WHERE geometry && !bbox!
+          ORDER BY population DESC
+        ) AS _
+
+  - <<: *layer
+    name: airports
+    id:   airports
+    properties:
+      minzoom: 12
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_airports
+
+# ---- admin 1 labels ----------------------------------------------------
 
   - <<: *layer
     name: admin1-labels-50m-z4
@@ -1051,67 +1098,3 @@ Layer:
     Datasource:
       <<: *shapefile
       file: shp/continents_900913.shp
-
-  # ---- Mountain Peaks -----------------
-  - <<: *layer
-    name: mountain_peaks_ne
-    id: mountain_peaks_ne
-    properties:
-      minzoom: 6
-    Datasource:
-      <<: *postgis
-      geometry_field: geom
-      table: >
-        (
-          SELECT
-            name,
-            name_alt,
-            elevation,
-            comment,
-            geom,
-            featurecla
-          FROM ne_10m_geography_regions_elevation_points
-          WHERE geom && !bbox!
-        ) AS _
-
-  # ---- Aries Places ----------------------------------------------------
-
-  - <<: *layer
-    name: aries-places-labels
-    id:   aries-places-labels
-    properties:
-      minzoom: 4
-      maxzoom: 11
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-          name,
-          zoom scalerank,
-          population,
-          geometry
-          FROM aries
-          WHERE geometry && !bbox!
-        ) AS _
-
-  - <<: *layer
-    name: aries-places-labels-high
-    id:   aries-places-labels-high
-    properties:
-      minzoom: 12
-      maxzoom: 16
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-          name,
-          zoom scalerank,
-          population,
-          geometry
-          FROM aries
-          WHERE geometry && !bbox!
-        ) AS _

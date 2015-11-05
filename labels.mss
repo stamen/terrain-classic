@@ -60,7 +60,7 @@ Map {
     [zoom>=9][elevation>=1000],
     [zoom>=10][elevation>=500],
     [zoom>=11][elevation>0] {
-      shield-name: [name] + '\n'  + [elevation] + 'm';
+      shield-name: [name] + '\n' + [elevation] + 'm';
       shield-face-name: @text_font_italic;
       shield-size: @text_font_size_xxsm;
       shield-file: url('icons/triangle-18.svg');
@@ -70,28 +70,30 @@ Map {
       shield-fill: @label_color_physical;
       shield-halo-fill: @label_color_physical_halo;
       shield-halo-radius: 1;
-      //shield-halo-opacity: 0.7; // Was causing mapnik errors
       shield-min-distance: 2;
       shield-placement-type: simple;
       shield-placements: 'NW,SE,N,S,E,W,NE,SW';
       shield-text-dy: 5;
       shield-text-dx: 5;
       shield-min-distance: 1000;
-      shield-wrap-width: 30;
+      shield-wrap-width: 80;
       shield-line-spacing: -2;
 
       [comment =~'.*Highest.*'],
       [comment =~'.*highest.*'],
       [name =~'.*Vinson.*'] {
+        shield-file: url('icons/triangle-18.svg');
         shield-face-name: @text_font_bold_italic; // special call out to the tallest peaks on each continent!
         shield-transform: scale(0.65,0.65);
       }
 
       [zoom>=8] {
+        shield-file: url('icons/triangle-18.svg');
         shield-size: @text_font_size_xsm;
       }
 
       [zoom>=10] {
+        shield-file: url('icons/triangle-18.svg');
         shield-size: @text_font_size_sm;
         shield-transform: scale(0.8,0.8);
         shield-text-dy: 7;
@@ -100,7 +102,7 @@ Map {
 
       // replace McKinley with Denali (not the dryest solution but TileMill is being weird...)
       [zoom>=6][zoom<=18][name=~'.*McKinley'] {
-          shield-name: "Denali" + ' '  + [elevation] + 'm';
+          shield-name: "Denali" + '\n'  + [elevation] + 'm';
           shield-face-name: @text_font_bold_italic;
           shield-size: @text_font_size_xxsm;
           shield-file: url('icons/triangle-18.svg');
@@ -110,7 +112,6 @@ Map {
           shield-fill: @label_color_physical;
           shield-halo-fill: @label_color_physical_halo;
           shield-halo-radius: 1;
-          //shield-halo-opacity: 0.7;
           shield-min-distance: 2;
           shield-placement-type: simple;
           shield-placements: 'NW,SE,N,S,E,W,NE,SW';
@@ -121,7 +122,7 @@ Map {
           shield-line-spacing: -2;
 
           [zoom>=8] {
-            shield-size: @text_font_size_xsm;        
+            shield-size: @text_font_size_xsm;
           }
 
           [zoom>=10] {
@@ -642,14 +643,11 @@ Map {
   [zoom=5][scalerank<6],
   [zoom=6][scalerank<7],
   [zoom=7][scalerank<8],
-  [zoom=8][scalerank<9][population>=50000],
-  [zoom=9][scalerank<10][population>=50000],
-  [zoom=10][scalerank<11][population>=50000],
-  [zoom=11][scalerank<12][population>=20000],
-  [zoom=12][scalerank<13],
-  [zoom=13][scalerank<14], 
-  [zoom=14][scalerank<15] 
-  [zoom>=15][scalerank<15]{
+  [zoom=8][scalerank<9],
+  [zoom=9][scalerank<9],
+  [zoom=9][scalerank=9][population>=10000],
+  [zoom=10][scalerank<10],
+  [zoom=10][scalerank=10][population>=10000]{
 
     shield-file: url(shields/circle-12.svg);
     shield-fill: @label_color_city;
@@ -665,38 +663,12 @@ Map {
     shield-placements: 'NE,SW,NW,SE,E,W';
     shield-text-dy: 3;
     shield-text-dx: 3;
-    shield-min-distance: 10;
+    shield-min-distance: 40;
     shield-wrap-width: 30;
     shield-line-spacing: -7;
 
-    [zoom>=4] {
-      shield-size: @text_font_size_xsm;
-      
-      [population>700000] {
-        shield-size: @text_font_size_xsm * 1.2;
-        shield-transform: scale(0.7, 0.7);
-      }
-
-      [population>7000000] {
-        shield-size: @text_font_size_xsm * 1.3;
-        shield-transform: scale(0.8, 0.8);
-      }      
-    }
-
     [zoom>=5]{
-      shield-size: @text_font_size_sm; 
-      
-      [population>700000] {
-        shield-size: @text_font_size_sm * 1.2;
-      }
-
-      [population>7000000] {
-        shield-size: @text_font_size_sm * 1.3;
-      }       
-    }
-
-    [zoom>=6]{
-      shield-size: @text_font_size_medium;      
+      shield-size: @text_font_size_medium;
 
       [population>700000] {
         shield-size: @text_font_size_medium * 1.2;
@@ -706,7 +678,7 @@ Map {
 
       [population>7000000] {
         shield-size: @text_font_size_medium * 1.4;
-      }       
+      }
     }
 
     [zoom>=8] {
@@ -718,7 +690,7 @@ Map {
     }
 
     [zoom>=10]{
-      shield-size: @text_font_size_medium_plus;      
+      shield-size: @text_font_size_medium_plus;
       shield-halo-radius: @text_font_halo_radius_large;
       shield-halo-fill: @label_color_halo_high;
       shield-transform: scale(0.85, 0.85);
@@ -731,28 +703,20 @@ Map {
         shield-text-dy: 8;
         shield-text-dx: 8;
       }
-      
+
       [population>700000] {
         shield-size: @text_font_size_medium_plus * 1.2;
       }
 
       [population>7000000] {
         shield-size: @text_font_size_medium_plus * 1.4;
-      }       
+      }
     }
 
-    [zoom>=11] {
-      shield-opacity: 0;
-    }
   }
-}
 
-#aries-places-labels-high {
-  [zoom=11][scalerank<12][population>=20000],
-  [zoom=12][scalerank<13],
-  [zoom=13][scalerank<14], 
-  [zoom=14][scalerank<15] 
-  [zoom>=15][scalerank<15]{
+  // Switch to text symbolizer instead of shield
+  [zoom>=11]{
     text-name: [name];
     text-face-name: @text_font_city;
     text-size: @text_font_size_medium_plus;
@@ -763,37 +727,37 @@ Map {
     text-min-distance: 3;
     text-wrap-width: 20;
     text-line-spacing: -5;
-    text-placement-type: simple;
-    text-placements: 'NE,SW,NW,SE,E,W,N,S';
+    //text-placement-type: simple;
+    //text-placements: 'NE,SW,NW,SE,E,W,N,S';
 
-    [zoom>=12] {
+    [zoom>=11] {
       [population>100000] {
         text-size: @text_font_size_medium_plus * 1.2;
       }
-      
+
       [population>700000] {
         text-size: @text_font_size_medium_plus * 1.2;
       }
 
       [population>7000000] {
         text-size: @text_font_size_medium_plus * 1.4;
-      }   
+      }
     }
 
-    [zoom>=13] {
+    [zoom>=12] {
       text-size: @text_font_size_large;
-      
+
       [population>100000] {
         text-size: @text_font_size_large * 1.2;
       }
-      
+
       [population>700000] {
         text-size: @text_font_size_large * 1.2;
       }
 
       [population>7000000] {
         text-size: @text_font_size_large * 1.3;
-      }   
+      }
     }
 
   }
