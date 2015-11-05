@@ -485,18 +485,18 @@ Map {
   text-halo-fill: @label_color_halo_low;   
 }
 
-#admin1-labels {  
+#admin1-labels {
   // [zoom>=4][scalerank<3],
   [zoom>=5][scalerank<=3][admin!='United States of America'][admin!='Canada'],
   [zoom>=6][scalerank<=5],
   [zoom>=7][scalerank>=6] {
     text-name: [name];
     text-transform: uppercase;
-    text-face-name: @text_font_administrative;    
-    text-fill: #333; //@label_color_administrative;
+    text-face-name: @text_font_administrative;
+    text-fill: #555; //@label_color_administrative;
     text-halo-fill: @label_color_halo_low;
     text-halo-radius: @text_font_halo_radius_sm;
-    text-size: @text_font_size_sm;
+    text-size: @text_font_size_sm * 0.8;
     text-wrap-width: 40;
     text-placement-type: simple;
     text-placements: 'E,N,W,S';
@@ -504,22 +504,22 @@ Map {
     text-min-distance: 30;
     text-avoid-edges: true;
     text-min-padding: 5;
-    
+
     [zoom>=5] {
-     text-size: @text_font_size_xsm; 
+     text-size: @text_font_size_xsm * 0.8;
      text-character-spacing: 0;
      text-min-distance: 30;
     }
 
     [zoom>=6] {
-      text-size: @text_font_size_xsm;
+      text-size: @text_font_size_xsm * 0.8;
       text-character-spacing: 1;
     }
 
     [zoom>=7] {
-      text-size: @text_font_size_sm;
+      text-size: @text_font_size_sm * 0.8;
       text-character-spacing: 2;
-    }    
+    }
   }
 }
 
@@ -588,7 +588,7 @@ Map {
     text-name: "[name]";
     text-face-name: @text_font_administrative;
     text-transform: uppercase;
-    text-size: @text_font_size_large;
+    text-size: @text_font_size_medium_plus;
     text-line-spacing: -8;
     text-wrap-width: 100;
     text-character-spacing: @text_character_spacing_sm;
@@ -604,7 +604,6 @@ Map {
     text-wrap-width: 80;
     text-character-spacing: @text_character_spacing_lg;
     text-size: @text_font_size_large;
-    [population<100] { text-size: @text_font_size_medium_plus; }
     text-min-distance: 15;
     text-halo-radius: @text_font_halo_radius_sm;
     text-halo-fill: @label_color_halo_low;     
@@ -618,7 +617,6 @@ Map {
   text-wrap-width: 80;
   text-character-spacing: @text_character_spacing_xlg;
   text-size: @text_font_size_xlg;
-  [population<100] { text-size: @text_font_size_large; }
   text-halo-radius: @text_font_halo_radius_sm;
   text-halo-fill: @label_color_halo_low;   
   text-fill: @label_color_administrative;
@@ -631,7 +629,6 @@ Map {
   text-wrap-width: 80;
   text-character-spacing: @text_character_spacing_xlg;
   text-size: @text_font_size_xxlg;
-  [population<100] { text-size: @text_font_size_xlg; }
   text-halo-radius: @text_font_halo_radius_sm;
   text-halo-fill: @label_color_halo_low;   
   text-fill: @label_color_administrative;
