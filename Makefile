@@ -293,7 +293,7 @@ shp/osmdata/%.shx: data/osmdata/%.zip
 	unzip -ju $< -d $$(dirname $@)
 
 shp/osmdata/land_polygons.index: shp/osmdata/land_polygons.shp
-	shapeindex $<
+	mapnik-shapeindex.js $<
 
 .SECONDARY: data/osmdata/land-polygons-complete-3857.zip
 
@@ -305,7 +305,7 @@ shp/osmdata/land-polygons-complete-3857.zip: shp/osmdata/land_polygons.shp \
 	zip -j $@ $^
 
 shp/osmdata/water_polygons.index: shp/osmdata/water_polygons.shp
-	shapeindex $<
+	mapnik-shapeindex.js $<
 
 .SECONDARY: data/osmdata/water-polygons-split-3857.zip
 
