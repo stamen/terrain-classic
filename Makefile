@@ -157,9 +157,128 @@ db/generalizations: db/functions/admin1_labels
 
 .PHONY: db/shapefiles
 
-db/shapefiles: db/land_polygons \
+db/shapefiles: db/admin_0_countries_110m_points \
+			 db/admin_0_labels_z4 \
+			 db/admin_0_labels_z5 \
+			 db/admin_0_labels_z6 \
+			 db/admin_1_labels_z4 \
+			 db/admin_1_labels_z5 \
+			 db/continents \
+			 db/land_polygons \
 		   db/nullisland \
 			 db/water_polygons
+
+.PHONY: db/admin_0_countries_110m_points
+
+db/admin_0_countries_110m_points: db/postgis shp/labels_admin/admin_0_countries_110m-points.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: admin_0_labels_z4
+
+db/admin_0_labels_z4: db/postgis shp/labels_admin/admin-0-labels-z4.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: admin_0_labels_z5
+
+db/admin_0_labels_z5: db/postgis shp/labels_admin/admin-0-labels-z5.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: admin_0_labels_z6
+
+db/admin_0_labels_z6: db/postgis shp/labels_admin/admin-0-labels-z6.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: admin_1_labels_z4
+
+db/admin_1_labels_z4: db/postgis shp/labels_admin/admin-1-labels-z4.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: admin_1_labels_z5
+
+db/admin_1_labels_z5: db/postgis shp/labels_admin/admin-1-labels-z5.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
+
+.PHONY: db/continents
+
+db/continents: db/postgis shp/continents_900913.shp
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
 
 .PHONY: db/land_polygons
 
