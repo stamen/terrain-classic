@@ -157,8 +157,21 @@ db/generalizations: db/functions/admin1_labels
 
 .PHONY: db/shapefiles
 
-db/shapefiles: shp/osmdata/land-polygons-complete-3857.zip \
+db/shapefiles: db/land_polygons \
 		   shp/osmdata/water-polygons-split-3857.zip
+
+db/land_polygons: db/postgis data/osmdata/land_polygons.zip
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			/vsizip/$(word 2, $^)/land-polygons-complete-3857/land_polygons.shp | psql -q
 
 .PHONY: db/natearth
 

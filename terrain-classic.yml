@@ -58,8 +58,9 @@ Layer:
     properties:
       minzoom: 8
     Datasource:
-      <<: *shapefile
-      file: shp/osmdata/land_polygons.shp
+      <<: *postgis
+      geometry_field: geom
+      table: land_polygons
 
   - <<: *layer
     name: lc500mMODIS_high
