@@ -20,7 +20,7 @@
     "tessera": "^0.5.1",
     "tilejson": "^0.12.0",
     "tilelive": "^5.4.0",
-    "tilelive-blend": "git+https://github.com/mojodna/tilelive-blend",
+    "tilelive-blend": "^0.2.0",
     "tilelive-cache": "^0.4.1",
     "tilelive-http": "^0.5.0",
     "tilelive-mapnik": "^0.6.14",
