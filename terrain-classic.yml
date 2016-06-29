@@ -72,6 +72,7 @@ Layer:
     geometry: raster
     srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
     Datasource:
+      type: gdal
       file: landcover/LC_500m_MODIS-to-rgb.vrt
 
   - <<: *layer
@@ -83,6 +84,7 @@ Layer:
     geometry: raster
     srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
     Datasource:
+      type: gdal
       file: landcover/LC_500m_MODIS-urban-only.vrt
 
   - <<: *layer
