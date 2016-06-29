@@ -160,7 +160,10 @@ db/generalizations: db/functions/admin1_labels
 db/shapefiles: db/land_polygons \
 		   shp/osmdata/water-polygons-split-3857.zip
 
+.PHONY: db/land_polygons
+
 db/land_polygons: db/postgis data/osmdata/land_polygons.zip
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
 	ogr2ogr --config PG_USE_COPY YES \
 			-nln $(subst db/,,$@) \
 			-t_srs EPSG:3857 \
