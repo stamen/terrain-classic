@@ -484,8 +484,9 @@ Layer:
     properties:
       minzoom: 8
     Datasource:
-      <<: *shapefile
-      file: shp/osmdata/water_polygons.shp
+      <<: *postgis
+      geometry_field: geom
+      table: water_polygons
 
   - <<: *layer
     name: water-bodies-high

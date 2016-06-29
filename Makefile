@@ -159,7 +159,7 @@ db/generalizations: db/functions/admin1_labels
 
 db/shapefiles: db/land_polygons \
 		   db/nullisland \
-		   shp/osmdata/water-polygons-split-3857.zip
+			 db/water_polygons
 
 .PHONY: db/land_polygons
 
@@ -192,6 +192,22 @@ db/nullisland: db/postgis shp-local/nullisland.geojson
 			-lco PRECISION=NO \
 			-f PGDump /vsistdout/ \
 			$(word 2, $^) | psql -q
+
+.PHONY: db/water_polygons
+
+db/water_polygons: db/postgis data/osmdata/water_polygons.zip
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			/vsizip/$(word 2, $^)/water-polygons-split-3857/water_polygons.shp | psql -q
 
 .PHONY: db/natearth
 
@@ -317,37 +333,6 @@ NATURAL_EARTH=ne_50m_land:data/ne/50m/physical/ne_50m_land.zip \
 	ne_10m_geography_regions_elevation_points:data/ne/10m/physical/ne_10m_geography_regions_elevation_points.zip:ne_10m_geography_regions_elevation_points.shp
 
 $(foreach shape,$(NATURAL_EARTH),$(eval $(call natural_earth,$(shape))))
-
-shp/osmdata/%.shp \
-shp/osmdata/%.dbf \
-shp/osmdata/%.prj \
-shp/osmdata/%.shx: data/osmdata/%.zip
-	@mkdir -p $$(dirname $@)
-	unzip -oju $< -d $$(dirname $@)
-
-shp/osmdata/land_polygons.index: shp/osmdata/land_polygons.shp
-	mapnik-shapeindex.js $<
-
-.SECONDARY: data/osmdata/land-polygons-complete-3857.zip
-
-shp/osmdata/land-polygons-complete-3857.zip: shp/osmdata/land_polygons.shp \
-	shp/osmdata/land_polygons.dbf \
-	shp/osmdata/land_polygons.prj \
-	shp/osmdata/land_polygons.shx \
-	shp/osmdata/land_polygons.index
-	zip -j $@ $^
-
-shp/osmdata/water_polygons.index: shp/osmdata/water_polygons.shp
-	mapnik-shapeindex.js $<
-
-.SECONDARY: data/osmdata/water-polygons-split-3857.zip
-
-shp/osmdata/water-polygons-split-3857.zip: shp/osmdata/water_polygons.shp \
-	shp/osmdata/water_polygons.dbf \
-	shp/osmdata/water_polygons.prj \
-	shp/osmdata/water_polygons.shx \
-	shp/osmdata/water_polygons.index
-	zip -j $@ $^
 
 define natural_earth_sources
 .SECONDARY: data/ne/$(1)/$(2)/%.zip
