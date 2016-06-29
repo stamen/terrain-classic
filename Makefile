@@ -303,7 +303,7 @@ shp/osmdata/%.dbf \
 shp/osmdata/%.prj \
 shp/osmdata/%.shx: data/osmdata/%.zip
 	@mkdir -p $$(dirname $@)
-	unzip -ju $< -d $$(dirname $@)
+	unzip -oju $< -d $$(dirname $@)
 
 shp/osmdata/land_polygons.index: shp/osmdata/land_polygons.shp
 	mapnik-shapeindex.js $<
@@ -353,7 +353,7 @@ $(foreach a,$(scales),$(foreach b,$(themes),$(eval $(call natural_earth_sources,
 db/landcover: landcover/LCType.tif
 
 landcover/LCType.tif: landcover/GlobalLandCover_tif.zip
-	unzip -ju $< -d $$(dirname $@)
+	unzip -oju $< -d $$(dirname $@)
 
 .SECONDARY: landcover/GlobalLandCover_tif.zip
 
