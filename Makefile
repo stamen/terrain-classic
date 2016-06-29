@@ -158,6 +158,7 @@ db/generalizations: db/functions/admin1_labels
 .PHONY: db/shapefiles
 
 db/shapefiles: db/land_polygons \
+		   db/nullisland \
 		   shp/osmdata/water-polygons-split-3857.zip
 
 .PHONY: db/land_polygons
@@ -175,6 +176,22 @@ db/land_polygons: db/postgis data/osmdata/land_polygons.zip
 			-lco PRECISION=NO \
 			-f PGDump /vsistdout/ \
 			/vsizip/$(word 2, $^)/land-polygons-complete-3857/land_polygons.shp | psql -q
+
+.PHONY: db/nullisland
+
+db/nullisland: db/postgis shp-local/nullisland.geojson
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-f PGDump /vsistdout/ \
+			$(word 2, $^) | psql -q
 
 .PHONY: db/natearth
 

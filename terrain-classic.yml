@@ -186,10 +186,11 @@ Layer:
     id:   nullisland
     class: land
     properties:
-      minzoom: 10
+      minzoom: 12
     Datasource:
-      <<: *shapefile
-      file: shp-local/nullisland.shp
+      <<: *postgis
+      geometry_field: geom
+      table: nullisland
 
   - <<: *layer
     name: country-shapes-50m
