@@ -1118,5 +1118,6 @@ Layer:
       minzoom: 1
       maxzoom: 2
     Datasource:
-      <<: *shapefile
-      file: shp/continents_900913.shp
+      <<: *postgis
+      geometry_field: geom
+      table: continents
