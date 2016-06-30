@@ -152,7 +152,6 @@ Layer:
     Datasource:
       <<: *postgis
       geometry_field: geom
-      # table: ne_50m_ocean
       encoding: "ISO-8859-1"
       table: >
         (
@@ -231,7 +230,6 @@ Layer:
     Datasource:
       <<: *postgis
       geometry_field: geom
-      # table: ne_10m_admin_0_countries_lakes
       table: >
         (
           SELECT
@@ -845,7 +843,7 @@ Layer:
           geometry
           FROM aries
           WHERE geometry && !bbox!
-          ORDER BY population DESC
+          ORDER BY population DESC, name
         ) AS _
 
   - <<: *layer
