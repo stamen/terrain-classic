@@ -76,10 +76,11 @@ Layer:
       minzoom: 0
       maxzoom: 18
     geometry: raster
-    srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+    srs: '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
     Datasource:
       type: gdal
-      file: landcover/LC_500m_MODIS-to-rgb.vrt
+      file: landcover/LCType_z9.vrt
+      # file: landcover/LCType_z9_s3.vrt
 
   - <<: *layer
     name: lc500mMODIS_urban
@@ -88,10 +89,11 @@ Layer:
       minzoom: 9
       maxzoom: 18
     geometry: raster
-    srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+    srs: '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
     Datasource:
       type: gdal
-      file: landcover/LC_500m_MODIS-urban-only.vrt
+      file: landcover/LCType_z9-urban-only.vrt
+      # file: landcover/LCType_z9_s3-urban-only.vrt
 
   - <<: *layer
     name: ne_10m_rivers_lake_centerlines_scale_rank
