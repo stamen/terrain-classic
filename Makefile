@@ -282,7 +282,7 @@ db/continents: db/postgis shp/continents_900913.shp
 
 .PHONY: db/land_polygons
 
-db/land_polygons: db/postgis data/osmdata/land_polygons.zip
+db/land_polygons: db/postgis data/osmdata/land_polygons_split.zip
 	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
 	ogr2ogr --config PG_USE_COPY YES \
 			-nln $(subst db/,,$@) \
@@ -293,8 +293,9 @@ db/land_polygons: db/postgis data/osmdata/land_polygons.zip
 			-lco GEOMETRY_NAME=geom \
 			-lco SRID=3857 \
 			-lco PRECISION=NO \
+			-clipsrc -20037508.34 -20037508.34 20037508.34 20037508.34 \
 			-f PGDump /vsistdout/ \
-			/vsizip/$(word 2, $^)/land-polygons-complete-3857/land_polygons.shp | psql -q
+			/vsizip/$(word 2, $^)/land-polygons-split-3857/land_polygons.shp | psql -q
 
 .PHONY: db/nullisland
 
@@ -401,6 +402,12 @@ data/metro/%:
 data/osmdata/land_polygons.zip:
 	@mkdir -p $$(dirname $@)
 	curl -Lf http://data.openstreetmapdata.com/land-polygons-complete-3857.zip -o $@
+
+.SECONDARY: data/osmdata/land_polygons_split.zip
+
+data/osmdata/land_polygons_split.zip:
+	@mkdir -p $$(dirname $@)
+	curl -Lf http://data.openstreetmapdata.com/land-polygons-split-3857.zip -o $@
 
 .SECONDARY: data/osmdata/water_polygons.zip
 
