@@ -152,8 +152,15 @@ Layer:
     Datasource:
       <<: *postgis
       geometry_field: geom
-      table: ne_50m_ocean
+      # table: ne_50m_ocean
       encoding: "ISO-8859-1"
+      table: >
+        (
+          SELECT
+            ST_ClipByBox2D(geom, !bbox!) geom
+          FROM ne_50m_ocean
+          WHERE geom && !bbox!
+        ) AS _
 
   - <<: *layer
     name: ne_110m_geography_marine_polys
@@ -224,7 +231,14 @@ Layer:
     Datasource:
       <<: *postgis
       geometry_field: geom
-      table: ne_10m_admin_0_countries_lakes
+      # table: ne_10m_admin_0_countries_lakes
+      table: >
+        (
+          SELECT
+            ST_ClipByBox2D(geom, !bbox!) geom
+          FROM ne_10m_admin_0_countries_lakes
+          WHERE geom && !bbox!
+        ) AS _
 
   - <<: *layer
     name: admin0-map-units-10m
@@ -283,7 +297,7 @@ Layer:
       table: >
         (
           SELECT
-            geometry,
+            ST_ClipByBox2D(geometry, !bbox!) geometry,
             name,
             area_km2
           FROM osm_admin
