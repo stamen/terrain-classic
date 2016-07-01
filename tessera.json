@@ -23,7 +23,7 @@
             "source": "mapnik://./terrain-classic-background.xml"
           },
           {
-            "source": "http://sm.mapstack.stamen.com/openterrain/{z}/{x}/{y}.png",
+            "source": "http://hillshades.openterrain.org.s3-website-us-east-1.amazonaws.com/positron/{z}/{x}/{y}.png",
             "comp-op": "hard-light",
             "opacity": "0.7"
           },
