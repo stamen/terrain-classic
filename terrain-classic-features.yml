@@ -40,7 +40,7 @@ _shp_default:     &shapefile
 
 Stylesheet:
   - map.mss
-  - terrain-classic-background.mss
+  - terrain-classic-features.mss
 
 
 # == Layers ============================================================
@@ -48,62 +48,172 @@ Stylesheet:
 Layer:
 
   - <<: *layer
-    name: land
-    id:   land
+    name: ne_10m_rivers_lake_centerlines_scale_rank
+    id:   ne_10m_rivers_lake_centerlines_scale_rank
     properties:
-      minzoom: 8
-    Datasource:
-      <<: *shapefile
-      file: shp/osmdata/land_polygons.shp
-
-  - <<: *layer
-    name: lc500mMODIS_high
-    id:   lc500mMODIS_high
-    class: landcover
-    properties:
-      minzoom: 0
-      maxzoom: 18
-    geometry: raster
-    srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
-    Datasource:
-      type: gdal
-      file: landcover/LC_500m_MODIS-to-rgb.vrt
-
-  - <<: *layer
-    name: lc500mMODIS_urban
-    id:   lc500mMODIS_urban
-    properties:
-      minzoom: 9
-      maxzoom: 18
-    geometry: raster
-    srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
-    Datasource:
-      type: gdal
-      file: landcover/LC_500m_MODIS-urban-only.vrt
-
-  - <<: *layer
-    name: country-shapes-50m
-    id:   country-shapes-50m
-    class: shore
-    properties:
-      minzoom: 2
-      maxzoom: 3
+      minzoom: 4
+      maxzoom: 8
     Datasource:
       <<: *postgis
       geometry_field: geom
-      table: ne_50m_admin_0_countries_lakes
+      table: ne_10m_rivers_lake_centerlines_scale_rank
+      encoding: "ISO-8859-1"
 
   - <<: *layer
-    name: country-shapes-10m
-    id:   country-shapes-10m
-    class: shore
+    name: ne_50m_lakes
+    id:   ne_50m_lakes
     properties:
-      minzoom: 4
+      minzoom: 2
+      maxzoom: 5
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: ne_50m_lakes
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: ne_10m_lakes
+    id:   ne_10m_lakes
+    properties:
+      minzoom: 6
+      maxzoom: 8
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_lakes
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: ne_10m_ocean
+    id:   ne_10m_ocean
+    properties:
+      minzoom: 0
       maxzoom: 7
     Datasource:
       <<: *postgis
       geometry_field: geom
-      table: ne_10m_admin_0_countries_lakes
+      table: ne_10m_ocean
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: ne_50m_ocean
+    id:   ne_50m_ocean
+    properties:
+      minzoom: 0
+      maxzoom: 7
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: ne_50m_ocean
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: nullisland
+    id:   nullisland
+    class: land
+    properties:
+      minzoom: 10
+    Datasource:
+      <<: *shapefile
+      file: shp-local/nullisland.shp
+
+  - <<: *layer
+    name: aerodromes
+    id:   aerodromes
+    properties:
+      minzoom: 12
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry
+          FROM osm_aeroways
+          WHERE type='aerodrome' and geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: water
+    id:   water
+    properties:
+      minzoom: 8
+    Datasource:
+      <<: *shapefile
+      file: shp/osmdata/water_polygons.shp
+
+  - <<: *layer
+    name: water-bodies-high
+    id:   water-bodies-high
+    properties:
+      minzoom: 14
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_water_areas
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: water-bodies-med
+    id:   water-bodies-med
+    properties:
+      minzoom: 11
+      maxzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_water_areas_z13
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: water-bodies-low
+    id:   water-bodies-low
+    properties:
+      minzoom: 8
+      maxzoom: 10
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_water_areas_z10
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: ne_10m_rivers_lake_centerlines_scale_rank
+    id:   ne_10m_rivers_lake_centerlines_scale_rank
+    properties:
+      minzoom: 4
+      maxzoom: 8
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_rivers_lake_centerlines_scale_rank
+      encoding: "ISO-8859-1"
 
   - <<: *layer
     name: admin0-map-units-10m
@@ -172,204 +282,141 @@ Layer:
         ) AS _
 
   - <<: *layer
-    name: urban-landuse-high
-    id:   urban-landuse-high
-    class: urban-landuse
+    name: ne-roads
+    id:   ne-roads
     properties:
-      minzoom: 13
+      minzoom: 7
+      maxzoom: 8
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_roads
+
+  - <<: *layer
+    name: aeroways
+    id:   aeroways
+    properties:
+      minzoom: 12
     Datasource:
       <<: *postgis
       geometry_field: geometry
       table: >
         (
           SELECT
-            geometry,
+            name,
             type,
-            area
-          FROM osm_urban_areas
+            geometry
+          FROM osm_aeroways
           WHERE geometry && !bbox!
         ) AS _
 
   - <<: *layer
-    name: urban-landuse-med
-    id:   urban-landuse-med
-    class: urban-landuse
+    name: tunnels
+    id:   tunnels
+    class: tunnels
     properties:
-      minzoom: 11
-      maxzoom: 13
+      minzoom: 14
+      cache-features: on
     Datasource:
       <<: *postgis
       geometry_field: geometry
       table: >
         (
-          SELECT
-            geometry,
-            type,
-            area
-          FROM osm_urban_areas_z13
-          WHERE geometry && !bbox!
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'is_tunnel=''yes''')
         ) AS _
 
   - <<: *layer
-    name: urban-landuse-low
-    id:   urban-landuse-low
-    class: urban-landuse
+    name: roads
+    id:   roads
+    class: roads
+    properties:
+      minzoom: 14
+      cache-features: on
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!)
+        ) AS _
+
+  - <<: *layer
+    name: roads_med
+    id:   roads_med
     properties:
       minzoom: 9
-      maxzoom: 11
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-            geometry,
-            type,
-            area
-          FROM osm_urban_areas_z10
-          WHERE geometry && !bbox!
-        ) AS _
-
-  - <<: *layer
-    name: green-areas-high
-    id:   green-areas-high
-    properties:
-      minzoom: 13
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-            geometry,
-            type,
-            area
-          FROM osm_green_areas
-          WHERE geometry && !bbox!
-        ) AS _
-
-  - <<: *layer
-    name: green-areas-med
-    id:   green-areas-med
-    properties:
-      minzoom: 11
       maxzoom: 13
+      cache-features: on
     Datasource:
       <<: *postgis
       geometry_field: geometry
       table: >
         (
-          SELECT
-            name,
-            type,
-            geometry,
-            area
-          FROM osm_green_areas_z13
-          WHERE geometry && !bbox!
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'kind!=''highway''')
         ) AS _
 
   - <<: *layer
-    name: green-areas-low
-    id:   green-areas-low
-    properties:
-      minzoom: 10
-      maxzoom: 10
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-            name,
-            type,
-            geometry,
-            area
-          FROM osm_green_areas_z10
-          WHERE geometry && !bbox!
-        ) AS _
-
-  - <<: *layer
-    name: landcover-high
-    id:   landcover-high
-    class: landcover
-    properties:
-      minzoom: 13
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-            geometry,
-            type,
-            area
-          FROM osm_landcover
-          WHERE geometry && !bbox!
-        ) AS _
-
-  - <<: *layer
-    name: landcover-med
-    id:   landcover-med
-    class: landcover
-    properties:
-      minzoom: 11
-      maxzoom: 13
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-            geometry,
-            type,
-            area
-          FROM osm_landcover_z13
-          WHERE geometry && !bbox!
-        ) AS _
-
-  - <<: *layer
-    name: landcover-low
-    id:   landcover-low
-    class: landcover
+    name: highways_med
+    id:   highways_med
     properties:
       minzoom: 9
-      maxzoom: 11
+      maxzoom: 13
+      cache-features: on
     Datasource:
       <<: *postgis
       geometry_field: geometry
       table: >
         (
-          SELECT
-            geometry,
-            type,
-            area
-          FROM osm_landcover_z10
-          WHERE geometry && !bbox!
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'kind=''highway''')
         ) AS _
 
   - <<: *layer
-    name: brown-areas-high
-    id:   brown-areas-high
+    name: bridges
+    id:   bridges
+    class: bridges
     properties:
       minzoom: 13
+      cache-features: on
+      group-by: explicit_layer
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT *
+          FROM high_road(!scale_denominator!, !bbox!, 'is_bridge=''yes''')
+        ) AS _
+
+  - <<: *layer
+    name: buildings-high
+    id:   buildings-high
+    properties:
+      minzoom: 14
     Datasource:
       <<: *postgis
       geometry_field: geometry
       table: >
         (
           SELECT
-            geometry,
+            osm_id,
+            name,
             type,
+            geometry,
             area
-          FROM osm_brown_areas
+          FROM osm_buildings
           WHERE geometry && !bbox!
         ) AS _
 
   - <<: *layer
-    name: brown-areas-med
-    id:   brown-areas-med
+    name: buildings-med
+    id:   buildings-med
     properties:
-      minzoom: 11
+      minzoom: 13
       maxzoom: 13
     Datasource:
       <<: *postgis
@@ -381,26 +428,6 @@ Layer:
             type,
             geometry,
             area
-          FROM osm_brown_areas_z13
-          WHERE geometry && !bbox!
-        ) AS _
-
-  - <<: *layer
-    name: brown-areas-low
-    id:   brown-areas-low
-    properties:
-      minzoom: 10
-      maxzoom: 10
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-            name,
-            type,
-            geometry,
-            area
-          FROM osm_brown_areas_z10
+          FROM osm_buildings_z13
           WHERE geometry && !bbox!
         ) AS _

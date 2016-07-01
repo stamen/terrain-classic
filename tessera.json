@@ -8,6 +8,9 @@
   "/lines": {
     "source": "mapnik://./terrain-classic-lines.xml"
   },
+  "/features": {
+    "source": "mapnik://./terrain-classic-features.xml"
+  },
   "/background": {
     "source": "mapnik://./terrain-classic-background.xml"
   },
@@ -25,7 +28,7 @@
             "opacity": "0.7"
           },
           {
-            "source" : "mapnik://./terrain-classic-lines.xml"
+            "source": "mapnik://./terrain-classic-features.xml"
           },
           {
             "source": "mapnik://./terrain-classic-labels.xml"
