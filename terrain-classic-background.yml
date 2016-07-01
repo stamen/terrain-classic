@@ -9,7 +9,7 @@ interactivity:    false
 minzoom:          0
 maxzoom:          20
 srs:              '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
-metatile:         2
+metatile:         1
 
 
 # == Layer & Datasource defaults =======================================
@@ -29,6 +29,10 @@ _pg_default:      &postgis
   srid:           3857
   extent:         '-20037508.34,-20037508.34,20037508.34,20037508.34'
   srs:            '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+  max_async_connection: 4
+  max_size: 100
+  connect_timeout: 1
+  twkb_encoding: true # also sets simplify_geometries
 
 _shp_default:     &shapefile
   type:           shape
@@ -53,8 +57,15 @@ Layer:
     properties:
       minzoom: 8
     Datasource:
-      <<: *shapefile
-      file: shp/osmdata/land_polygons.shp
+      <<: *postgis
+      geometry_field: geom
+      table: >
+        (
+          SELECT
+            ST_ClipByBox2D(geom, !bbox!) geom
+          FROM land_polygons
+          WHERE geom && !bbox!
+        ) AS _
 
   - <<: *layer
     name: lc500mMODIS_high
@@ -64,10 +75,11 @@ Layer:
       minzoom: 0
       maxzoom: 18
     geometry: raster
-    srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+    srs: '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
     Datasource:
       type: gdal
-      file: landcover/LC_500m_MODIS-to-rgb.vrt
+      file: landcover/LCType_z9.vrt
+      # file: landcover/LCType_z9_s3.vrt
 
   - <<: *layer
     name: lc500mMODIS_urban
@@ -76,12 +88,12 @@ Layer:
       minzoom: 9
       maxzoom: 18
     geometry: raster
-    srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+    srs: '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
     Datasource:
       type: gdal
-      file: landcover/LC_500m_MODIS-urban-only.vrt
+      file: landcover/LCType_z9-urban-only.vrt
+      # file: landcover/LCType_z9_s3-urban-only.vrt
 
-  - <<: *layer
     name: country-shapes-50m
     id:   country-shapes-50m
     class: shore
@@ -103,7 +115,13 @@ Layer:
     Datasource:
       <<: *postgis
       geometry_field: geom
-      table: ne_10m_admin_0_countries_lakes
+      table: >
+        (
+          SELECT
+            ST_ClipByBox2D(geom, !bbox!) geom
+          FROM ne_10m_admin_0_countries_lakes
+          WHERE geom && !bbox!
+        ) AS _
 
   - <<: *layer
     name: admin0-map-units-10m
@@ -162,7 +180,7 @@ Layer:
       table: >
         (
           SELECT
-            geometry,
+            ST_ClipByBox2D(geometry, !bbox!) geometry,
             name,
             area_km2
           FROM osm_admin

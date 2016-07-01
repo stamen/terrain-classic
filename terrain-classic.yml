@@ -9,7 +9,7 @@ interactivity:    false
 minzoom:          0
 maxzoom:          20
 srs:              '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
-metatile:         2
+metatile:         1
 
 
 # == Layer & Datasource defaults =======================================
@@ -29,11 +29,10 @@ _pg_default:      &postgis
   srid:           3857
   extent:         '-20037508.34,-20037508.34,20037508.34,20037508.34'
   srs:            '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
-  # NOTE: this is required when running on Lambda, otherwise Mapnik gets confused when re-using connections after being frozen
-  # persist_connection: false
-  # max_async_connection: 10
+  max_async_connection: 4
+  max_size: 100
   connect_timeout: 1
-  twkb_encoding: true # sets simplify_geometries
+  twkb_encoding: true # also sets simplify_geometries
 
 _shp_default:     &shapefile
   type:           shape
@@ -77,10 +76,11 @@ Layer:
       minzoom: 0
       maxzoom: 18
     geometry: raster
-    srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+    srs: '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
     Datasource:
       type: gdal
-      file: landcover/LC_500m_MODIS-to-rgb.vrt
+      file: landcover/LCType_z9.vrt
+      # file: landcover/LCType_z9_s3.vrt
 
   - <<: *layer
     name: lc500mMODIS_urban
@@ -89,10 +89,11 @@ Layer:
       minzoom: 9
       maxzoom: 18
     geometry: raster
-    srs: '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+    srs: '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
     Datasource:
       type: gdal
-      file: landcover/LC_500m_MODIS-urban-only.vrt
+      file: landcover/LCType_z9-urban-only.vrt
+      # file: landcover/LCType_z9_s3-urban-only.vrt
 
   - <<: *layer
     name: ne_10m_rivers_lake_centerlines_scale_rank
@@ -151,8 +152,14 @@ Layer:
     Datasource:
       <<: *postgis
       geometry_field: geom
-      table: ne_50m_ocean
       encoding: "ISO-8859-1"
+      table: >
+        (
+          SELECT
+            ST_ClipByBox2D(geom, !bbox!) geom
+          FROM ne_50m_ocean
+          WHERE geom && !bbox!
+        ) AS _
 
   - <<: *layer
     name: ne_110m_geography_marine_polys
@@ -223,7 +230,13 @@ Layer:
     Datasource:
       <<: *postgis
       geometry_field: geom
-      table: ne_10m_admin_0_countries_lakes
+      table: >
+        (
+          SELECT
+            ST_ClipByBox2D(geom, !bbox!) geom
+          FROM ne_10m_admin_0_countries_lakes
+          WHERE geom && !bbox!
+        ) AS _
 
   - <<: *layer
     name: admin0-map-units-10m
@@ -282,7 +295,7 @@ Layer:
       table: >
         (
           SELECT
-            geometry,
+            ST_ClipByBox2D(geometry, !bbox!) geometry,
             name,
             area_km2
           FROM osm_admin
@@ -830,7 +843,7 @@ Layer:
           geometry
           FROM aries
           WHERE geometry && !bbox!
-          ORDER BY population DESC
+          ORDER BY population DESC, name
         ) AS _
 
   - <<: *layer

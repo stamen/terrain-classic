@@ -282,7 +282,7 @@ db/continents: db/postgis shp/continents_900913.shp
 
 .PHONY: db/land_polygons
 
-db/land_polygons: db/postgis data/osmdata/land_polygons.zip
+db/land_polygons: db/postgis data/osmdata/land_polygons_split.zip
 	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
 	ogr2ogr --config PG_USE_COPY YES \
 			-nln $(subst db/,,$@) \
@@ -293,8 +293,9 @@ db/land_polygons: db/postgis data/osmdata/land_polygons.zip
 			-lco GEOMETRY_NAME=geom \
 			-lco SRID=3857 \
 			-lco PRECISION=NO \
+			-clipsrc -20037508.34 -20037508.34 20037508.34 20037508.34 \
 			-f PGDump /vsistdout/ \
-			/vsizip/$(word 2, $^)/land-polygons-complete-3857/land_polygons.shp | psql -q
+			/vsizip/$(word 2, $^)/land-polygons-split-3857/land_polygons.shp | psql -q
 
 .PHONY: db/nullisland
 
@@ -402,6 +403,12 @@ data/osmdata/land_polygons.zip:
 	@mkdir -p $$(dirname $@)
 	curl -Lf http://data.openstreetmapdata.com/land-polygons-complete-3857.zip -o $@
 
+.SECONDARY: data/osmdata/land_polygons_split.zip
+
+data/osmdata/land_polygons_split.zip:
+	@mkdir -p $$(dirname $@)
+	curl -Lf http://data.openstreetmapdata.com/land-polygons-split-3857.zip -o $@
+
 .SECONDARY: data/osmdata/water_polygons.zip
 
 data/osmdata/water_polygons.zip:
@@ -474,7 +481,11 @@ $(foreach a,$(scales),$(foreach b,$(themes),$(eval $(call natural_earth_sources,
 
 .PHONY: db/landcover
 
-db/landcover: landcover/LCType.tif
+db/landcover: landcover/LCType_z9.tif
+
+landcover/LCType_z9.tif: landcover/LCType.tif
+	gdalwarp -t_srs EPSG:3857 -multi -wm 256 -wo NUM_THREADS=ALL_CPUS -co tiled=yes -co compress=lzw -co predictor=2 -co sparse_ok=true -co blockxsize=256 -co blockysize=256 -ts 131072 131072 $< $@
+	gdaladdo $@ --config COMPRESS_OVERVIEW LZW --config PREDICTOR_OVERVIEW 2 2 4 8 16 32 64 128 256
 
 landcover/LCType.tif: landcover/GlobalLandCover_tif.zip
 	unzip -oju $< -d $$(dirname $@)

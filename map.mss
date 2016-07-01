@@ -1434,4 +1434,5 @@ Map {
 
 #land {
   polygon-fill: @color_physical;
+  polygon-gamma: 0;
 }
