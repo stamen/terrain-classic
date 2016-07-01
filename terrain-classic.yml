@@ -878,7 +878,7 @@ Layer:
     Datasource:
       <<: *postgis
       geometry_field: geom
-      table: admin_1_labels_z4
+      table: admin_1_labels_z5
 
   - <<: *layer
     name: admin1-labels
