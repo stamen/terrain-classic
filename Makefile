@@ -141,19 +141,33 @@ db/osm-$(strip $(word 1, $(subst :, ,$(1)))): db/postgis db/hstore $(strip $(wor
 		--cachedir cache \
 		-mapping=imposm3_mapping.json \
 		-read $(strip $(word 2, $(subst :, ,$(1)))) \
-		-connection="$${DATABASE_URL}" \
-		-write \
-		-deployproduction \
 		-overwritecache
+	imposm3 import \
+		--cachedir cache \
+		-mapping=imposm3_mapping.json \
+		-connection="$${DATABASE_URL}" \
+		-write
+	imposm3 import \
+		-mapping=imposm3_mapping.json \
+		-connection="$${DATABASE_URL}" \
+		-optimize
+	imposm3 import \
+		-mapping=imposm3_mapping.json \
+		-connection="$${DATABASE_URL}" \
+		-deployproduction
 endef
 
 .PHONY: db/postgres
 
 db/postgres: db/functions/highroad db/functions/highway_shields db/functions/osm_admin_area
 
+.PHONY: db/ne_10m_admin_1_states_provinces_labels
+
+db/ne_10m_admin_1_states_provinces_labels: db/ne_10m_admin_1_states_provinces_scale_rank db/functions/admin1_labels
+
 .PHONY: db/generalizations
 
-db/generalizations: db/functions/admin1_labels
+db/generalizations: db/ne_10m_admin_1_states_provinces_labels
 
 .PHONY: db/shapefiles
 
@@ -454,11 +468,28 @@ NATURAL_EARTH=ne_50m_land:data/ne/50m/physical/ne_50m_land.zip \
 	ne_50m_lakes:data/ne/50m/physical/ne_50m_lakes.zip \
 	ne_10m_admin_0_boundary_lines_land:data/ne/10m/cultural/ne_10m_admin_0_boundary_lines_land.zip \
 	ne_50m_admin_0_boundary_lines_land:data/ne/50m/cultural/ne_50m_admin_0_boundary_lines_land.zip \
-	ne_10m_admin_1_states_provinces_scale_rank:data/ne-stamen/10m/cultural/ne_10m_admin_1_states_provinces_scale_rank.zip:ne_10m_admin_1_states_provinces_scale_rank/ne_10m_admin_1_states_provinces_scale_rank.shp \
 	ne_10m_admin_1_states_provinces_lines:data/ne/10m/cultural/ne_10m_admin_1_states_provinces_lines.zip:ne_10m_admin_1_states_provinces_lines.shp \
 	ne_10m_geography_regions_elevation_points:data/ne/10m/physical/ne_10m_geography_regions_elevation_points.zip:ne_10m_geography_regions_elevation_points.shp
 
 $(foreach shape,$(NATURAL_EARTH),$(eval $(call natural_earth,$(shape))))
+
+db/ne_10m_admin_1_states_provinces_scale_rank: db/postgis data/ne/10m/cultural/ne_10m_admin_1_states_provinces_scale_rank.zip
+	@psql -c "\d $(subst db/,,$@)" > /dev/null 2>&1 || \
+	ogr2ogr --config OGR_ENABLE_PARTIAL_REPROJECTION TRUE \
+			--config PG_USE_COPY YES \
+			-nln $(subst db/,,$@) \
+			-t_srs EPSG:3857 \
+			-lco ENCODING=UTF-8 \
+			-nlt PROMOTE_TO_MULTI \
+			-lco POSTGIS_VERSION=2.0 \
+			-lco GEOMETRY_NAME=geom \
+			-lco SRID=3857 \
+			-lco PRECISION=NO \
+			-clipsrc -180 -85.05112878 180 85.05112878 \
+			-segmentize 1 \
+			-skipfailures \
+			-f PGDump /vsistdout/ \
+			/vsizip/$(word 2, $^) | psql -q
 
 define natural_earth_sources
 .SECONDARY: data/ne/$(1)/$(2)/%.zip
