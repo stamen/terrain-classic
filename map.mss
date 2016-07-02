@@ -13,8 +13,8 @@
 @color_transport_casing: #fff;
 @color_transport_inline: #fff;
 @color_transport_tunnel: #ccc; // 20% K
-@color_transport_hwy: #737373; // 55% K 
-@color_transport_minor: #aaa; 
+@color_transport_hwy: #737373; // 55% K
+@color_transport_minor: #aaa;
 @color_transport_rail: #aaa; // 33% K
 @color_transport_path: #666; // 60% K
 @color_building: #ccc;
@@ -28,6 +28,7 @@
 Map {
   background-color: @color_water;
   font-directory: url("fonts/");
+  buffer-size: 8;
 }
 
 /**
@@ -87,7 +88,7 @@ Map {
 #ne_50m_ocean,
 #ne_10m_lakes,
 #ne_50m_lakes
-{  
+{
   line-color: @color_water;
   line-width: 0;
   polygon-fill: @color_water;
@@ -197,7 +198,7 @@ Map {
 #water-bodies-med[zoom=13][area>  25000],
 #water-bodies-high[zoom=14][area> 10000],
 #water-bodies-high[zoom>=15]
-{ 
+{
   polygon-fill: @color_water;
 }
 
@@ -208,7 +209,7 @@ Map {
 #water-bodies-low[type='riverbank'],
 #water-bodies-med[type='riverbank'],
 #water-bodies-high[type='riverbank']
-{ 
+{
   polygon-fill: @color_water;
 }
 
@@ -218,8 +219,8 @@ Map {
 
 /**
   * Use OSM administrative boundaries at zooms >= 10
-  * Filter out really small admin areas for features like 
-  * Indian Reservations at higher zooms 
+  * Filter out really small admin areas for features like
+  * Indian Reservations at higher zooms
   **/
 #admin1-lines-osm{
   [zoom>=10][area_km2>1000],
@@ -306,17 +307,20 @@ Map {
 #green-areas-high[zoom>=13],
 {
   polygon-fill: @color_green_areas;
-  polygon-opacity: 0.7;
+  polygon-gamma: 0.3;
+  opacity: 0.7;
+  image-filters-inflate: true;
   image-filters: agg-stack-blur(5,5);
 
   [type='nature_reserve'] {
     polygon-fill: @color_green_areas;
-    polygon-opacity: 0.5;
+    /*polygon-opacity: 0.5;*/
+    opacity: 0.5;
   }
 
   #green-areas-high[zoom>=14] {
-    image-filters: agg-stack-blur(15,15);
-  }  
+    /*image-filters: agg-stack-blur(15,15);*/
+  }
 }
 
 #brown-areas-low[zoom=10][area>5000000],
@@ -382,7 +386,7 @@ Map {
 }
 
 
-/** 
+/**
  * airport area fills
 **/
 #aerodromes {
@@ -394,7 +398,7 @@ Map {
   }
 }
 
-/** 
+/**
  * airport runways and taxiways
 **/
 #aeroways {
@@ -925,14 +929,14 @@ Map {
 
 #roads[kind='highway'],
 #highways_med[kind='highway']
-{    
+{
   [zoom>=9] {
     ::outline {
       line-width: 3;
       line-color: @color_transport_casing_z10;
     }
 
-    line-width: 1.5;    
+    line-width: 1.5;
   }
 
   [zoom>=10] {
@@ -950,7 +954,7 @@ Map {
     }
 
     line-width: 3;
-    line-color: @color_transport_hwy;    
+    line-color: @color_transport_hwy;
   }
 
   [zoom>=12] {
@@ -990,7 +994,7 @@ Map {
       line-width: 9;
     }
 
-    line-width: 4;    
+    line-width: 4;
 
     [is_link='yes'] {
       ::outline {
@@ -1052,7 +1056,7 @@ Map {
   [zoom>=18] {
     ::casing {
       line-width: 39;
-    }    
+    }
 
     line-width: 28;
 
@@ -1087,7 +1091,7 @@ Map {
 {
 
   [zoom<=12] {
-    line-color: @color_transport;    
+    line-color: @color_transport;
   }
 
   [zoom>=9] {
@@ -1281,8 +1285,8 @@ Map {
   [zoom>=16] {
     ::casing {
       line-width: 0; //7.5;
-    }    
-    line-width: 4;    
+    }
+    line-width: 4;
   }
 
   [zoom>=17] {
@@ -1295,7 +1299,7 @@ Map {
   [zoom>=18] {
     ::casing {
       // line-width: 14.5;
-    }    
+    }
     line-width: 11;
   }
 
@@ -1356,7 +1360,7 @@ Map {
 {
   [zoom>=14] {
     ::casing {
-     line-width: 2.8; 
+     line-width: 2.8;
     }
 
     line-width: 1.8;

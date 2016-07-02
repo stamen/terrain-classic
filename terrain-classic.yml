@@ -3,7 +3,7 @@
 name:             'Terrain Classic'
 description:      ''
 attribution:      'Map Data © OpenStreetMap'
-center:           [ 8.33, 46.83, 7]
+center:           [-122.41, 37.74, 7]
 format:           png
 interactivity:    false
 minzoom:          0
@@ -878,7 +878,7 @@ Layer:
     Datasource:
       <<: *postgis
       geometry_field: geom
-      table: admin_1_labels_z4
+      table: admin_1_labels_z5
 
   - <<: *layer
     name: admin1-labels
