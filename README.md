@@ -17,7 +17,7 @@ Developing
 ### Prerequisites
 
 -	PostgreSQL
--	PostGIS @2.0
+-	PostGIS @2.2.0
 -	Node.js --version 0.10\*
 -	GDAL
 -	TileMill 1@`master` (this includes the latest Mapnik): [github.com/mapbox/tilemill](https://github.com/mapbox/tilemill)
