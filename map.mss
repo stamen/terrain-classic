@@ -1434,6 +1434,7 @@ Map {
 .urban-landuse[zoom>=12] {
   polygon-fill: @color_urban;
   image-filters: agg-stack-blur(5,5);
+  image-filters-inflate: true;
 }
 
 #land {
