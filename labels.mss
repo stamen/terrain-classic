@@ -26,22 +26,29 @@
 @text_character_spacing_lg: 1.7;
 @text_character_spacing_xlg: 2.2;
 
+@text_line_spacing_normal: 0; // uses "default" line spacing for font
+@text_line_spacing_negative_1: -1; // decreases default slightly for small type eg: 12px
+@text_line_spacing_negative_2: -2;
+@text_line_spacing_negative_4: -4;
+@text_line_spacing_negative_7: -7;
+@text_line_spacing_negative_10: -10;
+
 @text_font_halo_radius_xsm: 1;
 @text_font_halo_radius_sm: 1.5;
 @text_font_halo_radius_md: 1.75;
 @text_font_halo_radius_large: 2;
 
 @label_color_halo_low: fadeout(rgba(255,255,255,0.7), 30%);
-@label_color_halo_high: fadeout(rgba(255,255,255,1), 30%);
+@label_color_halo_high: fadeout(rgba(255,255,255,1), 10%);
 @label_color_administrative_halo: fadeout(#fff, 30%);
 @label_color_physical: #000;
-@label_color_physical_halo: fadeout(@color_physical,30%);
+@label_color_physical_halo: fadeout(@color_physical,10%);
 @label_color_transport_halo: desaturate(#F7F7E6,50%);
 @label_color_airport_halo: #f7f7e6;
 @label_color_places_halo_low: fadeout(rgba(255,255,255, 1), 30%);
 @label_color_places_halo_high: fadeout(rgba(255,255,255, 1), 30%);
 
-@label_color_green_area: #374c30; 
+@label_color_green_area: #374c30;
 @label_color_green_area_halo: #dee0be; // same as @color_physical, the land background
 @label_color_water: darken(@color_water,20);
 @label_color_water_halo: @color_water;
@@ -52,14 +59,12 @@ Map {
 }
 
 #mountain_peaks_ne {
-    [zoom>=6][comment =~'.*Highest.*'],
-    [zoom>=6][comment =~'.*highest.*'],
-    [zoom>=6][name =~'.*Vinson.*'],
-    [zoom>=7][elevation>=2000],
+    [zoom>=4][comment =~'.*Highest.*'],
+    [zoom>=4][comment =~'.*highest.*'],
+    [zoom>=4][name =~'.*Vinson.*'],
+    [zoom>=6][elevation>=1000],
     [zoom>=8][elevation>=1500],
-    [zoom>=9][elevation>=1000],
-    [zoom>=10][elevation>=500],
-    [zoom>=11][elevation>0] {
+    [zoom>=9][elevation>=500] {
       shield-name: [name] + '\n' + [elevation] + 'm';
       shield-face-name: @text_font_italic;
       shield-size: @text_font_size_xxsm;
@@ -68,8 +73,8 @@ Map {
       shield-unlock-image: true;
       shield-avoid-edges: true;
       shield-fill: @label_color_physical;
-      shield-halo-fill: @label_color_physical_halo;
-      shield-halo-radius: 1;
+      shield-halo-radius: @text_font_halo_radius_md;
+      shield-halo-fill: @label_color_halo_low;
       shield-min-distance: 2;
       shield-placement-type: simple;
       shield-placements: 'NW,SE,N,S,E,W,NE,SW';
@@ -87,6 +92,10 @@ Map {
         shield-transform: scale(0.65,0.65);
       }
 
+      [zoom>=7] {
+        shield-halo-fill: @label_color_halo_high;
+      }
+
       [zoom>=8] {
         shield-file: url('icons/triangle-18.svg');
         shield-size: @text_font_size_xsm;
@@ -101,7 +110,7 @@ Map {
       }
 
       // replace McKinley with Denali (not the dryest solution but TileMill is being weird...)
-      [zoom>=6][zoom<=18][name=~'.*McKinley'] {
+      [zoom>=4][zoom<=18][name=~'.*McKinley'] {
           shield-name: "Denali" + '\n'  + [elevation] + 'm';
           shield-face-name: @text_font_bold_italic;
           shield-size: @text_font_size_xxsm;
@@ -136,8 +145,7 @@ Map {
 }
 
 #minor_road_labels,
-#major_road_labels,
-{
+#major_road_labels, {
   text-name: [name];
   text-face-name: @text_font_transport;
   text-placement: line;
@@ -153,14 +161,14 @@ Map {
   text-halo-radius: @text_font_halo_radius_md;
 
   [kind='major_road'] {
-    text-size: @text_font_size_xxsm;  
-  }  
+    text-size: @text_font_size_xxsm;
+  }
 
   [zoom>=13] {
     text-size: @text_font_size_xxsm;
-    
+
     [kind='major_road'] {
-      text-size: @text_font_size_xxsm * 1.2;  
+      text-size: @text_font_size_xxsm * 1.2;
     }
   }
 
@@ -169,10 +177,10 @@ Map {
     text-size: @text_font_size_sm;
     text-character-spacing: @text_character_spacing_md;
     text-halo-radius: @text_font_halo_radius_large;
-    
+
     [kind='major_road'] {
-      text-size: @text_font_size_sm * 1.2;  
-    }    
+      text-size: @text_font_size_sm * 1.2;
+    }
   }
 
   [zoom>=16]{
@@ -197,7 +205,7 @@ Map {
       shield-spacing: 60;
       // half the width of the shield to prevent from wrapping
       shield-min-padding: 10;
-      shield-file: url(shields/default-rg.svg);  
+      shield-file: url(shields/default-rg.svg);
 
       [priority=4] {
         [ref_length>6][ref_length<8] {
@@ -207,7 +215,7 @@ Map {
           shield-file: url(shields/default-sm.svg);
         }
         [ref_length<3][ref_length>0] {
-          shield-file: url(shields/default-xsm.svg); 
+          shield-file: url(shields/default-xsm.svg);
         }
       }
 
@@ -241,7 +249,7 @@ Map {
         [zoom>=17] {
           shield-size: 15;
           shield-transform: scale(0.05, 0.05);
-        }      
+        }
       }
 
       [ref=~'I \d{3,}'] {
@@ -265,7 +273,7 @@ Map {
         [zoom>=17] {
           shield-size: 13;
           shield-transform: scale(0.05, 0.05);
-        }         
+        }
       }
 
       [ref=~'US \d+'] {
@@ -290,7 +298,7 @@ Map {
         [zoom>=17] {
           shield-size: 16;
           shield-transform: scale(0.091, 0.091);
-        }         
+        }
       }
 
       [ref=~'CA \d+'] {
@@ -308,7 +316,7 @@ Map {
         [zoom>=11][zoom<=12][highway='tertiary'] {
           shield-opacity: 0;
           shield-size: 0;
-        }     
+        }
 
         [zoom>=13] {
           shield-size: 12;
@@ -328,8 +336,8 @@ Map {
 
         [zoom>=17] {
           shield-size: 16;
-          shield-transform: scale(0.090, 0.090);        
-        }       
+          shield-transform: scale(0.090, 0.090);
+        }
       }
     }
   }
@@ -339,11 +347,11 @@ Map {
 #ne_110m_geography_marine_polys[zoom=3][changed!=''],
 #ne_50m_geography_marine_polys[zoom=4][scalerank<4][changed!=''] {
     text-name: [name];
-    
+
     [namealt!=''] {
       text-name: [name] + '\n(' + [namealt] + ')';
     }
-    
+
     text-face-name: @text_font_bold_italic;
     text-wrap-width: 40;
     text-wrap-character: ' ';
@@ -458,7 +466,7 @@ Map {
 
     [zoom>=8] {
       text-halo-fill: @label_color_green_area_halo;
-      text-halo-radius: @text_font_halo_radius_sm;      
+      text-halo-radius: @text_font_halo_radius_sm;
     }
 
     [zoom>=11] {
@@ -473,8 +481,7 @@ Map {
   }
 }
 
-#continents
-{
+#continents {
   text-name: [name];
   text-face-name: @text_font_administrative;
   text-wrap-width: 32;
@@ -482,7 +489,7 @@ Map {
   text-line-spacing: -12;
   text-fill: #2e2115;
   text-halo-radius: @text_font_halo_radius_sm;
-  text-halo-fill: @label_color_halo_low;   
+  text-halo-fill: @label_color_halo_low;
 }
 
 #admin1-labels {
@@ -494,8 +501,9 @@ Map {
     text-transform: uppercase;
     text-face-name: @text_font_administrative;
     text-fill: #555; //@label_color_administrative;
-    text-halo-fill: @label_color_halo_low;
-    text-halo-radius: @text_font_halo_radius_sm;
+    text-halo-fill: @label_color_halo_high;
+    text-halo-radius: @text_font_halo_radius_md;
+    text-halo-opacity: 0.7;
     text-size: @text_font_size_sm * 0.8;
     text-wrap-width: 40;
     text-placement-type: simple;
@@ -506,18 +514,20 @@ Map {
     text-min-padding: 5;
 
     [zoom>=5] {
-     text-size: @text_font_size_xsm * 0.8;
+     text-size: @text_font_size_sm;
      text-character-spacing: 0;
      text-min-distance: 30;
     }
 
     [zoom>=6] {
-      text-size: @text_font_size_xsm * 0.8;
+      text-size: @text_font_size_sm;
+      text-halo-fill: @label_color_halo_high;
+      text-halo-opacity: 1;
       text-character-spacing: 1;
     }
 
     [zoom>=7] {
-      text-size: @text_font_size_sm * 0.8;
+      text-size: @text_font_size_medium;
       text-character-spacing: 2;
     }
   }
@@ -528,7 +538,7 @@ Map {
     text-wrap-width: 80;
     text-fill: @label_color_administrative;
     text-halo-radius: @text_font_halo_radius_sm;
-    text-halo-fill: @label_color_halo_low; 
+    text-halo-fill: @label_color_halo_low;
     text-name: "[label_z4]";
     text-size:  @text_font_size_xsm;
     text-character-spacing: 1;
@@ -536,11 +546,11 @@ Map {
 
 #admin1-labels-50m-z5 {
     text-face-name: @text_font_administrative;
-    text-wrap-width: 80;    
+    text-wrap-width: 80;
     text-fill: @label_color_administrative;
-    text-halo-radius: @text_font_halo_radius_sm;
-    text-halo-fill: @label_color_halo_low;
-    // text-halo-comp-op: overlay; 
+    text-halo-radius: @text_font_halo_radius_md;
+    text-halo-fill: @label_color_halo_high;
+    // text-halo-comp-op: overlay;
     text-halo-rasterizer: fast;
     text-name: "[label_z5]";
     text-size:  @text_font_size_sm;
@@ -552,7 +562,7 @@ Map {
 //     text-wrap-width: 80;
 //     text-fill: @label_color_administrative;
 //     text-halo-radius: @text_font_halo_radius_sm;
-//     text-halo-fill: @label_color_halo_low; 
+//     text-halo-fill: @label_color_halo_low;
 //     text-name: "[label_z6]";
 //     text-size:  @text_font_size_medium;
 //     text-character-spacing: 2;
@@ -563,7 +573,7 @@ Map {
 //     text-wrap-width: 80;
 //     text-fill: @label_color_administrative;
 //     text-halo-radius: @text_font_halo_radius_sm;
-//     text-halo-fill: @label_color_halo_low; 
+//     text-halo-fill: @label_color_halo_low;
 //     text-name: "[label_z7]";
 //     text-size:  @text_font_size_large;
 //     text-character-spacing: 3;
@@ -579,7 +589,7 @@ Map {
     text-character-spacing: @text_character_spacing_sm;
     text-size: @text_font_size_medium_plus;
     text-halo-radius: @text_font_halo_radius_sm;
-    text-halo-fill: @label_color_halo_low;     
+    text-halo-fill: @label_color_halo_low;
     text-fill: @label_color_administrative;
     text-min-distance: 5;
 }
@@ -606,7 +616,7 @@ Map {
     text-size: @text_font_size_large;
     text-min-distance: 15;
     text-halo-radius: @text_font_halo_radius_sm;
-    text-halo-fill: @label_color_halo_low;     
+    text-halo-fill: @label_color_halo_low;
     text-fill: @label_color_administrative;
 }
 
@@ -618,7 +628,7 @@ Map {
   text-character-spacing: @text_character_spacing_xlg;
   text-size: @text_font_size_xlg;
   text-halo-radius: @text_font_halo_radius_sm;
-  text-halo-fill: @label_color_halo_low;   
+  text-halo-fill: @label_color_halo_low;
   text-fill: @label_color_administrative;
 }
 
@@ -630,7 +640,7 @@ Map {
   text-character-spacing: @text_character_spacing_xlg;
   text-size: @text_font_size_xxlg;
   text-halo-radius: @text_font_halo_radius_sm;
-  text-halo-fill: @label_color_halo_low;   
+  text-halo-fill: @label_color_halo_low;
   text-fill: @label_color_administrative;
 }
 
@@ -647,9 +657,12 @@ Map {
   [zoom=10][scalerank=10][population>=10000]{
 
     shield-file: url(shields/circle-12.svg);
+    shield-size: @text_font_size_xxsm;
+    shield-line-spacing: @text_line_spacing_negative_2;
     shield-fill: @label_color_city;
-    shield-halo-fill: @label_color_halo_low;
-    shield-halo-radius: @text_font_halo_radius_sm;
+    shield-halo-fill: @label_color_halo_high;
+    shield-halo-radius: @text_font_halo_radius_large;
+    shield-halo-opacity: 0.7;
     shield-unlock-image: true;
     shield-avoid-edges: true;
     shield-transform: scale(0.5, 0.5);
@@ -669,18 +682,20 @@ Map {
 
       [population>700000] {
         shield-size: @text_font_size_medium * 1.2;
+        shield-line-spacing: @text_line_spacing_negative_7;
         shield-text-dy: 5;
         shield-text-dx: 5;
       }
+    }
 
-      [population>7000000] {
-        shield-size: @text_font_size_medium * 1.4;
-      }
+    [zoom>=6] {
+      shield-halo-radius: @text_font_halo_radius_md;
+      shield-halo-fill: @label_color_halo_high;
+      shield-halo-opacity: 1;
     }
 
     [zoom>=8] {
-      shield-line-spacing: -4;
-      shield-halo-radius: @text_font_halo_radius_md;
+      shield-line-spacing: @text_line_spacing_negative_4;
       shield-transform: scale(0.75, 0.75);
       shield-text-dy: 5;
       shield-text-dx: 5;
@@ -691,23 +706,21 @@ Map {
       shield-halo-radius: @text_font_halo_radius_large;
       shield-halo-fill: @label_color_halo_high;
       shield-transform: scale(0.85, 0.85);
-      shield-text-dy: 7;
-      shield-text-dx: 7;
+      shield-text-dy: 5;
+      shield-text-dx: 5;
 
       [population>100000] {
         shield-size: @text_font_size_medium_plus * 1.2;
         shield-transform: scale(1, 1);
-        shield-text-dy: 8;
-        shield-text-dx: 8;
+        shield-text-dy: 7;
+        shield-text-dx: 7;
       }
 
       [population>700000] {
-        shield-size: @text_font_size_medium_plus * 1.2;
+        shield-size: @text_font_size_medium_plus * 1.4;
+        shield-line-spacing: @text_line_spacing_negative_10;
       }
 
-      [population>7000000] {
-        shield-size: @text_font_size_medium_plus * 1.4;
-      }
     }
 
   }
@@ -733,7 +746,7 @@ Map {
       }
 
       [population>700000] {
-        text-size: @text_font_size_medium_plus * 1.2;
+        text-size: @text_font_size_medium_plus; //@text_font_size_medium_plus * 1.2;
       }
 
       [population>7000000] {
@@ -760,18 +773,18 @@ Map {
   }
 }
 
-#airports {  
+#airports {
   [zoom>=10] {
     text-name: [abbrev];
     text-face-name: @text_font_transport;
     text-fill: #444;
     text-size: @text_font_size_medium_plus;
-    
+
     text-halo-fill: @label_color_airport_halo;
     text-halo-radius: @text_font_halo_radius_large;
-    
+
     text-wrap-width: 128;
-    text-dy: 14;  
+    text-dy: 14;
   }
 
   [zoom>=13] {
@@ -783,7 +796,7 @@ Map {
   [zoom>=16][natlscale>.01]
   {
       text-dy: 20;
-  }   
+  }
 
   [zoom=8][natlscale>2.3][type='major'],
   [zoom=9][natlscale>1.2][type='major'],

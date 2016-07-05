@@ -823,39 +823,6 @@ Layer:
           WHERE geom && !bbox!
         ) AS _
 
-# ---- Aries Places ----------------------------------------------------
-
-  - <<: *layer
-    name: aries-places-labels
-    id:   aries-places-labels
-    properties:
-      minzoom: 4
-      maxzoom: 16
-    Datasource:
-      <<: *postgis
-      geometry_field: geometry
-      table: >
-        (
-          SELECT
-          name,
-          zoom scalerank,
-          population,
-          geometry
-          FROM aries
-          WHERE geometry && !bbox!
-          ORDER BY population DESC, name
-        ) AS _
-
-  - <<: *layer
-    name: airports
-    id:   airports
-    properties:
-      minzoom: 12
-    Datasource:
-      <<: *postgis
-      geometry_field: geom
-      table: ne_10m_airports
-
 # ---- admin 1 labels ----------------------------------------------------
 
   - <<: *layer
@@ -1134,3 +1101,36 @@ Layer:
       <<: *postgis
       geometry_field: geom
       table: continents
+
+# ---- Aries Places ----------------------------------------------------
+
+  - <<: *layer
+    name: aries-places-labels
+    id:   aries-places-labels
+    properties:
+      minzoom: 4
+      maxzoom: 16
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+          name,
+          zoom scalerank,
+          population,
+          geometry
+          FROM aries
+          WHERE geometry && !bbox!
+          ORDER BY population DESC, name
+        ) AS _
+
+  - <<: *layer
+    name: airports
+    id:   airports
+    properties:
+      minzoom: 12
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_airports
