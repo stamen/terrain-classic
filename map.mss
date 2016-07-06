@@ -336,6 +336,8 @@ Map {
   // This includes a mix of brownfields, mud, and wetlands. Needs to be neutral brownish
   polygon-fill: #b8b894;
   polygon-opacity: 0.6;
+  image-filters-inflate: true;
+  image-filters: agg-stack-blur(5,5);
 
   [type='wetland'] {
     polygon-fill: darken(#a0b8c8,10%); // more blueish
@@ -1414,6 +1416,10 @@ Map {
   [zoom>=15] { raster-opacity:0.15; }
   [zoom>=16] { raster-opacity:0.1; }
   [zoom>=17] { raster-opacity:0.05; }
+
+  // Applies to the OSM-derived landcover, too.
+  image-filters-inflate: true;
+  image-filters: agg-stack-blur(5,5);
 }
 
 
