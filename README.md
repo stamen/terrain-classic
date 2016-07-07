@@ -5,7 +5,7 @@ World-wide CartoCSS port of Stamen's classic terrain style.
 
 Stamen's original Terrain style was developed as part of Stamen's[Citytracking](https://github.com/Citytracking) initiative, funded by the[Knight Foundation](http://www.knightfoundation.org/). The old repository can be found [here](https://github.com/citytracking/terrain), for historical interest.
 
-The original Terrain style only covered the United States. As part of a 2014 Knight Foundation grant, we are expanding Terrain to cover the entire world. The new Knight Grant will also result in a totally-different new terrain style, so to avoid confusion, we are calling the old style "Terrain Classic."
+The original Terrain style only covered the United States. As part of a Knight Foundation grant, we are expanding Terrain to cover the entire world. The Knight grant may also support some totally-different new terrain styles, so to avoid confusion, we are calling the this reboot of the old style "Terrain Classic."
 
 ![Terrain screenshot](https://github.com/stamen/terrain-classic/raw/master/terrain_classic.png?raw=true)
 
@@ -81,4 +81,4 @@ The `Makefile` here attempts to replicate `make`'s behavior relative to rebuildi
 
 > Why do I have to install `pgexplode`?
 
-`libpq` (which underlies PostgreSQL's command-line tools) supports a number of[environment variables](http://www.postgresql.org/docs/9.4/static/libpq-envars.html) which can be used to avoid repetition (and avoid errors). However, each component of the connection information is separate, and is more easily and concisely encoded in a URI (i.e. `DATABASE_URL`). `pgexplode` is aware of `libpq`'s environment variables and will expand `DATABASE_URL`s components (which is simpler than managing multiple values and constructing a URL for `imposm3` and other tools).
+`libpq` (which underlies PostgreSQL's command-line tools) supports a number of [environment variables](http://www.postgresql.org/docs/9.4/static/libpq-envars.html) which can be used to avoid repetition (and avoid errors). However, each component of the connection information is separate, and is more easily and concisely encoded in a URI (i.e. `DATABASE_URL`). `pgexplode` is aware of `libpq`'s environment variables and will expand `DATABASE_URL`s components (which is simpler than managing multiple values and constructing a URL for `imposm3` and other tools).
