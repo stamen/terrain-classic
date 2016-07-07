@@ -811,7 +811,25 @@ Layer:
       table: >
         (
           SELECT
-            name,
+            (CASE
+            WHEN name = 'Haleakal?' THEN 'Haleakalā'
+            WHEN name = 'Volca?n Villarrica' THEN 'Villarrica'
+            WHEN name = 'Sn?ka' THEN 'Sněžka'
+            WHEN name = 'Qurnat as Sawd?' THEN 'Qurnat as Sawdā’'
+            WHEN name = 'Sabalon K?h' THEN 'Sabalan'
+            WHEN name = 'Jabal Sawd?' THEN 'Jabal Sawda'
+            WHEN name = 'Jabal an-Nab? Shuaib' THEN 'Jabal an-Nabi Shu’aib'
+            WHEN name = 'K?h-e Haji Ebrahim' THEN 'Kuhe Haji Ebrahim'
+            WHEN name = 'Mt. Dam?vand' THEN 'Mt. Damavand'
+            WHEN name = 'K?h-e Jang Qal''eh' THEN 'Kuh-e Jang Qal’eh'
+            WHEN name = 'Tirich M?r' THEN 'Tirich Mir'
+            WHEN name = 'Alada? Tepe' THEN ''
+            WHEN name = 'K?h-e Nay Band' THEN ''
+            WHEN name = 'K?h-e Hez?r' THEN ''
+            WHEN name = 'K?h-e Taftan' THEN ''
+            WHEN name = 'K?h-e R?zeh' THEN ''
+            ELSE name
+            END) AS name,
             name_alt,
             elevation,
             comment,
