@@ -1,18 +1,39 @@
 {
   "/flat": {
-    "source": "mapnik://./terrain-classic.xml"
+    "source": "mapnik://./terrain-classic.xml?metatile=1&bufferSize=192"
   },
   "/labels": {
-    "source": "mapnik://./terrain-classic-labels.xml"
+    "source": "mapnik://./terrain-classic-labels.xml?metatile=1&bufferSize=192"
   },
   "/lines": {
-    "source": "mapnik://./terrain-classic-lines.xml"
+    "source": "mapnik://./terrain-classic-lines.xml?metatile=1&bufferSize=0"
   },
   "/features": {
-    "source": "mapnik://./terrain-classic-features.xml"
+    "source": "mapnik://./terrain-classic-features.xml?metatile=1&bufferSize=8"
+  },
+  "/bg": {
+    "source": "mapnik://./terrain-classic-background.xml?metatile=1&bufferSize=8"
   },
   "/background": {
-    "source": "mapnik://./terrain-classic-background.xml"
+    "source": {
+      "protocol": "blend:",
+      "query": {
+        "layers": [
+          {
+            "source": "mapnik://./terrain-classic-background.xml?metatile=1&bufferSize=8"
+          },
+          {
+            "source": "http://hillshades.openterrain.org.s3-website-us-east-1.amazonaws.com/positron/{z}/{x}/{y}.png",
+            "comp-op": "hard-light",
+            "opacity": "0.6"
+          },
+          {
+            "source": "mapnik://./terrain-classic-water.xml?metatile=1&bufferSize=0"
+          }
+        ],
+        "format": "png8"
+      }
+    }
   },
   "/": {
     "source": {

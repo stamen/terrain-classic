@@ -1,0 +1,217 @@
+# == Global project settings ===========================================
+
+name:             'Terrain Classic Water Features'
+description:      ''
+attribution:      'Map Data © OpenStreetMap'
+center:           [-122.41, 37.74, 7]
+format:           png
+interactivity:    false
+minzoom:          0
+maxzoom:          18
+srs:              '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+metatile:         1
+
+
+# == Layer & Datasource defaults =======================================
+
+_layer_default:   &layer
+  'srs-name':     '3857'
+  srs:            '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+
+_pg_default:      &postgis
+  type:           postgis
+  dbname:         '{{PGDATABASE}}'
+  host:           '{{PGHOST}}'
+  user:           '{{PGUSER}}'
+  password:       '{{PGPASSWORD}}'
+  port:           '{{PGPORT}}'
+  geometry_field: way
+  srid:           3857
+  extent:         '-20037508.34,-20037508.34,20037508.34,20037508.34'
+  srs:            '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over'
+  max_async_connection: 4
+  max_size: 100
+  connect_timeout: 1
+  twkb_encoding: true # also sets simplify_geometries
+
+# == Stylesheets =======================================================
+
+Stylesheet:
+  - map.mss
+  - terrain-classic-water.mss
+
+
+# == Layers ============================================================
+
+Layer:
+
+  - <<: *layer
+    name: ne_10m_rivers_lake_centerlines_scale_rank
+    id:   ne_10m_rivers_lake_centerlines_scale_rank
+    properties:
+      minzoom: 4
+      maxzoom: 8
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_rivers_lake_centerlines_scale_rank
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: ne_50m_lakes
+    id:   ne_50m_lakes
+    properties:
+      minzoom: 2
+      maxzoom: 5
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: ne_50m_lakes
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: ne_10m_lakes
+    id:   ne_10m_lakes
+    properties:
+      minzoom: 6
+      maxzoom: 8
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_lakes
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: ne_10m_ocean
+    id:   ne_10m_ocean
+    properties:
+      minzoom: 0
+      maxzoom: 7
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_ocean
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: ne_50m_ocean
+    id:   ne_50m_ocean
+    properties:
+      minzoom: 0
+      maxzoom: 7
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      encoding: "ISO-8859-1"
+      table: >
+        (
+          SELECT
+            ST_ClipByBox2D(geom, !bbox!) geom
+          FROM ne_50m_ocean
+          WHERE geom && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: ne_110m_geography_marine_polys
+    id:   ne_110m_geography_marine_polys
+    properties:
+      minzoom: 2
+      maxzoom: 3
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: ne_110m_geography_marine_polys
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: ne_50m_geography_marine_polys
+    id:   ne_50m_geography_marine_polys
+    properties:
+      minzoom: 4
+      maxzoom: 5
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: ne_50m_geography_marine_polys
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: ne_10m_geography_marine_polys
+    id:   ne_10m_geography_marine_polys
+    properties:
+      minzoom: 6
+      maxzoom: 8
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: ne_10m_geography_marine_polys
+      encoding: "ISO-8859-1"
+
+  - <<: *layer
+    name: water
+    id:   water
+    properties:
+      minzoom: 8
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: water_polygons
+
+  - <<: *layer
+    name: water-bodies-high
+    id:   water-bodies-high
+    properties:
+      minzoom: 14
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_water_areas
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: water-bodies-med
+    id:   water-bodies-med
+    properties:
+      minzoom: 11
+      maxzoom: 13
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_water_areas_z13
+          WHERE geometry && !bbox!
+        ) AS _
+
+  - <<: *layer
+    name: water-bodies-low
+    id:   water-bodies-low
+    properties:
+      minzoom: 8
+      maxzoom: 10
+    Datasource:
+      <<: *postgis
+      geometry_field: geometry
+      table: >
+        (
+          SELECT
+            name,
+            type,
+            geometry,
+            area
+          FROM osm_water_areas_z10
+          WHERE geometry && !bbox!
+        ) AS _
