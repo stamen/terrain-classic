@@ -1403,23 +1403,24 @@ Map {
   }
 }
 
-.landcover {
+#lc500mMODIS_high {
   raster-scaling:gaussian;
   raster-opacity:1;
   /* Note: we can't start reducing opacity until the land layer comes in, which starts at z8 */
   [zoom>=9] { raster-opacity:0.8; }
-  [zoom>=10] { raster-opacity:0.6; }
-  [zoom>=11] { raster-opacity:0.4; }
-  [zoom>=12] { raster-opacity:0.3; }
-  [zoom>=13] { raster-opacity:0.25; }
-  [zoom>=14] { raster-opacity:0.2; }
-  [zoom>=15] { raster-opacity:0.15; }
-  [zoom>=16] { raster-opacity:0.1; }
-  [zoom>=17] { raster-opacity:0.05; }
+  [zoom>=10] { raster-opacity:0.5; }
+  [zoom>=11] { raster-opacity:0.3; }
+  [zoom>=12] { raster-opacity:0.2; }
+  [zoom>=13] { raster-opacity:0.15; }
+  [zoom>=14] { raster-opacity:0.1; }
+  [zoom>=15] { raster-opacity:0.05; }
+}
 
-  // Applies to the OSM-derived landcover, too.
+#lc500mMODIS_high,
+.landcover {
+  // Applies to the OSM-derived landcover, too
   image-filters-inflate: true;
-  image-filters: agg-stack-blur(5,5);
+  image-filters: agg-stack-blur(5,5); // cannot be modified per zoom
 }
 
 
