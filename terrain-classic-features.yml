@@ -48,6 +48,16 @@ Stylesheet:
 Layer:
 
   - <<: *layer
+    name: water
+    id:   water
+    properties:
+      minzoom: 8
+    Datasource:
+      <<: *postgis
+      geometry_field: geom
+      table: water_polygons
+
+  - <<: *layer
     name: ne_10m_rivers_lake_centerlines_scale_rank
     id:   ne_10m_rivers_lake_centerlines_scale_rank
     properties:
@@ -135,16 +145,6 @@ Layer:
           FROM osm_aeroways
           WHERE type='aerodrome' and geometry && !bbox!
         ) AS _
-
-  - <<: *layer
-    name: water
-    id:   water
-    properties:
-      minzoom: 8
-    Datasource:
-      <<: *postgis
-      geometry_field: geom
-      table: water_polygons
 
   - <<: *layer
     name: water-bodies-high
