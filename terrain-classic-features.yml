@@ -48,66 +48,6 @@ Stylesheet:
 Layer:
 
   - <<: *layer
-    name: ne_10m_rivers_lake_centerlines_scale_rank
-    id:   ne_10m_rivers_lake_centerlines_scale_rank
-    properties:
-      minzoom: 4
-      maxzoom: 8
-    Datasource:
-      <<: *postgis
-      geometry_field: geom
-      table: ne_10m_rivers_lake_centerlines_scale_rank
-      encoding: "ISO-8859-1"
-
-  - <<: *layer
-    name: ne_50m_lakes
-    id:   ne_50m_lakes
-    properties:
-      minzoom: 2
-      maxzoom: 5
-    Datasource:
-      <<: *postgis
-      geometry_field: geom
-      table: ne_50m_lakes
-      encoding: "ISO-8859-1"
-
-  - <<: *layer
-    name: ne_10m_lakes
-    id:   ne_10m_lakes
-    properties:
-      minzoom: 6
-      maxzoom: 8
-    Datasource:
-      <<: *postgis
-      geometry_field: geom
-      table: ne_10m_lakes
-      encoding: "ISO-8859-1"
-
-  - <<: *layer
-    name: ne_10m_ocean
-    id:   ne_10m_ocean
-    properties:
-      minzoom: 0
-      maxzoom: 7
-    Datasource:
-      <<: *postgis
-      geometry_field: geom
-      table: ne_10m_ocean
-      encoding: "ISO-8859-1"
-
-  - <<: *layer
-    name: ne_50m_ocean
-    id:   ne_50m_ocean
-    properties:
-      minzoom: 0
-      maxzoom: 7
-    Datasource:
-      <<: *postgis
-      geometry_field: geom
-      table: ne_50m_ocean
-      encoding: "ISO-8859-1"
-
-  - <<: *layer
     name: nullisland
     id:   nullisland
     class: land
@@ -140,7 +80,7 @@ Layer:
     name: water
     id:   water
     properties:
-      minzoom: 8
+      minzoom: 10
     Datasource:
       <<: *postgis
       geometry_field: geom
@@ -204,18 +144,6 @@ Layer:
           FROM osm_water_areas_z10
           WHERE geometry && !bbox!
         ) AS _
-
-  - <<: *layer
-    name: ne_10m_rivers_lake_centerlines_scale_rank
-    id:   ne_10m_rivers_lake_centerlines_scale_rank
-    properties:
-      minzoom: 4
-      maxzoom: 8
-    Datasource:
-      <<: *postgis
-      geometry_field: geom
-      table: ne_10m_rivers_lake_centerlines_scale_rank
-      encoding: "ISO-8859-1"
 
   - <<: *layer
     name: admin0-map-units-10m
