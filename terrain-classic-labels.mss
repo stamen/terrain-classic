@@ -1,4 +1,4 @@
 Map {
   background-color: transparent;
-  buffer-size: 192;
+  buffer-size: 256;
 }

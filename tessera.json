@@ -3,7 +3,7 @@
     "source": "mapnik://./terrain-classic.xml?metatile=1&bufferSize=192"
   },
   "/labels": {
-    "source": "mapnik://./terrain-classic-labels.xml?metatile=1&bufferSize=192"
+    "source": "mapnik://./terrain-classic-labels.xml?metatile=2&bufferSize=256"
   },
   "/lines": {
     "source": "mapnik://./terrain-classic-lines.xml?metatile=1&bufferSize=0"
