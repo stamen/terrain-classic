@@ -468,7 +468,7 @@ NATURAL_EARTH=ne_50m_land:data/ne/50m/physical/ne_50m_land.zip \
 	ne_50m_lakes:data/ne/50m/physical/ne_50m_lakes.zip \
 	ne_10m_admin_0_boundary_lines_land:data/ne/10m/cultural/ne_10m_admin_0_boundary_lines_land.zip \
 	ne_50m_admin_0_boundary_lines_land:data/ne/50m/cultural/ne_50m_admin_0_boundary_lines_land.zip \
-	ne_10m_admin_1_states_provinces_scale_rank:data/ne/10m/cultural/ne_10m_admin_1_states_provinces_scale_rank.zip:ne_10m_admin_1_states_provinces_scale_rank.shp \
+	ne_10m_admin_1_states_provinces_scale_rank:data/ne/10m/cultural/ne_10m_admin_1_states_provinces_scale_rank.zip:ne_10m_admin_1_states_provinces_scale_rank/ne_10m_admin_1_states_provinces_scale_rank.shp \
 	ne_10m_admin_1_states_provinces_lines:data/ne/10m/cultural/ne_10m_admin_1_states_provinces_lines.zip:ne_10m_admin_1_states_provinces_lines.shp \
 	ne_10m_geography_regions_elevation_points:data/ne/10m/physical/ne_10m_geography_regions_elevation_points.zip:ne_10m_geography_regions_elevation_points.shp
 
