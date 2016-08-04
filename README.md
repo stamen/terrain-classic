@@ -3,9 +3,9 @@ Terrain Classic
 
 World-wide CartoCSS port of Stamen's classic terrain style.
 
-Stamen's original Terrain style was developed as part of Stamen's[Citytracking](https://github.com/Citytracking) initiative, funded by the[Knight Foundation](http://www.knightfoundation.org/). The old repository can be found [here](https://github.com/citytracking/terrain), for historical interest.
+Stamen's original Terrain style was developed in 2011 as part of Stamen's [Citytracking](https://github.com/Citytracking) initiative, funded by the [Knight Foundation](http://www.knightfoundation.org/). The old repository can be found [here](https://github.com/citytracking/terrain), for historical interest.
 
-The original Terrain style only covered the United States. As part of a Knight Foundation grant, we are expanding Terrain to cover the entire world. The Knight grant may also support some totally-different new terrain styles, so to avoid confusion, we are calling the this reboot of the old style "Terrain Classic."
+The original Terrain style only covered the United States. As part of a new Knight Foundation grant, we expanded Terrain to cover the entire world. The Knight grant also funded prototyping for some totally-different new terrain styles, so to avoid confusion we are calling the this reboot of the old style "Terrain Classic."
 
 ![Terrain screenshot](https://github.com/stamen/terrain-classic/raw/master/terrain_classic.png?raw=true)
 
