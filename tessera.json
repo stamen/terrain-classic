@@ -24,8 +24,8 @@
           },
           {
             "source": "http://hillshades.openterrain.org.s3-website-us-east-1.amazonaws.com/positron/{z}/{x}/{y}.png",
-            "comp-op": "hard-light",
-            "opacity": "0.6"
+            "comp-op": "multiply",
+            "opacity": "1"
           },
           {
             "source": "mapnik://./terrain-classic-water.xml?metatile=1&bufferSize=0"
@@ -53,8 +53,8 @@
                 "maxzoom": 15
               }
             },
-            "comp-op": "hard-light",
-            "opacity": "0.6"
+            "comp-op": "multiply",
+            "opacity": "1"
           },
           {
             "source": "mapnik://./terrain-classic-features.xml?metatile=1&bufferSize=0"
