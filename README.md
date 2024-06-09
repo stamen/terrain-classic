@@ -3,13 +3,15 @@ Terrain Classic
 
 World-wide CartoCSS port of Stamen's classic terrain style.
 
+UPDATE: As of 2023 this code is not longer used to generate Terrain tiles. Stamen's Terrain style has been updated to use vector tiles and is now hosted on Stadia Maps. Learn more: https://stadiamaps.com/stamen/
+
 Stamen's original Terrain style was developed in 2011 as part of Stamen's [Citytracking](https://github.com/Citytracking) initiative, funded by the [Knight Foundation](http://www.knightfoundation.org/). The old repository can be found [here](https://github.com/citytracking/terrain), for historical interest.
 
-The original Terrain style only covered the United States. As part of a new Knight Foundation grant, we expanded Terrain to cover the entire world. The Knight grant also funded prototyping for some totally-different new terrain styles, so to avoid confusion we are calling the this reboot of the old style "Terrain Classic."
+The original Terrain style only covered the United States. As part of another Knight Foundation grant in 2015, we expanded Terrain to cover the entire world. The Knight grant also funded prototyping for some totally-different new terrain styles, so to avoid confusion we called this reboot of the old style "Terrain Classic."
 
 ![Terrain screenshot](https://github.com/stamen/terrain-classic/raw/master/terrain_classic.png?raw=true)
 
-Most of the current development process for Terrain Classic is based on the [toner-carto repo](https://github.com/stamen/toner-carto).
+Most of the development process for Terrain Classic was based on the [toner-carto repo](https://github.com/stamen/toner-carto).
 
 Developing
 ----------
